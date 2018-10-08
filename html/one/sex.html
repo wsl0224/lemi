@@ -130,7 +130,7 @@
 				</div>
 		<div>
 			<a class="fl nv" onclick="sexnv()">女</a>
-			<a class="fr nan"  onclick="sexnan();">男</a>
+			<a class="fr nan"  onclick="sexnan()">男</a>
 		</div>
 					<div class="item-box">
 					<div class="item avatar flex-box flex-h-ce" imgUrl="" data-status="" data-key="" data-callbackEvent="uploadAvatar" onclick="uploadAvatar()" tapmode>
@@ -243,55 +243,51 @@
 
 	var avatar = '';
 		//上传头像
-		function uploadAvatar(){
+		function uploadAvatar() {
 			Tool.actionSheet({
-				buttons:['拍照上传','相册选择照片'],
-				success:function(buttonIndex){
-					if(buttonIndex < 3){
-						Tool.getOnePic({
-							encodingType: 'jpg',
-							sourceType: buttonIndex === 1 ? 'camera' : 'library',
-							allowEdit: true,
-							success:function(ret){
-								avatar = ret.data;
-								//alert(avatar);
-								$api.setStorage('avatar',avatar);
-								if('ios' == api.systemType){
-									T.html('.img-frm', 'avatar', ret.data);
-									Upload.init({
-										file: {
-											url: ret.data,
-											callbackEvent: 'uploadAvatar'
+					buttons: ['拍照上传', '相册选择照片'],
+					success: function(buttonIndex) {
+						if(buttonIndex < 3) {
+							Tool.getOnePic({
+									encodingType: 'jpg',
+									sourceType: buttonIndex === 1 ? 'camera' : 'library',
+									allowEdit: true,
+									success: function(ret) {
+										avatar = ret.data;
+										//alert(avatar);
+										$api.setStorage('avatar', avatar);
+										if('ios' == api.systemType) {
+											T.html('.img-frm', 'avatar', ret.data);
+											Upload.init({
+												file: {
+													url: ret.data,
+													callbackEvent: 'uploadAvatar'
+												}
+											});
+										} else {
+											/*若为android系统，则使用screenClip模块进行截图*/
+											// if(ret.data){
+											// 	api.openWin({
+											// 		name: 'imageClip',
+											// 		url: api.wgtRootDir + '/html/window/image_clip.html',
+											// 		pageParam: {
+											// 			imgSrc: ret.data,
+											// 			callbackEvent: 'getAvatarClipImage'
+											// 		}
+											// 	});
+											// }
+											api.sendEvent({
+												name: 'getAvatarClipImage'
+											})
+
 										}
+									}
 									});
-								}else{
-									/*若为android系统，则使用screenClip模块进行截图*/
-									// if(ret.data){
-									// 	api.openWin({
-									// 		name: 'imageClip',
-									// 		url: api.wgtRootDir + '/html/window/image_clip.html',
-									// 		pageParam: {
-									// 			imgSrc: ret.data,
-									// 			callbackEvent: 'getAvatarClipImage'
-									// 		}
-									// 	});
-									// }
-									api.sendEvent({
-										name: 'getAvatarClipImage'
-									})
-
-
-
-
-							}
-						});
-					}
-				}
-			})
-		}
-
-
-		//点击获取验证码
+									}
+						}
+							})
+				
+		}//点击获取验证码
 		function get_code(){
 		//alert(111);
 			}
