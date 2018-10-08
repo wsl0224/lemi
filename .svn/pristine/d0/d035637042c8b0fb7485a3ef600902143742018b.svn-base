@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<title>直播-首页</title>
+<div style="padding-top: 0px;background-repeat: no-repeat;" onclick="suo();"><div>
+
+
+<script type="text/javascript" src="../../script/api.js"></script>
+		<script type="text/javascript" src="../../script/doT.min.js" ></script>
+		<script type="text/javascript" src="../../script/common.js"></script>
+		<script type="text/javascript" src="../../script/UIChatBox.js" ></script>
+		<script type="text/javascript" src="../../script/rongCloud2.js"></script>
+		
+		<script type="text/javascript">
+		
+		
+		function suo(){
+	
+		//api.require('mapleRTC').leaveChannel();
+		//api.sendEvent({
+	        //name:'huifu'
+        //});
+		api.closeFrame({
+		name:'ditu'
+        });
+		}
+		
+		apiready = function() {
+		
+		
+		//alert('new'+JSON.stringify(api.pageParam));
+        var aMap = api.require('aMap');
+aMap.open({
+    rect: {
+        x: 0,
+        y: 0,
+        w: api.winWidth,
+        h: api.winHeight
+    },
+    showUserLocation: false,
+    zoomLevel: 13,
+    center: {
+        lon: api.pageParam.longitude,
+        lat: api.pageParam.latitude
+    },
+    fixedOn: api.frameName,
+    fixed: true
+}, function(ret, err) {
+
+if(ret.status){
+//喀什
+aMap.addAnnotations({
+    annotations: [{
+        id: 1,
+        lon: api.pageParam.longitude,
+        lat: api.pageParam.latitude
+    }],
+    icons: ['widget://image/biaoji.png'],
+    draggable: true,
+    timeInterval: 2.0
+}, function(ret) {
+    if (ret.eventType == 'click') {
+   
+      api.toast({
+						location: 'bottom',
+						msg: '用户位置:'+api.pageParam.poi,
+						duration: 5000,
+					}); 
+    }
+});
+}
+//金额孰
+//alert('定位2'+JSON.stringify(ret));
+//alert('定位3'+JSON.stringify(err));
+    if (ret.status) {
+        //alert('定位1'+JSON.stringify(ret));
+    } else {
+       var privacy = api.require('privacy');
+			privacy.location(function(ret, err) {
+				if (!ret.status) {
+					api.alert({
+						title : '温馨提示',
+						msg : '未能成功获取定位信息,需开启定位服务设置~'
+					}, function(ret, err) {
+						api.closeWin({
+                        });
+					});
+				}
+			});
+    }
+});
+    
+
+ 
+
+		
+		}
+		</script>
+</body>
+</html>
+

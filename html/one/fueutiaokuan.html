@@ -1,0 +1,124 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="../css/aui.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<meta charset="utf-8">
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<title></title>
+	</head>
+	<style>
+		body {
+			background-color: #FFFFFF;
+			display: block;
+			margin: 8px;
+		}
+		.tongyi {
+			margin: 0 auto;
+			text-align: center;
+			font-size: 12px;
+		}
+		.anniou {
+			margin: 0 auto;
+			background-color: #DCDCDC;
+			width: 130px;
+			height: 30px;
+			border-radius: 15px;
+			font-size: 20px
+		}
+	</style>
+	<body>
+		<div style="font-size:24px;text-align:center">
+			服务条款
+		</div>
+		<div id="wrap">
+			<div id="main"></div>
+		</div>
+		<div class="tongyi">
+			<input type="checkbox" class="xuanzhe aui-checkbox aui-checkbox-info aui-pull-right" onchange="xuanzhe(this,event)">
+			<b>我已阅读并已经同意</b>
+			<div  style="width:100%;height:5px"></div>
+			<div class="aui-btn aui-btn-block anniou" onclick="queding()" tapmode="">
+				确定提交
+			</div>
+		</div>
+		<script type="text/javascript" src="../../script/api.js"></script>
+		<script type="text/javascript" src="../../script/doT.min.js" ></script>
+		<script type="text/javascript" src="../../script/common.js" ></script>
+		<script type="text/javascript">
+			//判断选择了没
+			var xuanz = "1";
+			function xuanzhe(_this, event) {
+				if ($api.hasCls(_this, 'xuanzhe')) {
+					$api.removeCls(_this, 'xuanzhe');
+					xuanz = 2;
+				} else {
+					$api.addCls(_this, 'xuanzhe');
+					xuanz = 1;
+				}
+			}
+
+			function queding() {
+				if (xuanz == 1) {
+					Tool.toast("请先确定已阅读并且同意");
+					return;
+				}
+				if (xuanz == 2) {
+					ajax.get({
+						ctrl : 'XIAOWUApp',
+						fn : 'fuwutiaokuanquding',
+						data : {
+							values : {
+								id : $api.getStorage(CONFIG.memberId),
+								token : $api.getStorage(CONFIG.token),
+								memberid : api.pageParam.memberid
+							}
+						},
+						hideLoading : true,
+						showError : true,
+						showProgress : false,
+						success : function(ctt) {
+							if (ctt.moasdas == 1) {
+								api.openWin({
+									name : 'anchor_review_win',
+									url : api.wgtRootDir + '/html/window/win.html',
+									pageParam : {
+										headerTitle : '开播申请',
+										frameName : 'anchor_review',
+										frameUrl : api.wgtRootDir + '/html/anchor_review.html'
+									}
+								});
+							}
+						}
+					});
+				}
+			}
+
+			//获取关于我们
+			function aboutus() {
+				ajax.get({
+					ctrl : 'XIAOWUApp',
+					fn : 'fuwutiaokuan',
+					data : {
+						values : {
+							id : $api.getStorage(CONFIG.memberId),
+							token : $api.getStorage(CONFIG.token)
+						}
+					},
+					hideLoading : false,
+					showError : true,
+					showProgress : false,
+					success : function(ctt) {
+						$api.html($api.dom('#main'), ctt);
+					}
+				});
+			}
+
+			apiready = function() {
+				aboutus();
+			}
+		</script>
+</html>

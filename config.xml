@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<widget id="A6082719964886" version="0.0.1">  
+  <name>天空</name>  
+  <description/>  
+  <author email="45722415754@qq.com" href="http://www.apicloud.com">牛招</author>  
+  <content src="index.html"/>  
+  <preference name="pageBounce" value="false"/>  
+  <preference name="appBackground" value="rgba(0,0,0,0)"/>  
+  <preference name="windowBackground" value="rgba(0,0,0,0)"/>  
+  <preference name="hScrollBarEnabled" value="true"/>  
+  <preference name="vScrollBarEnabled" value="true"/>  
+  <preference name="autoLaunch" value="true"/>  
+  <preference name="fullScreen" value="false"/>  
+  <preference name="autoUpdate" value="true"/>  
+  <preference name="smartUpdate" value="true"/>  
+  <preference name="debug" value="false"/>  
+  <preference name="iOS7StatusBarAppearance" value="true"/>  
+  <preference name="softInputMode" value="resize"/>  
+  <preference name="urlScheme" value="yyszbapp"/>  
+  <preference name="appCertificateVerify" value="false"/>  
+  <preference name="backgroundMode" value="audio|voip|location"/>  
+  <permission name="readPhoneState"/>  
+  <permission name="camera"/>  
+  <permission name="record"/>  
+  <permission name="location"/>  
+  <permission name="fileSystem"/>  
+  <permission name="internet"/>  
+  <permission name="bootCompleted"/>  
+  <permission name="hardware"/>  
+  <access origin="*"/>  
+  <feature name="gotyeLiveCore"> 
+    <param name="appKey" value="66ef64f8a8234af1b377514ec948797c"/>  
+    <param name="accessSecret" value="be1df4c59cc34999a4718a120992d335"/> 
+  </feature>  
+  <feature name="rongCloud2"> 
+    <param name="appKey" value="z3v5yqkbz4p40"/> 
+  </feature>  
+  <feature name="ajpush"> 
+    <param name="app_key" value="3bc866a51be3e2939c1ee668"/>  
+    <param name="channel" value="10010"/> 
+  </feature>  
+  <feature name="wx"> 
+    <param name="urlScheme" value="wx82ea5727c8eb9a96"/>  
+    <param name="apiKey" value="wx82ea5727c8eb9a96"/>  
+    <param name="apiSecret" value="e97e1f3f8c72ac137c27fa786aee041e"/> 
+  </feature>  
+  <feature name="qq"> 
+    <param name="urlScheme" value="tencent101456563"/>  
+    <param name="apiKey" value="101456563"/> 
+  </feature>  
+  <feature name="weibo"> 
+    <param name="urlScheme" value="wb652023714"/>  
+    <param name="apiKey" value="652023714"/>  
+    <param name="registUrl" value="https://api.weibo.com/oauth2/default.html"/> 
+  </feature>  
+  <feature name="mapleRTC"> 
+    <param name="appId" value="71a50a887732a514"/> 
+  </feature>  
+  <feature name="aMapLBS"> 
+    <param name="android_api_key" value="5d185718784a4b09ef9010fdfaf84e0f"/>  
+    <param name="ios_api_key" value="a4e62996f567cfd8b403f582171a48e6"/> 
+  </feature>  
+  <feature name="aMap"> 
+    <param name="android_api_key" value="5d185718784a4b09ef9010fdfaf84e0f"/>  
+    <param name="ios_api_key" value="a4e62996f567cfd8b403f582171a48e6"/> 
+  </feature> 
+   <feature name="aliPayPlus">
+      <param name="urlScheme" value="AliPayPlusA6082719964886" />
+  </feature>
+   <feature name="wxPay">
+    <param name="urlScheme" value="wxd0d84bbf23b4a0e4"/>
+    <param name="apiKey" value="wxd0d84bbf23b4a0e4"/>
+    <param name="apiSecret" value="a354f72aa1b4c2b8eaad137ac81434cd"/>
+  </feature>
+</widget>

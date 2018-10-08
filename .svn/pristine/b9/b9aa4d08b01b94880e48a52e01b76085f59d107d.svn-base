@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head design-width="640">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+	<!-- 优先使用 IE 最新版本和 Chrome -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<!-- 启用360浏览器的极速模式(webkit) -->
+	<!-- <link rel="shortcut icon" type="image/ico" href="/favicon.ico"/> -->
+	<!-- 添加 favicon icon -->
+	<meta name="renderer" content="webkit">
+	<title>准备通话页</title>
+	<link rel="stylesheet" href="../../css/public.css" />
+	<link rel="stylesheet" href="../../css/z_style.css" />
+
+	<link rel="stylesheet" href="http://at.alicdn.com/t/font_313775_s4jszln9f2h85mi.css">
+	<script src="../../js/font-size.js"></script>
+</head>
+<style>
+.hidden {
+  display: none!important;
+}
+</style>
+<body>
+	<div class="z_container2 xiaoshi">
+		<div class="us">
+			<img src="../../img/pic11.png" alt="">
+			<p class='name1'></p>
+			<strong class='tishi'>正在连线,请等待</strong>
+			<!--
+			<span>15s后视频拨打收益200撩币/分钟</span>
+			-->
+			<div class="text">
+				聊天过程中严禁出现任何涉及色情、淫秽、政治、赌博、暴力等违反国家法律法规的内容，一经发现我们将立即对账号进行封停处理
+			</div>
+		</div>
+		<div class="uszb">
+		<a onclick="jieting(this);"  class="bd1"><img src="../../img/tong.png" alt=""></a>
+		<a onclick="guaduan();"  class="bd1"><img src="../../img/pic12.png" alt=""></a>
+		<a onclick="mianti(this);"  class="bd1 mianti hidden"><img src="../../img/mianti.png" alt=""></a>
+		<a onclick="liaotian(this);"  class="bd1 liaotian hidden"><img src="../../image/icon/suoxiao.png" alt=""></a>
+		</div>
+	</div>
+
+
+<script type="text/javascript" src="../../script/api.js"></script>
+		<script type="text/javascript" src="../../script/doT.min.js" ></script>
+		<script type="text/javascript" src="../../script/common.js"></script>
+		
+		<script type="text/javascript" src="../../script/rongCloud2.js"></script>
+		
+		<script type="text/javascript">
+		function mianti(_this){
+		
+		 var value;
+		
+		
+                    if($api.hasCls(_this, 'mianti')){
+                    Tool.toast('已关闭免提');
+                  //  alert('免提');
+		 value = 0;
+		 
+		$api.removeCls(_this,'mianti');
+		}else{
+		//alert('非免提');
+		Tool.toast('已开启免提');
+		value = 200;
+		$api.addCls(_this,'mianti');
+		}
+		
+		 maplertc.adjustPlaybackSignalVolume({volume:value}, function(ret) {
+                          //api.toast({msg:JSON.stringify(ret)});
+                        });
+		}
+		
+		
+		function liaotian(){
+		//alert('主播页headerTitle'+api.pageParam.nickname);
+		//alert('主播页memberid'+api.pageParam.memberid);
+		//alert('主播页yonghuid'+api.pageParam.yonghuid);
+		
+		api.openWin({
+						name:　'talk_with',
+						url:  api.wgtRootDir + '/html/window/talk_with.html',
+						reload:true,
+						pageParam: {
+							headerTitle: api.pageParam.yonghuname,
+							frameName: 'talk_with',
+							frameUrl: api.wgtRootDir + '/html/component/talk_with.html',
+							frameParam: {
+								username: api.pageParam.yonghuname,
+								memberid: api.pageParam.yonghuid||api.pageParam.memberid,
+								avatar: $api.getStorage(CONFIG.memberInfo).avatar,
+								nickname: $api.getStorage(CONFIG.memberInfo).nickname,
+								dianhua:1
+							}
+						},
+						slidBackEnabled: true
+					});
+			return;
+		
+		}
+		function playAudio(){
+		var audioStreamer = api.require('audioStreamer');
+audioStreamer.openPlayer({
+    path: 'widget://html/one/lingshen.wav',
+}, function(ret) {
+
+    if (ret.status) {
+      // audioStreamer.resume();
+        //playAudio();
+    }
+});
+		}
+		
+		function jieting(_this){
+		Tool.toast('已连接成功');
+		 var session = {
+                          channelId: $api.getStorage(CONFIG.memberId),
+                          userId: $api.getStorage(CONFIG.memberId),
+                          };
+                          
+		//alert('语音我按了接听'+JSON.stringify(session));			
+		 maplertc = api.require('mapleRTC');
+       maplertc.setChannelProfile({profile:'voiceOnly'});
+        maplertc.setVideoConferenceProfile({profile:'sfu'});
+        maplertc.setMediaProfile({audioProfile:'voiceHighQuality', videoProfile:'320P'});
+        maplertc.joinChannel(session, function(ret) {
+           //api.toast({msg:JSON.stringify(ret)});
+        });
+		ajax.get({
+				ctrl: 'YiApp',
+				fn: 'manglu',
+				data: {
+					values: {
+						id: $api.getStorage(CONFIG.memberId),
+						token: $api.getStorage(CONFIG.token),
+						manglu: 1,
+						
+					}
+				},
+				hideLoading: true,
+				showError: true,
+				showProgress: false,
+				success: function(ct) {
+				var leixing=api.pageParam.leixing;
+		var audioStreamer = api.require('audioStreamer');
+audioStreamer.stop();
+//放弃var rtcApi = api.require('tyRTC');
+//放弃 rtcApi.acceptCall({callType:leixing}); //1代表连接的是语音 2代表连接的是视频+语音
+		//alert(JSON.stringify(api.pageParam));
+				//亲加的告诉用户连接上了				
+	var extra = new Object();
+			extra['type'] = 121;
+			extra['nickname'] = api.pageParam.yonghuname;
+			extra['avatar'] = api.pageParam.yonghuavatar;
+			extra['msgTime'] = new Date().getTime();
+			extra['mname'] = $api.getStorage(CONFIG.memberInfo).nickname;
+			extra['mavatar'] = $api.getStorage(CONFIG.memberInfo).avatar;
+			extra['mid'] = $api.getStorage(CONFIG.memberId);
+			extra['memberid'] = api.pageParam.yonghuid;
+			extra['content'] = api.pageParam.yonghuname+'和'+$api.getStorage(CONFIG.memberInfo).nickname+'通话连接成功';
+			extra['yonghuid'] = $api.getStorage(CONFIG.memberId);
+			
+			
+			RongCloud2.sendTextMessage({
+						text: '连麦',
+						targetId:api.pageParam.yonghuid,
+						conversationType:'PRIVATE',
+						extra: extra,
+					});
+					//亲加的告诉用户连接上了
+					//alert('manglu'+$api.getStorage(CONFIG.memberId));
+				}
+			});
+		$api.html(_this,'');	//接通后把接听的图标去除		
+	
+	$api.html($api.dom('.tishi'), "已连接成功");
+	
+	$api.removeCls($api.dom('.mianti'), 'hidden');
+	//$api.removeCls($api.dom('.liaotian'), 'hidden');
+		
+		
+		}
+		function guaduan(){
+		ajax.get({
+				ctrl: 'YiApp',
+				fn: 'manglu',
+				data: {
+					values: {
+						id: $api.getStorage(CONFIG.memberId),
+						token: $api.getStorage(CONFIG.token),
+						manglu: 0,
+						
+					}
+				},
+				hideLoading: true,
+				showError: true,
+				showProgress: false,
+				success: function(ct) {
+				var audioStreamer = api.require('audioStreamer');
+audioStreamer.stop();
+//alert('语音主播我按了挂断并且离开了房间');
+api.require('mapleRTC').leaveChannel();
+		api.closeWin();
+				}
+			});
+		
+		
+/*
+var data = new Object();
+			data['type'] = 125;
+		 RongCloud2.sendCommandMessage({  //通知给用户端。用户接受到通知后进入房间
+						text: '连麦',
+						targetId:api.pageParam.yonghuid,
+						name: $api.getStorage(CONFIG.memberId),
+						conversationType:'PRIVATE',
+						data: JSON.stringify(data)
+					});
+					
+					*/
+				
+					var extra = new Object();
+			extra['type'] = 125;
+			extra['nickname'] = api.pageParam.yonghuname;
+			extra['avatar'] = api.pageParam.yonghuavatar;
+			extra['msgTime'] = new Date().getTime();
+			extra['mname'] = $api.getStorage(CONFIG.memberInfo).nickname;
+			extra['mavatar'] = $api.getStorage(CONFIG.memberInfo).avatar;
+			extra['mid'] = $api.getStorage(CONFIG.memberId);
+			extra['memberid'] = api.pageParam.yonghuid;
+			extra['content'] = $api.getStorage(CONFIG.memberInfo).nickname+'挂断通话';
+			extra['yonghuid'] = $api.getStorage(CONFIG.memberId);
+			
+			RongCloud2.sendTextMessage({
+						text: '连麦',
+						targetId:api.pageParam.yonghuid,
+						conversationType:'PRIVATE',
+						extra: extra,
+					});
+					
+					
+		
+		
+		}
+		apiready = function() {
+			var audioStreamer = api.require('audioStreamer');
+audioStreamer.addEventListener({
+}, function(ret) {
+if(ret.state=='finished'){
+playAudio();
+}
+   // alert(JSON.stringify(ret));
+});
+		  api.addEventListener({
+                             name:'viewdisappear'
+                             },function(ret,err){
+                                api.closeWin();
+                                api.require('mapleRTC').leaveChannel();
+                             });
+		 maplertc = api.require('mapleRTC');
+		 var session = {
+                          channelId: $api.getStorage(CONFIG.memberId),
+                          userId: $api.getStorage(CONFIG.memberId),
+                          };
+		  maplertc.addEventListener({name: 'joinChannelSuccessListener'}, function(ret) {
+                ownUid = ret.uid;
+                //maplertc.setupLocalVideo({localView: {fixedOn: 'frm_float'}},  function(ret) {
+                                //api.toast({msg:JSON.stringify(ret)});
+                           // });
+
+        });
+        maplertc.addEventListener({name: 'joinChannelFailedListener'}, function(ret) {
+      //  api.toast({msg:"join channel failed."})
+        });
+        maplertc.addEventListener({name: 'connectionLostListener'}, function(ret) {
+        //api.toast({msg:"connection lost."})
+        });
+
+        maplertc.addEventListener({name: 'leaveChannelListener'}, function(ret) {
+                                       // api.toast({msg:JSON.stringify(ret)});
+                                       });
+        maplertc.addEventListener({name: 'forceKickOutChannelListener'}, function(ret) {
+                                       // api.toast({msg:"force kickout channel"});
+                                       });
+        maplertc.addEventListener({name: 'firstRemoteVideoFrameSizeChangedListener'}, function(ret) {
+                                       // api.toast({msg:"first remote video frame"});
+                                       });
+        maplertc.addEventListener({name: 'audioVolumeIndicationListener'}, function(ret) {
+                                        //api.toast({msg:JSON.stringify(ret)});
+                                   });
+        maplertc.addEventListener({name: 'userJoinedNoticeListener'}, function(ret) {
+                                        //api.toast({msg:ret.uids.length});
+                                        for(var i=0; i < ret.uids.length; i++){
+                                           // api.toast({msg:JSON.stringify(ret.uids[i])});
+                                        }
+                                   });
+       
+		
+		api.addEventListener({
+				name: 'keyback'
+			},function(){
+				
+				return false;
+			});
+		
+		$api.html($api.dom('.name1'), api.pageParam.yonghuname);
+           playAudio();
+            api.addEventListener({  //监听客户端打开电话页面
+				name : 'zhudonggua'
+			}, function(ret) {
+					
+						ajax.get({
+				ctrl: 'YiApp',
+				fn: 'manglu',
+				data: {
+					values: {
+						id: $api.getStorage(CONFIG.memberId),
+						token: $api.getStorage(CONFIG.token),
+						manglu: 0,
+						
+					}
+				},
+				hideLoading: true,
+				showError: true,
+				showProgress: false,
+				success: function(ct) {
+					 Tool.toast('取消呼叫');
+                     
+                     setTimeout("api.closeWin({});","2500");
+				}
+			});
+                   
+			});
+         
+             api.addEventListener({  //监听客户端打开电话页面
+				name : 'yuyin'
+			}, function(ret) {
+					
+					
+                    	api.openFrame({
+									name: 'dianhua',
+									url: api.wgtRootDir + '/html/one/dianhua.html',
+									reload:false,
+									rect: {
+										x: 0,
+										y: api.winHeight-150-('ios'==api.systemType?0:10),
+										w:'auto',
+                        h:'auto'
+									},
+									pageParam:{
+										memberid: api.pageParam.yonghuid,
+										leixings:'zhubo',
+										nickname:api.pageParam.yonghuname
+									}
+								})	
+			}); 
+		api.addEventListener({  //监听主播电话挂掉
+				name : 'dianhuagua'
+			}, function(retzb) {
+				//111
+				api.require('mapleRTC').leaveChannel();
+			var audioStreamer = api.require('audioStreamer');
+audioStreamer.stop();
+//首页改为忙碌0 api.sendEvent({
+	//name:'quangua'
+//});
+//api.require('gotyeLiveP2P').leaveRoom();
+				//api.closeWin();//用上面这个黑屏了安卓
+				
+				
+		api.closeWin({
+        });
+				
+			});
+			
+			api.addEventListener({  //监听主播电话挂掉
+				name : 'quangua'
+			}, function(retzb) {
+				//111
+				
+				ajax.get({
+				ctrl: 'YiApp',
+				fn: 'manglu',
+				data: {
+					values: {
+						id: $api.getStorage(CONFIG.memberId),
+						token: $api.getStorage(CONFIG.token),
+						manglu: 0,
+						
+					}
+				},
+				hideLoading: true,
+				showError: true,
+				showProgress: false,
+				success: function(ct) {
+					Tool.toast('通话结束');
+				
+				}
+			});
+				 api.closeWin({});
+				
+			});
+		
+		
+		}
+		</script>
+</body>
+</html>
+

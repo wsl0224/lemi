@@ -1,0 +1,391 @@
+<!doctype html>
+<html >
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no">
+		<title>最热列表</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<link href="../../css/style.css" rel="stylesheet" type="text/css">
+	</head>
+	<style>
+		h3 {
+			margin-top: 0px;
+		}
+		section {
+			padding-bottom: 60px;
+		}
+		.img-frm, .img {
+			background-image: url(../../image/avatar.jpg);
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+			border-radius: 50%;
+		}
+		/*直播列表*/
+		.info {
+			background-color: #fff;
+			padding: 5px;
+		}
+		.info .img-frm, .info .img {
+			width: 35px;
+			height: 35px;
+		}
+		.name {
+			font-size: 12px;
+		}
+		.ct-icon-location {
+			padding-top: 3px;
+			font-size: 14px;
+			color: #909090;
+		}
+		.ct-icon-location > span {
+			font-size: 12px;
+			padding-left: 5px;
+			color: inherit;
+		}
+		.num {
+			position: relative;
+			top: 2px;
+			font-size: 18px;
+			padding-right: 2px;
+			color: #FE5F99;
+		}
+		.text-right {
+			font-size: 11px;
+			padding-right: 5px;
+			color: #909090;
+		}
+		.cover {
+			height: 120px;
+			background-image: url(../../image/live.png);
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+			position: relative;
+		}
+		.live {
+			position: absolute;
+			right: 10px;
+			top: 10px;
+			font-size: 12px;
+			padding: 5px 10px;
+			border-radius: 20px;
+			color: #fff;
+			background-color: rgba(0,0,0,0.2);
+		}
+		.live1 {
+			position: absolute;
+			right: 10px;
+			top: 40px;
+			font-size: 12px;
+			padding: 5px 10px;
+			border-radius: 20px;
+			color: #fff;
+			background-color: rgba(0,0,0,0.2);
+		}
+		#footer {
+			position: fixed;
+			bottom: 0;
+		}
+		.null .null_img {
+			background-image: url(../../image/null_hot.png);
+			background-size: contain;
+			background-position: center;
+			background-repeat: no-repeat;
+			width: 100%;
+			height: 150px;
+			margin: 0 auto;
+		}
+	</style>
+	<body>
+		<div id="wrap">
+			<div id="main"></div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/audience.js" ></script>
+	<script type="text/javascript" src="../../script/jquery-1.9.1.min.js" ></script>
+	<script type="text/javascript" src="../../script/jquery.lazyload.min.js" ></script>
+	<script type="text/template" template="main">
+		<!--
+		<div class="live_list" roomid="111111">
+		<div class="info flex-box" onclick="openProfile('6469')" tapmode="">
+		<div class="img-frm">
+		<div class="img" data-original="{{= Tool.imageCompressByQiNiu('http://ojaewa2ze.bkt.clouddn.com/pckhmj1iadd0s017bi0m9f9oc4',0,200,200)}}"></div>
+		</div>
+		<div class="flex-1" style="padding-left: 8px;">
+		<div class="name">据说好名字有朋友</div>
+		<div class="flex-box">
+		<div class="ct-icon-location flex-box flex-h-ce">
+		<span>温州</span>
+		</div>
+		<div class="flex-1 text-right"><span class="num">3</span>人在看</div>
+		</div>
+		</div>
+		</div>
+		<div class="cover" style="background-image: url({{= Tool.imageCompressByQiNiu('http://ojaewa2ze.bkt.clouddn.com/pckhmj1iadd0s017bi0m9f9oc4',0,200,200)}});" onclick="Audience.openLive('281717','6469','222222','{{= Tool.imageCompressByQiNiu('http://ojaewa2ze.bkt.clouddn.com/pckhmj1iadd0s017bi0m9f9oc4',0,200,200)}}','0','1')" tapmode>
+		<div class="live">直播中</div>
+		</div>
+		</div>
+		-->
+		{{? it.roomlist instanceof Array && it.roomlist.length != 0}}
+		<div class="live_list row ">
+			
+				{{~ it.roomlist:value:index}}
+				
+				
+								<!--  col-6
+								-->
+				<div class="list col-4"  onclick="down('{{= value.videoURL}}','{{= value.videoName}}')" tapmode>
+					
+				
+				<div style="width:100%;font-size:12px; overflow: hidden; text-overflow:ellipsis; white-space: nowrap;"></font></div>
+				
+				<div class="cover" style="background-image: url('../../image/img.jpg');"  >
+		<div class="live">序号:{{= value.xuhao}}</div>
+		</div>
+					
+					<div style="width:100%;font-size:12px; overflow: hidden; text-overflow:ellipsis; white-space: nowrap;">视频名字:{{= value.videoName}}</div>
+					<div class="info flex-box">
+
+						
+				
+					
+						
+					</div>
+					
+				</div>
+				<!--主播昵称写入 -->
+		{{? $api.setStorage('room'+value.memberid, value.nickname) }}
+		{{?}}
+		
+		{{~}}
+			</div>
+		{{??}}
+		<div class="null flex-box">
+		<div class="flex-1">
+		<div class="null_img"></div>
+		</div>
+		</div>
+		{{?}}
+	</script>
+	<script type="text/javascript">
+		var sex = 0, cityid = 0;
+		var args = {
+			//			ctrl: 'zhiboApp',
+			//			fn: 'hotlist',
+			ctrl : 'zhiboApp',
+			fn : 'videolist',
+			countSelector : '#main > div',
+			values : {
+				id : $api.getStorage(CONFIG.memberId),
+				token : $api.getStorage(CONFIG.token),
+				sex : sex,
+				city : cityid
+			},
+			template : 'main',
+			success : function() {
+				$('div.img').lazyload({
+					effect : "fadeIn"
+				});
+			}
+		}
+		//判断 是否被主播拉黑
+		function isblack(rid, mid, pwd, avatar) {
+			ajax.get({
+				ctrl : 'zhiboApp',
+				fn : 'isblack',
+				data : {
+					values : {
+						id : $api.getStorage(CONFIG.memberId),
+						token : $api.getStorage(CONFIG.token),
+						memberid : mid
+					}
+				},
+				hideLoading : true,
+				showError : false,
+				showProgress : false,
+				success : function(ct) {
+					if (ct.status == 1) {
+						Tool.toast('您已被主播拉黑,不能进入TA的直播房间~');
+					} else {
+						openLive(rid, mid, pwd, avatar);
+					}
+				}
+			});
+		}
+
+		//获取最热列表
+		function videolist() {
+			ajax.get({
+				ctrl : 'zhiboApp',
+				fn : 'videolist',
+				data : {
+					values : {
+						id : $api.getStorage(CONFIG.memberId),
+						token : $api.getStorage(CONFIG.token),
+						sex : sex,
+						city : cityid
+					}
+				},
+				hideLoading : false,
+				showError : false,
+				showProgress : false,
+				_403 : function() {
+				},
+				success : function(ct) {
+					
+					//写入弹幕价格缓存
+					T.html('#main', 'main', ct);
+					$('div.img').lazyload({
+						effect : "fadeIn"
+					});
+				}
+			});
+		}
+
+		function down(a,b){
+		
+		if($api.getStorage(CONFIG.memberInfo).is_vip ==  0){
+    
+     api.ajax({
+		    url: window.DOMAIN + '/zhiboApp/downup',
+		    method: 'post',
+		    data: {
+		        values: {
+					id: $api.getStorage(CONFIG.memberId),
+					token: $api.getStorage(CONFIG.token)
+				}
+		    }
+		}, function(ret, err) {
+
+
+	if(parseInt(ret.content)>$api.getStorage(CONFIG.memberInfo).vipdown){
+	Tool.toast('您不是VIP，只能下载'+$api.getStorage(CONFIG.memberInfo).vipdown+'个视频');
+	setTimeout("openWin('vip_recharge','vip_recharge','VIP会员','mine','vip_recharge','','',250)","2000");
+	
+	
+	
+				return;
+	}else{
+	
+	var downloadManager = api.require('downloadManager');
+downloadManager.enqueue({
+    url: a,
+     savePath: '',
+    cache: true,
+    allowResume: true,
+    title: b,
+    networkTypes: 'all'
+}, function(ret, err) {
+
+
+    if (ret) {
+
+    Tool.toast('开始下载,请在用户中心查看进度!');
+    
+    
+       // alert(JSkaishON.stringify(ret));
+    } else {
+       Tool.toast('下载失败!');
+    }
+});
+	
+	
+	
+	}
+		   
+		});
+		
+		}else if($api.getStorage(CONFIG.memberInfo).is_vip ==  1){
+		var downloadManager = api.require('downloadManager');
+downloadManager.enqueue({
+    url: a,
+     savePath: '',
+    cache: true,
+    allowResume: true,
+    title: b,
+    networkTypes: 'all'
+}, function(ret, err) {
+
+
+    if (ret) {
+
+    Tool.toast('开始下载,请在用户中心查看进度!');
+    
+    
+       // alert(JSkaishON.stringify(ret));
+    } else {
+       Tool.toast('下载失败!');
+    }
+});
+		}
+		}
+		
+		
+
+		apiready = function() {
+		
+			openCircle();
+			api.bringFrameToFront({
+				from : 'circle'
+			});
+			videolist();
+			api.addEventListener({
+				name : 'closeLive'
+			}, function() {
+				api.refreshHeaderLoading();
+				window.scrollTo(0, $api.dom('body').scrollHeight);
+			})
+			Refresh.init(args);
+			LoadMore.init({
+				ctrl : 'zhiboApp',
+				fn : 'videolist',
+				countSelector : '#main > div',
+				values : {
+					id : $api.getStorage(CONFIG.memberId),
+					token : $api.getStorage(CONFIG.token),
+					sex : sex,
+					city : cityid
+				},
+				template : 'main',
+			}, function(ct, page) {
+				$('div.img').slice((page - 1) * 10).lazyload({
+					effect : "fadeIn"
+				});
+			});
+			//监听筛选 最热列表
+			api.addEventListener({
+				name : 'screen'
+			}, function(ret) {
+				if (ret && ret.value) {
+					sex = ret.value.sex;
+					cityid = ret.value.cityid;
+					args.values.sex = ret.value.sex;
+					args.values.city = ret.value.cityid;
+					videolist();
+				}
+			});
+			//监听主播关闭 直播
+			api.addEventListener({
+				name : 'live_list_init'
+			}, function(ret) {
+				var roomidDomAll = $api.domAll('[roomid]'), roomidDom = $api.dom('[roomid="' + ret.value.roomid + '"]');
+				if (roomidDomAll.length > 1) {
+					$api.remove(roomidDom);
+				} else {
+					$api.remove(roomidDom);
+					api.refreshHeaderLoading();
+				}
+			});
+			api.addEventListener({
+				name : 'init_hot'
+			}, function() {
+				api.refreshHeaderLoading();
+			});
+		}
+	</script>
+</html>

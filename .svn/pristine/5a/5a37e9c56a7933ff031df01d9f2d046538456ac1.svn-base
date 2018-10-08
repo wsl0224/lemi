@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <style>
+        .empty{ text-align: center; padding: 120px 0; }
+    </style>
+</head>
+<body>
+    <div class="empty"></div>
+</body>
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+   api.require('audioStreamer').stop();
+    api.addEventListener({
+				name: 'keyback'
+			},function(){
+				
+				return false;
+			});
+
+  // alert('uu'+JSON.stringify(api.pageParam));
+    var leixings;
+    
+   api.openFrame({
+									name: 'dianhua',
+									url: api.wgtRootDir + '/html/one/dianhua.html',
+									reload:false,
+									slidBackEnabled: false,
+									scrollEnabled: false,
+									rect: {
+										x: 0,
+										y: api.winHeight-200+('ios'==api.systemType?0:10),
+										w:'auto',
+                        h:'auto'
+									},
+									pageParam:{
+										memberid: api.pageParam.yonghuid||api.pageParam.memberid,
+										nickname:api.pageParam.nickname,
+										avatar:api.pageParam.avatar,
+										leixings:api.pageParam.leixings||0,
+									}
+								})	
+       // $api.dom('.empty').innerHTML = api.pageParam.name+'页';
+    };
+</script>

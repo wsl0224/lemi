@@ -1,0 +1,392 @@
+/*颜色渐变*/
+.toRight {
+	background-image: -webkit-linear-gradient(to right,#F1C972, #BE6D6A);
+	background-image: linear-gradient(to right,#F1C972,#BE6D6A);
+}
+a {
+	text-decoration: none;
+	color: #F8F8F8
+}
+body {
+	display: block;
+	margin: 0px;
+}
+.dakuan {
+	width: 100%;
+	height: 100%;
+	background: #EFEEF4;//颜色要去掉的
+}
+.neikuan {
+	width: 100%;
+	height: 30%;
+}
+.zhangwi {
+	width: 100%;
+	height: 10%;
+}
+.shangkaun {
+	width: 90%;
+	height: 50%;
+	margin: 0 auto;
+}
+.touxian {
+	width: 40%;
+	height: 100%;
+	border-radius: 15%;
+	float: left
+}
+.touxiann {
+	width: 70%;
+	height: 100%;
+	background-color: #F8F8F8;
+	border-radius: 15%;
+}
+.xinxi {
+	width: 60%;
+	height: 60%;
+	border-radius: 15%;
+	float: left
+}
+.xinxiQ {
+	width: 60%;
+	height: 20%;
+	float: left;
+	margin-top: 15px;
+}
+.touxiannn {
+	width: 70%;
+	height: 100%;
+	border-radius: 15%;
+}
+.zitijuzhong {
+	text-align: center;
+	font-size: 14px;
+}
+.tongming {
+	width: 98%;
+	height: 100%;
+	background: rgba(0,0,0,0.2) none repeat scroll !important;
+	margin: 0 auto;
+	border-radius: 5px 5px 0 0;
+	color: #F8F8F8;
+}
+.qianbao {
+	float: left;
+	width: 33%;
+	height: 30%;
+}
+.renshu {
+	float: right;
+	width: 33%;
+	height: 30%;
+}
+.yongjin {
+	margin: 0 33%;
+	height: 30%;
+}
+.name {
+	width: 70%;
+	height: 50%;
+	font-size: 16px;
+	font-family: SimSun;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: #F8F8F8;
+}
+.dianhua {
+	font-size: 12px;
+	float: left;
+	color: #F8F8F8;
+}
+.xiugai {
+	font-size: 12px;
+	float: right;
+	color: #F8F8F8;
+}
+.xiaofei {
+	border-radius: 10px;
+	width: 30%;
+	font-size: 15px;
+	text-align: center;
+	color: #F8F8F8;
+	border: 1px solid #F8F8F8
+}
+.touxiang {
+	width: 30%;
+	height: 60%;
+	float: right;
+}
+.fenxiang {
+	width: 100%;
+	height: 15%;
+	background-color: #EFEEF4
+}
+.fengxiangw {
+	width: 49%;
+	height: 90%;
+	float: left;
+	margin-top: 1.25%;
+	background-color: #FFFFFF
+}
+.fengxiange {
+	width: 100%;
+	height: 50%;
+	background-color: #FFFFFF
+}
+.fengxiangr {
+	width: 20%;
+	height: 80%;
+	margin: 0 auto;
+	border-radius: 50%;
+	text-align: center;
+	background-color: #CC6666
+}
+.fengxiangt {
+	width: 49%;
+	height: 90%;
+	float: right;
+	margin-top: 1.25%;
+	background-color: #FFFFFF
+}
+.fengxiangy {
+	width: 100%;
+	height: 50%;
+	background-color: #FFFFFF
+}
+.fengxiangi {
+	width: 20%;
+	height: 80%;
+	margin: 0 auto;
+	border-radius: 50%;
+	text-align: center;
+	background-color: #FFCC66
+}
+.ziti {
+	text-align: center;
+	color: #383838;
+}
+.kuan {
+	width: 100%;
+}
+.ke {
+	width: 100%;
+	height: 10%;px;
+	float: left
+}
+.kel {
+	width: 20%;
+	height: 80%;
+	background-color: #FFFFFF;
+	margin-top: 1%;
+	float: left
+}
+.kek {
+	width: 50%;
+	height: 60%;
+	margin-top: 15%;
+	margin-left: 25%;
+}
+.kej {
+	width: 80%;
+	height: 80%;
+	background-color: #FFFFFF;
+	margin-top: 1%;
+	float: left
+}
+.keh {
+	width: 80%;
+	width: 80%;
+	height: 60%;
+	margin-top: 5%
+}
+.keg {
+	float: right;
+	width: 0;
+	height: 0;
+	border-top: 10px solid #FFFFFF;
+	border-bottom: 10px solid #FFFFFF;
+	border-left: 10px solid #383838;
+}
+.left-arrow1, .left-arrow2 {
+	width: 0;
+	height: 0;
+	display: block;
+	position: absolute;
+	left: 15px;
+	top: 65%;
+	z-index: 5;
+	border-top: 10px transparent dashed;
+	border-left: 10px transparent dashed;
+	border-bottom: 10px transparent dashed;
+	border-right: 10px white solid;
+	overflow: hidden;
+	
+}
+.left-arrow1 {
+	border-right: 10px #1C1C1C solid;
+	
+}
+.left-arrow2 {
+	left: 1px;
+}
+.Fxhaoyou {
+	width: 100%;
+	height: 100%;
+	background-color: #EFEEF4;
+}
+.Fxhaoyouq {
+	width: 100%;
+	height: 11%;
+	border-bottom: 2px solid #F46060;
+	background-color: #F46060
+	
+}
+.Fxhaoyouw {
+	width: 20%;
+	height: 100%;
+	float: left;
+	
+}
+.FxhaoyouE {
+	width: 80%;
+	height: 100%;
+	float: right;
+	
+	
+}
+.Fxhaoyour {
+	width: 80%;
+	height: 100%;
+	margin-top: 11%;
+	text-align: center;
+	font-size: 24px;
+	color:#FFFFFF
+}
+.Fxhaoyout {
+	width: 100%;
+	height: 20%;
+}
+.Fxhaoyouy {
+	width: 90%;
+	height: 33%;
+	margin: 2px auto;
+}
+.Fxhaoyouu {
+	width: 80%;
+	height: 33%;
+	margin: 0 auto;
+	border-radius: 30px;
+}
+.Fxhaoyoui {
+	width: 60%;
+	height: 100%;
+	background-color: #F8CAAE;
+	border-radius: 15px 0 0 15px;
+	float: left
+}
+.Fxhaoyouo {
+	margin-top: 8px;
+	text-align: center;
+	color: #E67D67
+}
+.Fxhaoyouqa {
+	width: 40%;
+	height: 100%;
+	background-color: #E50072;
+	border-radius: 0 15px 15px 0;
+	float: right
+}
+.Fxhaoyouqs {
+	margin-top: 8px;
+	text-align: center;
+	color: #FFFFFF
+}
+.Fxhaoyouqd {
+	width: 100%;
+	height: 40%;
+	background-color: #FFFFFF
+}
+.Fxhaoyouqf {
+	margin-top: 40px;
+	margin-left: 15%;
+	width: 70%;
+	height: 70%
+}
+.Fxhaoyouqg {
+	width: 100%;
+	height: 10%;
+	margin-top: 10px
+}
+.Fxhaoyouyyyyy {
+
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+}
+.Fxhaoyouqh {
+	width: 50%;
+	height: 100%;
+	float: left
+}
+.Fxhaoyouqj {
+	margin: 0 auto;
+	width: 50%;
+	height: 100%;
+	background-color: #FFFFFF;
+	border-radius: 50%;
+}
+.Fxhaoyouqk {
+	margin: 0 auto;
+	width: 100%;
+	height: 100%;
+	background-color: #FFFFFF;
+	border-radius: 50%;
+}
+
+.Fxhaoyouqz {
+	width: 50%;
+	height: 100%;
+	float: left;
+	margin: 0 auto
+}
+.Fxhaoyouqx {
+	width: 100%;
+	height: 10%;
+	text-align: center;
+}
+.Fxhaoyouqc {
+	width: 50%;
+	float: left;
+}
+
+.Fxhaoyouqb {
+	width: 50%;
+	float: right
+}
+.kefu{
+			width:100%;height:5%;color: #FFA54F;text-align: center;font-size: 24px;margin-top:5px
+			}
+			.kefuq{
+			width:100%;height:30%;text-align: center;font-size: 24px;margin-top:5px
+			}
+			.kefuw{
+			margin-top:5%;width:60%;height:80%
+			}
+			.kefue{
+			width:80%;height:10%;margin: 0 auto;text-align: center;
+			}.kefur{
+			width:10%;height:80%;float: left
+			}
+			.kefut{
+			width:100%;height:80%;background-color:#8BC619 ;font-size: 24px;color:#FFFFFF;border-radius: 15px;float: left
+			}
+			.kefutr{
+			width:100%;height:80%;background-color:#00B2EE;font-size: 24px;color:#FFFFFF;border-radius: 15px;float: left
+			}
+			.top{
+			margin-top:10px
+			}

@@ -1,0 +1,17 @@
+@charset "utf-8";
+
+
+
+
+
+
+
+/*头部*/
+.header{background:#FE5F99; height:4.3rem; line-height:4.3rem; overflow:hidden;}
+.header h1{ width:70%; float:left; text-align:center; font-size:1.8rem; color:#fff; font-weight:lighter; position:relative;}
+.header h1:after{content:"";font-family:iconfont;}
+.header .left{width:15%; text-align:center;}
+.header .right{width:15%; text-align:center;}
+.header .icon{ font-size:2.8rem; color:#fff;}
+.header a{color:#fff;}
+

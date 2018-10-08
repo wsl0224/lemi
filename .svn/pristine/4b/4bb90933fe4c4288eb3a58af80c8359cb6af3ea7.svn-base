@@ -1,0 +1,29 @@
+<div style="padding-top: 0px;background-repeat: no-repeat;" onclick="suo();"><img   src="../../img/fangda.png"  width="55" height="55"/><div>
+
+
+<script type="text/javascript" src="../../script/api.js"></script>
+		<script type="text/javascript" src="../../script/doT.min.js" ></script>
+		<script type="text/javascript" src="../../script/common.js"></script>
+		<script type="text/javascript" src="../../script/UIChatBox.js" ></script>
+		<script type="text/javascript" src="../../script/rongCloud2.js"></script>
+		
+		<script type="text/javascript">
+		
+		
+		function suo(){
+		//api.require('mapleRTC').leaveChannel();
+		//api.sendEvent({
+	        //name:'huifu'
+        //});
+		api.closeWin({});
+		}
+		
+		apiready = function() {
+		
+	
+		
+		}
+		</script>
+</body>
+</html>
+

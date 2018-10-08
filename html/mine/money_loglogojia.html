@@ -1,0 +1,256 @@
+<!doctype html>
+<html >
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no">
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			html, body, #main {
+				font-size: 14px;
+				background-color: #fff;
+			}
+			.item {
+				padding: 10px;
+				margin-left: 10px;
+				min-height: 71px;
+				border-bottom: 1px solid #EBEBE9;
+			}
+			.grey {
+				color: #909090;
+				padding: 4px 0;
+			}
+			.right div {
+				text-align: right;
+			}
+			.null_img {
+				background-image: url(../../image/null_record.png);
+				background-size: contain;
+				background-position: center;
+				background-repeat: no-repeat;
+				width: 100%;
+				height: 150px;
+				margin: 0 auto;
+			}
+			.tixianlo {
+				width: 20%;
+				float: left;
+				text-align: center;
+			}
+			.coolor {
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div style="width:100%;height:30px;margin-top:10px">
+			<div class="tixianlo coolor"  onclick="tixianxian(this,event)" current-modal="quan" id="quan">
+				全部
+			</div>
+			<div class="tixianlo" onclick="tixianxian(this,event)" current-modal="yi" id="yi">
+				已通过
+			</div>
+			<div class="tixianlo" onclick="tixianxian(this,event)" current-modal="ju" id="ju">
+				已拒绝
+			</div>
+			<div class="tixianlo" onclick="tixianxian(this,event)" current-modal="wei" id="wei">
+				未审核
+			</div>
+			<div class="tixianlo" onclick="tixianxian(this,event)" current-modal="ti" id="ti">
+				提现
+			</div>
+		</div>
+		<div id="wrap">
+			<div id="main">
+				<div class="item flex-box hidden">
+					<div class="left flex-1 flex-box-v flex-v-zhu">
+						<div class="grey text-overflow">
+							礼物：小黄瓜
+						</div>
+						<div class="grey">
+							SliverChan
+						</div>
+					</div>
+					<div class="right flex-box-v flex-v-zhu">
+						<div class="grey">
+							2016/10/4 8:15
+						</div>
+						<div class="grey">
+							+150魅力
+						</div>
+					</div>
+				</div>
+				<div class="item flex-box hidden">
+					<div class="left flex-1 flex-box-v flex-v-zhu">
+						<div class="grey text-overflow">
+							礼物：小黄瓜
+						</div>
+						<div class="grey">
+							SliverChan
+						</div>
+					</div>
+					<div class="right flex-box-v flex-v-zhu">
+						<div class="grey">
+							2016/10/4 8:15
+						</div>
+						<div class="grey">
+							+150魅力
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/template" template="main">
+		{{? it instanceof Array && it.length != 0}}
+		{{~ it:value:index}}
+		<div class="item flex-box">
+		<div class="left flex-1 flex-box-v flex-v-zhu">
+		<div class="grey text-overflow">{{=value.content}}</div>
+		<div class="grey"></div>
+		</div>
+		<div class="right flex-box-v flex-v-zhu">
+		<!-- 	<div class="grey">{{= value.createdtime}}</div> -->
+		<div class="grey">+{{= value.jiamoney}}元</div>
+		</div>
+		</div>
+		{{~}}
+		{{??}}
+		<div class="flex-box null">
+		<div class="flex-1  flex-box flex-h-ce">
+		<div class="null_img"></div>
+		</div>
+		</div>
+		{{?}}
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript">
+		function tixianxian(_this, event) {
+			var quan = $api.byId('quan');
+			var yi = $api.byId('yi');
+			var wei = $api.byId('wei');
+			var ti = $api.byId('ti');
+			var ju = $api.byId('ju');
+			event.stopPropagation();
+			var curModal = $api.attr(_this, 'current-modal');
+			if(zhuangtai != 'ti'){
+			api.closeFrame({
+				name : 'apptuxiann'
+			});
+			}
+			if (curModal == 'quan') {
+				$api.addCls(quan, 'coolor');
+				$api.removeCls(yi, 'coolor');
+				$api.removeCls(wei, 'coolor');
+				$api.removeCls(ti, 'coolor');
+				$api.removeCls(ju, 'coolor');
+				var zhuangtai = '';
+			}
+			if (curModal == 'ju') {
+				$api.addCls(ju, 'coolor');
+				$api.removeCls(quan, 'coolor');
+				$api.removeCls(yi, 'coolor');
+				$api.removeCls(wei, 'coolor');
+				$api.removeCls(ti, 'coolor');
+				var zhuangtai = '3';
+			}
+			if (curModal == 'yi') {
+			$api.removeCls(ju, 'coolor');
+				$api.addCls(yi, 'coolor');
+				$api.removeCls(quan, 'coolor');
+				$api.removeCls(wei, 'coolor');
+				$api.removeCls(ti, 'coolor');
+				var zhuangtai = '2';
+			}
+			if (curModal == 'wei') {
+			$api.removeCls(ju, 'coolor');
+				$api.addCls(wei, 'coolor');
+				$api.removeCls(yi, 'coolor');
+				$api.removeCls(quan, 'coolor');
+				$api.removeCls(ti, 'coolor');
+				var zhuangtai = '1';
+			}
+			if (curModal == 'ti') {
+			$api.removeCls(ju, 'coolor');
+				$api.addCls(ti, 'coolor');
+				$api.removeCls(yi, 'coolor');
+				$api.removeCls(wei, 'coolor');
+				$api.removeCls(quan, 'coolor');
+				var zhuangtai = 'ti';
+			}
+			
+			if(zhuangtai != 'ti'){
+			
+			ajax.get({
+				ctrl : 'zhiboApp',
+				fn : 'commissionsss',
+				data : {
+					values : {
+						id : $api.getStorage(CONFIG.memberId),
+						token : $api.getStorage(CONFIG.token),
+						zhung : zhuangtai,
+						jia: 2
+					}
+				},
+				hideLoading : false,
+				showError : true,
+				showProgress : false,
+				success : function(ct) {
+					T.html('#main', 'main', ct);
+				}
+			});
+			
+			}else{
+		
+
+
+api.openFrame({
+				name : 'apptuxiann',
+				url : api.wgtRootDir + '/html/one/appjiatixian.html',
+				rect: {
+										x:api.winWidth/11,
+										y: 200,
+										w: api.winWidth/1.2,
+										h: api.winHeight/4
+									},
+									pageParam:{
+										//id: $api.getStorage('homepage').id,
+										//uid:$api.getStorage(CONFIG.memberId)
+									}
+								});
+			
+			}
+			
+		}
+
+		//收益记录
+		function profitListt() {
+		
+			ajax.get({
+				ctrl : 'zhiboApp',
+				fn : 'commissionsss',
+				data : {
+					values : {
+						id : $api.getStorage(CONFIG.memberId),
+						token : $api.getStorage(CONFIG.token),
+						jia: 2
+					
+					}
+				},
+				hideLoading : false,
+				showError : true,
+				showProgress : false,
+				success : function(ct) {
+					T.html('#main', 'main', ct);
+				}
+			});
+		}
+
+		apiready = function() {
+			profitListt();
+		}
+	</script>
+</html>

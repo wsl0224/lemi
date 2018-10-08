@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head design-width="640">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+	<!-- 优先使用 IE 最新版本和 Chrome -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<!-- 启用360浏览器的极速模式(webkit) -->
+	<!-- <link rel="shortcut icon" type="image/ico" href="/favicon.ico"/> -->
+	<!-- 添加 favicon icon -->
+	<meta name="renderer" content="webkit">
+	<title>Document</title>
+	<link rel="stylesheet" href="../../css/public.css" />
+	<script src="../../js/font-size.js"></script>
+	<script src="../../js/fastclick.js"></script>
+	<script>
+		if ('addEventListener' in document) {
+			document.addEventListener('DOMContentLoaded', function() {
+				FastClick.attach(document.body);
+			}, false);
+		}
+	</script>
+</head>
+<body>
+	<style>
+	.hidden {
+  display: none!important;
+}
+	.flex-fenxiang{
+	padding: 0.2rem 0.3rem 0.2rem 0.8rem;
+	position: fixed;
+	bottom: 1.26rem;
+	right: 0.3rem;
+	font-size: 0.28rem;
+	color: #fff;
+	border-radius: 34px;
+	line-height: 1;
+	box-shadow: 0 0 0.1rem #999;
+	}
+	.videocss{
+position: absolute;
+    bottom: 50%;
+    right: 40%;
+    padding:  0.1rem;
+    border: 1px solid pink;
+    color: pink;
+    border-radius: 26px;
+
+
+
+
+}
+</style>
+	<header class="header poa pc user-detalis-header">
+	<!--
+		<a href="#" class="left"></a>
+		-->
+		<a  class="center vh"></a>
+		<a  class="right" onclick="lahei(this,event)" current-modal="1"></a>
+	</header>
+	
+		
+		
+		<div id="main" class="main">
+	
+		<div class="user-detalis">
+			<div class="video">
+				<video class="videonew"  poster="../../img/fengmian.jpg" onclick="videoPlay()" tapmode></video>
+				
+			</div>
+			<div class="base-info">
+				<div class="left">
+					<div class="row">
+						<div class="name name1" style="max-width: 100px;overflow: hidden;white-space: nowrap;"></div>
+						<div class="name vip1" ></div>
+						<div class="status">空闲</div>
+						<div class="status fensi" style="background-color: #fd5086">粉丝</div>
+						<div class="status fensi guanzhu" style="background-color: #fd5086" tapmode onclick="concern(this)">关注</div>
+						
+					</div>
+					<div class="row" style="padding-top: 5px">
+						<div class="age-location" style='color:#333'></div> 
+						
+						<div style='color:#333;padding-left: 10px;' class="age-location id uid"></div>
+					</div>
+					
+				</div>
+				<div class="right tonghuashichang">
+				<!--
+					<div class="tips">接通率<br>41%</div>
+					-->
+					<div class="tips ">通话时长<br><span class="shichang"><span></div>
+				</div>
+			</div>
+			<div class="cost">
+			<!-- 消息价格
+			 -->
+			<span class="xiaoxiprice"></span>
+			
+			<!-- 语音价格
+			 -->
+			<span class="yuyingprice"></span>
+			<!-- 视频价格
+			 -->
+				<!--  <span class="shipinprice"></span> -->
+				<!--图片价格!-->
+				<!--<span class="tupianprice"></span> -->
+			</div>
+		
+			
+			<div class="she-speak public-option">
+				<div class="left">
+					<h2 style="color:red">签名：</h2>
+				</div>
+				<div class="right signature">
+					<p></p>
+				</div>
+			</div>
+			<div style="width:100%;height:4px;background-color: #f3f6fd" ></div>
+			<div style="width:95%;color:red;padding-left: 13px" >相册
+			<div class="picture" style="width:100%;height:80px" id="xiangceid"></div>
+			
+			</div>
+				<!-- <div class="picture public-option" id="xiangceid">
+						
+				
+				
+							</div> -->
+
+			<div class="visit public-option">
+				<div class="left">
+					<h3>最近来访</h3>
+				</div>
+				<div class="right">
+					<div class="user-pic" id="laifangid">
+					
+					</div>
+				</div>
+			</div>
+			<div class="visit public-option">
+				<div class="left">
+					<h3>Ta的礼物</h3>
+				</div>
+				<div class="right">
+					<div class="user-pic" id="liwuid">
+					
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	
+	
+	<div class="flex-bottom-menu-none"></div>
+	<div class="flex-bottom-menu pc shipinliao">
+		<a onclick="sixin()" class="send-message"></a>
+		<a onclick="yuyinliao()" tapmode class="video-chat1">
+			<span>语音聊</span>
+		</a>
+		<a onclick="shipinliao()" tapmode class="video-chat">
+			<span>视频聊</span>
+		</a>
+	</div>
+	<span class="songliwu"><a onclick="songliwu()" class="flex-gift songliwu">送礼物</a></span>
+	
+	<script type="text/javascript" src="../../script/api.js"></script>
+		<script type="text/javascript" src="../../script/doT.min.js" ></script>
+		
+		<script type="text/x-dot-template" id="liwu">
+					{{for(i=0;i<it.length;i++){}}
+					{{? it[i] !='0'}}
+						<a><img src="{{=it[i].smallimg}}" alt=""></a>
+						{{?}}
+						{{}}}
+				</script>
+		
+			<script type="text/x-dot-template" id="xiangce">
+					{{for(i=0;i<it.length;i++){}}
+					
+		
+		
+				<div class="item item1" onclick="zhaopian()" tapmode>
+				{{? it[i] !='0'}}
+					<img src="{{= Tool.imageCompressByQiNiu(it[i],0,200,200)||'../../img/pic16.jpg'}}" alt="">
+					{{?}}
+				</div>
+				
+				{{}}}
+				</script>
+			<script type="text/x-dot-template" id="laifang">
+					{{for(i=0;i<it.length;i++){}}
+					{{? it[i] !='0'}}
+						<a onclick="tiao('{{=it[i].uid}}')" tapmode><img src="{{=it[i].img}}" alt=""></a>
+						{{?}}
+						{{}}}
+				</script>
+		<script type="text/javascript" src="../../script/common.js"></script>
+		<script type="text/javascript" src="../../script/ajpush.js"></script>
+		<script type="text/javascript" src="../../script/anchor.js"></script>
+		<script type="text/javascript" src="../../script/rongCloud2.js"></script>
+	<script type="text/javascript" src="../../script/jquery-1.9.1.min.js"></script>
+	<script>
+	function lahei(_this, event){
+	if($api.hasCls(_this, 'lahei')){
+		api.closeFrame({
+    name: 'lahei'
+});
+		$api.removeCls(_this,'lahei');
+		}else{
+		$api.addCls(_this,'lahei');
+		
+			api.openFrame({
+				name : 'lahei',
+				url : api.wgtRootDir + '/html/one/lahei.html',
+				rect: {
+										x:api.winWidth*0.75,
+										y: 80,
+										w: 80,
+										h: 100
+									},
+									pageParam:{
+										id: $api.getStorage('homepage').id,
+										uid:$api.getStorage(CONFIG.memberId)
+									}
+								});
+		}
+	
+
+	
+	
+	}
+	
+	
+	function songliwu(){
+	api.openFrame({
+									name: 'gift',
+									url: api.wgtRootDir + '/html/component/giftone.html',
+									rect: {
+										x: 0,
+										y: 200,
+										w: 'auto',
+										h: 220
+									},
+									pageParam:{
+										memberid: $api.getStorage('homepage').id,
+										nickname: $api.getStorage('homepage').nickname,
+										avarar: $api.getStorage('homepage').avarar,
+										leixing:1
+									}
+								})
+	
+	
+	}
+	function zhaopian(){
+	var homepage=$api.getStorage('homepage');
+	var dialogBox = api.require('dialogBox');
+ dialogBox.alert({
+    texts: {
+        title: '私密相册查看费用',
+        content: '该相册需' + homepage.xcprice + '钻石/次',
+        leftBtnTitle: '取消',
+        rightBtnTitle: '确认'
+    },
+    styles: {
+        bg: '#ff5087',
+        w: 300,
+        title: {
+            marginT: 10,
+            iconSize: 40,
+            titleSize: 20,
+            titleColor: '#FFFFFF'
+        },
+        content: {
+            color: '#000',
+            size: 14
+        },
+        left: {
+            marginB: 7,
+            marginL: 20,
+            w: 130,
+            h: 35,
+            corner: 2,
+            bg: '#FFFFFF',
+            size: 12
+        },
+        right: {
+            marginB: 7,
+            marginL: 10,
+            w: 130,
+            h: 35,
+            corner: 2,
+            bg: '#FFFFFF',
+            size: 12
+        }
+    }
+}, function(ret) {
+
+// 返回时left  表示 不打开
+    if (ret.eventType == 'left') {
+       
+        dialogBox.close({
+            dialogName: 'alert'
+        });
+        return;
+    }else if(ret.eventType == 'right') {
+    
+    
+   api.ajax({
+    url: window.DOMAIN+'/YiApp/xiangcekoufei',
+    method: 'post',
+    data: {
+        values: {
+           id : $api.getStorage(CONFIG.memberId),
+		token : $api.getStorage(CONFIG.token),
+					
+        }
+    }
+}, function(ct1, err) {
+
+			if(ct1.status==400){
+			Tool.toast('钻石余额不足，请充值~');
+			setTimeout("openWin('recharge','recharge','充值','mine','recharge','','',250)","2000");
+			return;
+			}else{
+	
+      var imageBrowser = api.require('imageBrowser');
+imageBrowser.openImages({
+showList:false,
+    imageUrls: [
+        $api.getStorage('homepage').xiangce[0]||'',
+        $api.getStorage('homepage').xiangce[1]||'',
+        $api.getStorage('homepage').xiangce[2]||'',
+    ]
+});
+			}
+	
+});
+		
+	
+		 dialogBox.close({
+            dialogName: 'alert'
+        });
+       return;
+  
+    }
+});
+		
+		
+		
+		}
+	function videoPlay(downUrl){
+	var homepage=$api.getStorage('homepage');
+	//alert(11);
+		//alert('dd'+JSON.stringify(downUrl));
+		
+	
+			
+			
+if(homepage.shipinrenzheng!=1){
+Tool.toast('该用户暂无审核视频');
+return;
+}else{
+var dialogBox = api.require('dialogBox');
+ dialogBox.alert({
+    texts: {
+        title: '认证视频查看费用',
+        content: '该视频' + homepage.renzhengprice + '钻石',
+        leftBtnTitle: '取消',
+        rightBtnTitle: '确认'
+    },
+    styles: {
+        bg: '#ff5087',
+        w: 300,
+        title: {
+            marginT: 10,
+            iconSize: 40,
+            titleSize: 20,
+            titleColor: '#FFFFFF'
+        },
+        content: {
+            color: '#000',
+            size: 14
+        },
+        left: {
+            marginB: 7,
+            marginL: 20,
+            w: 130,
+            h: 35,
+            corner: 2,
+            bg: '#FFFFFF',
+            size: 12
+        },
+        right: {
+            marginB: 7,
+            marginL: 10,
+            w: 130,
+            h: 35,
+            corner: 2,
+            bg: '#FFFFFF',
+            size: 12
+        }
+    }
+}, function(ret) {
+
+// 返回时left  表示 不打开
+    if (ret.eventType == 'left') {
+       
+        dialogBox.close({
+            dialogName: 'alert'
+        });
+        return;
+    }else if(ret.eventType == 'right') {
+    
+    
+   api.ajax({
+    url: window.DOMAIN+'/YiApp/renzhengkoufei',
+    method: 'post',
+    data: {
+        values: {
+           id : $api.getStorage(CONFIG.memberId),
+		token : $api.getStorage(CONFIG.token),
+					
+        }
+    }
+}, function(ct1, err) {
+
+			if(ct1.status==400){
+			Tool.toast('钻石余额不足，请充值~');
+			setTimeout("openWin('recharge','recharge','充值','mine','recharge','','',250)","2000");
+			return;
+			}else{
+			 var videoPlayer = api.require('videoPlayer');
+        videoPlayer.play({
+            texts: {
+                head: {
+                    title: '主播审核视频播放'
+                }
+            },
+            
+            styles: {
+                head: { 
+                    bg: 'rgba(0.5,0.5,0.5,0.7)', 
+                    height: 44,
+                    titleSize: 16,
+                    titleColor: '#fff',
+                    backSize: 20,
+                    backImg: 'widget://image/back.png', 
+                    setSize: 20,
+                    setImg: 'widget://image/set.png' 
+                },
+                
+            },
+            path: homepage.videourl,
+            autoPlay:true
+        },function(ret, err) {
+             //alert(JSON.stringify(ret));
+            if (ret) {
+                //alert(JSON.stringify(ret));
+            } else {
+               // alert(JSON.stringify(err));
+            }
+        });
+        
+       
+			
+			
+			}
+	
+});
+		
+	
+		 dialogBox.close({
+            dialogName: 'alert'
+        });
+       return;
+  
+    }
+});
+        }
+		}
+function yuyinliao(){
+var homepage=$api.getStorage('homepage');
+yuyinshipin(homepage.id,1,homepage.nickname,homepage.avatar); 
+
+
+}
+function shipinliao(){
+var homepage=$api.getStorage('homepage');
+yuyinshipin(homepage.id,2,homepage.nickname,homepage.avatar); 
+
+
+}
+function sixin(){
+var homepage=$api.getStorage('homepage');
+
+//alert('page'+JSON.stringify(homepage));
+//isblack('{{= it.id}}','{{= it.nickname}}','{{= it.avatar}}','{{= it.username}}','{{= it.tidings}}','{{= it.concernstatus }}')
+isblackone(homepage.id,homepage.nickname,homepage.avatar,homepage.username,homepage.tidings,homepage.concernstatus);
+}
+
+function fangke(){
+			ajax.get({
+				ctrl: 'YiApp',
+				fn: 'fangke',
+				data: {
+					values: {
+						id: $api.getStorage(CONFIG.memberId),
+						token: $api.getStorage(CONFIG.token),
+						memberid: api.pageParam.memberid
+					}
+				},
+				showProgress: false,
+				hideLoading: true,
+				showError: true,
+				success: function(ct){
+				if(ct){
+				console.log('访客记录成功');
+				
+}
+				}
+			});
+		}
+function homepage(){
+			ajax.get({
+				ctrl: 'zhiboApp',
+				fn: 'homepage',
+				data: {
+					values: {
+						id: $api.getStorage(CONFIG.memberId),
+						token: $api.getStorage(CONFIG.token),
+						memberid: api.pageParam.memberid
+					}
+				},
+				showProgress: false,
+				hideLoading: true,
+				showError: true,
+				success: function(ct){
+				
+				if(ct.shebeihao!=api.deviceId){
+					Tool.toast('帐号异地登录,如非本人登录,请修改密码!');
+	setTimeout("relogin()","2000");
+					
+					return;
+					}
+				if(ct.manglu==1){
+				$api.html($api.dom('.status'), '忙碌');
+				}else{
+				$api.html($api.dom('.status'), '空闲');
+				}
+				$api.html($api.dom('.fensi'), '粉丝:'+ct.fansnum||'0');
+				
+					ctJson = ct;
+					$api.setStorage('homepage',ct);
+					var memberinfo = $api.getStorage(CONFIG.memberInfo);
+					//alert(ct.vip);
+						if(ct.vip!=1){
+		
+		$api.addCls($api.dom('.vip1'), 'hidden');
+		
+		}
+				$api.html($api.dom('.name1'), ct.nickname);	
+					$api.html($api.dom('.signature'), ct.qianming||'未填写签名');
+					$api.html($api.dom('.age-location'), ct.age+'岁·'+ct.city);
+					
+					$api.html($api.dom('.uid'), 'ID:'+ct.uid);
+					
+					//alert($api.getStorage('homepage').avatar);
+				//$api.html($api.dom('.video'), '<div class="videocss" tapmode onclick="videoPlay()">点击播放</div><video  class="videonew"  poster='+$api.getStorage('homepage').avatar+' onclick="videoPlay()" tapmode></video><div class="follower guanzhu" tapmode onclick="concern(this)" tapmode>关注</div>');
+					//$api.html($api.dom('.video'), '<div class="videocss1"></div><video  class="videonew"  poster='+$api.getStorage('homepage').avatar+' ></video><div class="follower guanzhu" tapmode onclick="concern(this)" tapmode>关注</div>');
+					$api.html($api.dom('.video'), '<div class="videocss1"></div><video  class="videonew"  poster='+$api.getStorage('homepage').avatar+' ></video>');
+					
+				
+					if(ct.sex ==1){
+						
+						$api.html($api.dom('.liwu'), '');
+				
+				
+				$api.html($api.dom('.cost'), '');
+				$api.html($api.dom('.songliwu'), '');
+				$api.html($api.dom('.tonghuashichang'), '');
+				
+			
+				}else{
+				
+					$api.html($api.dom('.shichang'), ''+ct.shichang+'分钟');
+					$api.html($api.dom('.xiaoxiprice'), '<span style="color:red">发消息:'+ct.xiaoxiprice+'钻石/条</span>');
+					$api.html($api.dom('.yuyingprice'), '<span style="color:red">发语音:'+ct.yuyinprice+'钻石/分钟</span>');
+					//$api.html($api.dom('.shipinprice'), '视频聊:'+ct.shipinprice+'钻石/分钟');
+					
+					//$api.html($api.dom('.tupianprice'), '发图片:'+ct.tupianprice+'钻石/条');
+					}
+					
+					if(ct.guanzhu==1){
+					$api.text($api.dom('.guanzhu'),'已关注');
+					}else{
+					$api.text($api.dom('.guanzhu'),'关注');
+					}
+					
+					
+					//头像
+					//alert(api.pageParam.memberid);
+				
+
+		
+			var xiangce_tplHtml = doT.template($api.byId('xiangce').text);
+			if(ct.xiangce!='0,0,0'){
+				$api.html($api.byId('xiangceid'), xiangce_tplHtml(ct.xiangce)); 
+				}else{
+				$api.html($api.byId('xiangceid'), '相册暂无内容'); 
+				}
+				
+				var laifang_tplHtml = doT.template($api.byId('laifang').text);
+			
+				$api.html($api.byId('laifangid'), laifang_tplHtml(ct.fangke)); 
+				
+				var liwu_tplHtml = doT.template($api.byId('liwu').text);
+			//alert(JSON.stringify(liwu_tplHtml));
+				$api.html($api.byId('liwuid'), liwu_tplHtml(ct.liwu)); 
+fangke();
+				}
+			});
+		}
+		
+		
+		function concern(_this,mid){
+		
+			var status_text = $api.text(_this);
+			if(status_text == '已关注'){
+				unfollow(_this,$api.getStorage('homepage').id);
+			}else{
+				follow(_this,$api.getStorage('homepage').id);
+			}
+		}
+		
+		//取消关注
+		function unfollow(_this,aid){
+			ajax.get({
+//				ctrl: 'zhiboApp',
+				ctrl: 'zhiboApp',
+				fn: 'unfollow',
+				data: {
+					values: {
+						id: $api.getStorage(CONFIG.memberId),
+						token: $api.getStorage(CONFIG.token),
+						aid: aid
+					}
+				},
+				hideLoading: true,
+				showError: true,
+				showProgress: true,
+				success: function(ct) {
+					$api.text(_this,'关注');
+					
+					
+					api.sendEvent({
+						name: 'follow'
+					});
+				}
+			});
+		}
+		
+		//关注
+		function follow(_this,mid){
+			ajax.get({
+//				ctrl: 'zhiboApp',
+				ctrl: 'zhiboApp',
+				fn: 'concern',
+				data: {
+					values: {
+						id: $api.getStorage(CONFIG.memberId),
+						token: $api.getStorage(CONFIG.token),
+						memberid: mid
+					}
+				},
+				showProgress: true,
+				hideLoading: true,
+				showError: true,
+				success: function(ct){
+					$api.text(_this,'已关注');
+					
+					api.sendEvent({
+						name: 'follow'
+					});
+				}
+			});
+		}
+		function tiao(uid){
+		
+		
+	api.openWin({
+						name: 　 'xiangxi',
+						url: api.wgtRootDir + '/html/window/win.html',
+						reload:true,
+						pageParam: {
+							headerTitle: '用户详情',
+							frameName: 'xiangxi',
+							frameUrl: api.wgtRootDir + '/html/one/xiangxi.html',
+							frameParam: {
+								
+								memberid: uid
+							}
+						},
+						slidBackEnabled: false
+					});
+		}
+	apiready = function() {
+	api.addEventListener({
+				name : 'tonghuazhong'
+			}, function(ret) {
+	api.toast({
+							msg: 'Ta正在热聊中，请稍后再拨~',
+							duration: 2000,
+							location: 'middle'
+						});
+			});
+	homepage();
+	 //下拉刷新
+                        api.setRefreshHeaderInfo({
+                                loadingImg : 'wgt://img/loading_more.gif',
+                                bgColor : '#FFF',
+                                textColor : '#333',
+                                textDown : '下拉刷新...',
+                                textUp : '松开刷新...'
+                        }, function(ret, err) {
+                       
+                            homepage();
+                            api.refreshHeaderLoadDone();
+                            //上拉刷新暂时没做
+                            
+                        });
+				//alert(api.pageParam.memberid);
+				
+			}
+		</script>
+</body>
+</html>
+
+

@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head design-width="640">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+	<!-- 优先使用 IE 最新版本和 Chrome -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<!-- 启用360浏览器的极速模式(webkit) -->
+	<!-- <link rel="shortcut icon" type="image/ico" href="/favicon.ico"/> -->
+	<!-- 添加 favicon icon -->
+	<meta name="renderer" content="webkit">
+	<title>打招呼页</title>
+	<link rel="stylesheet" href="../../css/public.css" />
+	<link rel="stylesheet" href="../../css/z_style.css" />
+	<link rel="stylesheet" href="http://at.alicdn.com/t/font_313775_s4jszln9f2h85mi.css">
+	<script src="../../js/font-size.js"></script>
+
+</head>
+<body>
+	
+	<div class="z_header3">
+		<h2>TA们在线很受欢迎<a onclick="tiaoguo();">跳过</a></h2>
+	</div>
+	<div class="wom">
+		<ul id="zhaohuid" >
+		<script type="text/x-dot-template" id="zhaohu">
+					{{for(i=0;i<it.length;i++){}}
+			<li onclick="xuanze(this)" tapmode="" id='{{=it[i].uid}}'   data-id='{{=it[i].uid}}' data-nickname='{{=it[i].nickname}}' data-img='{{=it[i].img}}' class="acti"><img src="{{=it[i].img||'../../img/pic16.jpg'}}" alt=""><i></i></li>
+			{{}}}
+				</script>
+		</ul>
+	</div>
+
+	<a onclick="dazhaohu(this);" class="zh">打声招呼，告诉她们你来了</a>
+	
+
+	
+	
+	<script type="text/javascript" src="../../script/api.js"></script>
+		<script type="text/javascript" src="../../script/doT.min.js" ></script>
+		<script type="text/javascript" src="../../script/common.js"></script>
+		<script type="text/javascript" src="../../script/ajpush.js"></script>
+		<script type="text/javascript" src="../../script/anchor.js"></script>
+		<script type="text/javascript" src="../../script/rongCloud2.js"></script>
+		<script src="../../js/jquery-3.1.0.min.js"></script>
+		<script>
+		function xuanze(_this){
+		
+		if($api.hasCls(_this, 'acti')){
+		
+		$api.removeCls(_this,'acti');
+		}else{
+		
+		$api.addCls(_this,'acti');
+		}
+		
+        
+        // alert('uid'+$(this).data("id"));
+			//$(this).toggleClass('acti');
+			
+			
+		  
+		
+		//alert($(this).data("id"));
+		//console.log(JSON.stingify($api.not(document.getElementById($(this).data("id")), '.acti')));
+		//console.log('uid'+document.getElementById($(this).data("id")));
+			//$api.addCls($(this),'acti');
+			//$api.addCls(document.getElementById($(this).data("id")), 'acti');
+		
+		
+			
+		}
+	function dazhaohu(_this){
+	
+	$('#zhaohuid').find('li').each(function(){
+/*
+		//alert($(this).data("img"));
+		var extra = new Object();
+			extra['type'] = 128; //打招呼
+			extra['nickname'] = $(this).data("nickname");
+			extra['avatar'] = $(this).data("img");
+			extra['msgTime'] = new Date().getTime();
+			extra['mname'] = $api.getStorage(CONFIG.memberInfo).nickname;
+			extra['mavatar'] = $api.getStorage(CONFIG.memberInfo).avatar;
+			extra['mid'] = $api.getStorage(CONFIG.memberId);
+			extra['memberid'] = $(this).data("id");
+			extra['content'] = '打了个招呼';
+			extra['yonghuid'] = $api.getStorage(CONFIG.memberId);
+			
+			RongCloud2.sendTextMessage({
+						text: '打招呼',
+						targetId:$(this).data("id"),
+						conversationType:'PRIVATE',
+						extra: extra,
+					});
+
+     */
+    });
+    
+  Tool.toast('打招呼成功~');
+setTimeout(function(){
+						Tool.initApp();
+						
+					},300)
+	
+	}
+	function tiaoguo(){
+	
+setTimeout(function(){
+						Tool.initApp();
+						
+					},300)
+	
+	}
+function zhaohu() {
+				api.ajax({
+					url : window.DOMAIN + '/yiApp/zhaohu',
+					method : 'post',
+					data : {
+						values : {
+							id : $api.getStorage(CONFIG.memberId),
+							token : $api.getStorage(CONFIG.token)
+						}
+					}
+				}, function(ret, err) {
+				
+					if (ret) {
+						var tuijian_content = $api.byId('zhaohuid');
+			
+			var tuijian_tplHtml = doT.template($api.byId('zhaohu').text);
+			
+				$api.html(tuijian_content, tuijian_tplHtml(ret)); 
+			
+					} else {
+					console.log('zhaohu'+JSON.stringify(err));
+					}
+				});
+			}
+	apiready = function() {
+	
+	//openWin('win','zhaohu','跟主播打招呼','one','zhaohu',true);//跟主播打招呼
+	zhaohu();
+		memberInfo(function(ct) {
+				
+				if(ct.sex==0){
+				
+		openWin('win','sex','性别选择','one','sex',true);
+		return;
+			
+			}
+			
+			});
+				//alert(api.pageParam.memberid);
+				//$api.html($api.dom('.video-chat'), parseInt(api.pageParam.memberid));
+			}
+		</script>
+</body>
+</html>
+

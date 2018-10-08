@@ -1,0 +1,30 @@
+<div style="padding-top: 0px;background-repeat: no-repeat;" id="liwusongsong"><div>
+
+<script type="text/javascript" src="../../script/api.js"></script>
+<style>
+
+</style>
+<script type="text/javascript">
+apiready = function() {
+//document.getElementById("liwusongsong").src=api.pageParam.liwuurl;
+$api.html($api.byId('liwusongsong'),'<img   src='+api.pageParam.liwuurl+'  width="100%" height="100%"/>');
+//$api.attr($api.byId('liwusongsong'),'src',api.pageParam.liwuurl); //改变图片地址SRC
+api.bringFrameToFront({
+    from: 'dianhua',
+});
+//$api.html($api.dom('.liwusongsong'), '<img  src='+api.pageParam.liwuurl+'  width="100%" height="100%"/>');
+//alert(JSON.stringify(api.pageParam));
+			setTimeout(function() {
+						api.closeFrame({
+						name:'songliwu'
+                        });
+                       
+                       
+					}, 6500)
+	}
+	
+	
+		
+		
+		
+</script>

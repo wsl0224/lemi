@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<title>直播-首页</title>
+<div style="padding-top: 0px;background-repeat: no-repeat;" onclick="suo();"><div>
+
+
+<script type="text/javascript" src="../../script/api.js"></script>
+		<script type="text/javascript" src="../../script/doT.min.js" ></script>
+		<script type="text/javascript" src="../../script/common.js"></script>
+		<script type="text/javascript" src="../../script/UIChatBox.js" ></script>
+		<script type="text/javascript" src="../../script/rongCloud2.js"></script>
+		
+		<script type="text/javascript">
+		
+		
+		function suo(){
+	
+		//api.require('mapleRTC').leaveChannel();
+		//api.sendEvent({
+	        //name:'huifu'
+        //});
+		api.closeFrame({
+		name:'ditu'
+        });
+		}
+		
+		apiready = function() {
+		
+	var aMapLBS = api.require('aMapLBS');
+aMapLBS.configManager({
+    accuracy: 'hundredMeters',
+    filter: 1
+}, function(ret, err) {
+
+    if (ret.status) {
+       aMapLBS.singleLocation({
+    timeout: 10
+}, function(retok, err) {
+
+    if (retok.status) {
+        var aMap = api.require('aMap');
+aMap.open({
+    rect: {
+        x: 0,
+        y: 0,
+        w: api.winWidth,
+        h: api.winHeight
+    },
+    showUserLocation: true,
+    zoomLevel: 11,
+    center: {
+        lon: retok.lon,
+        lat: retok.lat
+    },
+    fixedOn: api.frameName,
+    fixed: true
+}, function(ret, err) {
+    if (ret.status) {
+        console.log('定位1'+JSON.stringify(ret));
+    } else {
+        console.log('定位2'+JSON.stringify(err));
+    }
+});
+    }else{
+    
+  var privacy = api.require('privacy');
+			privacy.location(function(ret, err) {
+				if (!ret.status) {
+					api.alert({
+						title : '温馨提示',
+						msg : '未能成功获取定位信息,需开启定位服务设置~'
+					}, function(ret, err) {
+						api.closeWin({
+						name:"ditu"
+                        });
+					});
+				}
+			});
+    }
+});
+    }
+});
+
+		
+		}
+		</script>
+</body>
+</html>
+

@@ -1,0 +1,208 @@
+﻿<!doctype html>
+<html>
+	<head design-width="640">
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<!-- 优先使用 IE 最新版本和 Chrome -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+		<!-- 启用360浏览器的极速模式(webkit) -->
+		<!-- <link rel="shortcut icon" type="image/ico" href="/favicon.ico"/> -->
+		<!-- 添加 favicon icon -->
+		<meta name="renderer" content="webkit">
+		<title>首页</title>
+		<link rel="stylesheet" href="../../css/public.css" />
+		<link rel="stylesheet" href="../../css/z_style.css" />
+		<link rel="stylesheet" href="http://at.alicdn.com/t/font_313775_48hy3l8gb0t9ms4i.css">
+		<script src="../../js/font-size.js"></script>
+		
+		<link rel="stylesheet" type="text/css" href="../../css/aui.css"/>
+	</head>
+	<body>
+<style type="text/css">
+			body {
+				font-size: 17px;
+			}
+			#header {
+				background-color: #FE5F99;
+			}
+			.ct-icon-arrow-left {
+				color: #FFFFFF;
+			}
+			.topbar {
+				background-color: #FE5F99;
+			}
+			.tou{
+			width:100%;height:50px;position:fixed;top:0;left:0;background-color: #FE5F99;z-index:50;color:#FFFFFF;
+			}
+			.touleft{
+			width:12%;height:100%;background-color: #FE5F99;float: left
+			}
+			.touright{
+			width:76%;float: left;margin-top:10px;text-align: center
+			}
+			.toudi{
+			width:100%;height:50px
+			}
+			.colorb{
+			color:#FFFFFF
+			}
+		</style>
+
+	
+	<div id="main" class='list'>
+	
+		<!-- <div class="z_public">
+			<h3 style="margin-top:7px">新人</h3>
+			
+		</div> -->
+		<div class="list">
+			<ul id="xinrenid">
+				
+			</ul>
+		</div>
+		
+		
+</div>
+		
+		
+		
+		
+		
+	
+		<script type="text/javascript" src="../../script/api.js"></script>
+		<script type="text/javascript" src="../../script/doT.min.js" ></script>
+		<script type="text/x-dot-template" id="xinren">
+					{{for(i=0;i<it.length;i++){}}
+					<li>
+					
+					<a onclick="openWin('win','xiangxi','用户详情','one','xiangxi',true,{memberid:{{=it[i].uid}}})" tapmode>
+					
+					<!-- 通话的
+					<a onclick="Audience.openLive('2251515','3','222222')" tapmode>
+					-->
+					{{? it[i].wurao =='1' }}
+					<strong>勿扰</strong>
+					{{??}}
+					{{? it[i].manglu =='1' }}
+					<strong>热聊</strong>
+					{{??}}
+					<strong style="background-color: #9acc1f">空闲</strong>
+					{{?}}
+					{{?}}
+					<img src="{{=it[i].img||'../../img/pic16.jpg'}}" alt="" style="height:98%;border-radius: 10px;">
+					<div class="text">
+					<b>{{=it[i].nickname}}</b>
+					<p class="colorb">粉丝:{{=it[i].guanzhureshu}}人</p>
+					<!--
+					{{? $api.getStorage(CONFIG.memberInfo).sex == 1}}
+					<p class="colorb">{{=it[i].shipinprice}}钻石/分钟</p>
+					{{?}}
+					-->
+					<!--
+					{{? it[i].shichang !='0' }}
+					<p class="colorb">累计通话:{{=it[i].shichang}}分</p>
+					{{?}}
+					
+					-->
+					<p class="colorb" style="max-width: 130px;overflow: hidden;white-space: nowrap;">{{=it[i].signature||'暂无签名'}}</p>
+					</div>
+					</a>
+					</li>
+					{{}}}
+				</script>
+		<script type="text/javascript" src="../../script/common.js"></script>
+		<script type="text/javascript" src="../../script/ajpush.js"></script>
+		
+		<script type="text/javascript" src="../../script/audienceone.js" ></script>
+		<script type="text/javascript" src="../../script/rongCloud2.js"></script>
+		<script type="text/javascript" src="../../script/jquery-1.9.1.min.js"></script>
+		<script src="../../js/myjs.js"></script>
+		<script src="../../js/swiper-3.3.1.jquery.min.js"></script><!--轮播库-->
+	
+		<script type="text/javascript">
+		
+		
+		
+			function xinren(page) {
+				api.ajax({
+					url : window.DOMAIN + '/yiApp/xinren',
+					method : 'post',
+					data : {
+						values : {
+							id : $api.getStorage(CONFIG.memberId),
+							token : $api.getStorage(CONFIG.token),
+							page:page||0
+						}
+					}
+				}, function(ret, err) {
+				
+					if (ret) {
+					
+						var content = $api.byId('xinrenid');
+			
+			var tplHtml = doT.template($api.byId('xinren').innerHTML);
+			//alert(xinren_tplHtml);
+			
+			if(ret.length<=0){
+			Tool.toast('没有更多了哦~');
+			return;
+			}else{
+			if(page==0){
+			$api.html(content, tplHtml(ret)); 
+			}else{
+			$api.append(content, tplHtml(ret)); 
+			
+			}
+			}
+					} else {
+					
+					 Tool.toast('没有更多了哦~');
+					 return;
+					}
+				});
+			}
+			
+		
+		
+			//标识当前模块
+			
+			apiready = function() {
+			
+			var page=0;
+			
+			xinren(0);
+			   api.addEventListener({
+                                name : 'scrolltobottom',
+                                extra : {
+                                        threshold : 10 //设置距离底部多少距离时触发，默认值为0，数字类型
+                                }
+                        }, function(ret, err) {
+                        //$api.html($api.dom('#main'),'3333333333333');
+                               page++;
+                              // alert('上拉');
+                               xinren(page);
+                              
+                              
+                        });
+                        //下拉刷新
+                        api.setRefreshHeaderInfo({
+                                loadingImg : 'wgt://img/loading_more.gif',
+                                bgColor : '#FFF',
+                                textColor : '#333',
+                                textDown : '下拉刷新...',
+                                textUp : '松开刷新...'
+                        }, function(ret, err) {
+                        
+                            xinren(0);
+                            api.refreshHeaderLoadDone();
+                            //上拉刷新暂时没做
+                            
+                        });
+			
+			
+			
+			}
+		</script>
+	</body>
+</html>

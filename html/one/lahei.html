@@ -1,0 +1,207 @@
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<meta charset="utf-8">
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<title></title>
+	</head>
+	<style>
+		.ju {
+			filter: alpha(Opacity=80);
+			-moz-opacity: 0.7;
+			opacity: 0.5;
+			width: 100%;
+			height: 35%;
+			background-color: #1C1C1C;
+			text-align: center;
+			color: #FFFFFF;
+			border-radius: 5px;
+			font-size: 13px;
+			float: right;
+			margin-top: 1px;
+		}
+		.top {
+			margin-top: 1px
+		}
+		.topp {
+			margin-top: 4px;
+		}
+	</style>
+	<body>
+		<div style="width:100%;height:100%;">
+		
+			<div class="ju">
+				<div class="lahei topp"  onclick="lahei(this,event)" tapmode="">拉黑</div>
+			</div>
+			<div class="ju">
+				<div class="lahei topp"  onclick="jubao()" tapmode="">举报</div>
+			</div>
+			<div class="ju">
+				<div class="lahei topp fenxiang"  onclick="fenxiang(this)" tapmode="">分享</div>
+			</div>
+			<!--
+			<div class="ju top">
+			
+			<div class="lahei topp"  onclick="jubao()" tapmode="">举报</div>
+			
+				
+			</div>
+			<div class="ju top">
+			
+			<div class="lahei topp"  onclick="fenxiang()" tapmode="">分享</div>
+			
+				
+			</div>
+			-->
+		</div>
+		<script type="text/javascript" src="../../script/api.js"></script>
+		<script type="text/javascript" src="../../script/common.js"></script>
+		<script type="text/javascript" src="../../script/doT.min.js" ></script>
+		<script type="text/javascript" src="../../script/jquery-1.9.1.min.js" ></script>
+		<script type="text/javascript" src="../../script/jquery.lazyload.min.js" ></script>
+		<script>
+			//主播的id是 pageParam.id    NewGGBBV8Ht520S3
+			//自己的uid pageParam.uid   NewGGBBV8Ht520S3
+			function lahei(_this, event) {
+			
+				if ($api.hasCls(_this, 'lahei')) {
+					$api.removeCls(_this, 'lahei');
+					var moshi = 2;
+				} else {
+					$api.addCls(_this, 'lahei');
+					var moshi = 1;
+				}
+				var id = api.pageParam.id;
+				var uid = api.pageParam.uid;
+				//拉黑
+				ajax.get({
+					//				ctrl: 'zhiboApp',
+					ctrl : 'XIAOWUApp',
+					fn : 'lahei',
+					data : {
+						values : {
+							zboid : id,
+							zijiid : uid,
+							moshi : moshi
+						}
+					},
+					hideLoading : true,
+					showError : true,
+					showProgress : false,
+					success : function(ct) {
+						if (ct.moasdas == 32) {
+						var homepage=$api.getStorage('homepage');
+						homepage.lahei=1
+			$api.setStorage('homepage',homepage);
+						Tool.toast('拉黑成功');
+							api.closeFrame({
+								name : 'lahei'
+							});
+						}
+						if (ct.moasdas == 31) {
+						var homepage=$api.getStorage('homepage');
+				
+			homepage.lahei=0
+			$api.setStorage('homepage',homepage);
+						Tool.toast('取消拉黑成功');
+							api.closeFrame({
+								name : 'lahei'
+							});
+						}
+					}
+				});
+				return;
+			}
+
+			function jubao() {
+			var uid = pageParam.id;
+				api.openWin({
+				name : 'violation_win',
+				url : api.wgtRootDir + '/html/window/win_violation.html',
+				pageParam : {
+					headerTitle : "违规举报",
+					frameName : 'violation',
+					id : "111",
+					frameUrl : api.wgtRootDir + '/html/find/report_index.html'
+				}
+			});
+			}
+			
+			function fenxiang(_this) {
+			if ($api.hasCls(_this, 'fenxiangguanbi')) {
+			$api.removeCls(_this, 'fenxiangguanbi');
+			$api.text($api.dom('.fenxiang'),'分享');
+					api.closeFrame({
+					name:'share'
+                    });
+				} else {
+					
+				
+			api.openFrame({
+				name: 'share',
+				url: api.wgtRootDir + '/html/component/share.html',
+				bgColor: 'transparent',
+				rect: {
+					x: 0,
+					y: 0,
+					w: 'auto',
+					h: api.frameHeight
+				},
+				pageParam:{
+					shareurl: $api.getStorage('homepage').pcurl,
+					roomname: $api.getStorage('homepage').username
+				}
+			});
+			$api.text($api.dom('.fenxiang'),'关闭分享');
+			$api.addCls($api.dom('.fenxiang'), 'fenxiangguanbi');
+			}
+}
+			//先自动去查下
+			var pageParam = "";
+			apiready = function() {
+			
+			
+			if($api.getStorage('homepage').lahei==1){
+			$api.text($api.dom('.lahei'),'取消拉黑');
+			$api.removeCls($api.dom('.lahei'),'lahei');
+			var homepage=$api.getStorage('homepage');
+			homepage.lahei=0
+			$api.setStorage('homepage',homepage);
+			}
+			/*
+				pageParam = api.pageParam;
+				var id = pageParam.id;
+				var uid = pageParam.uid;
+				ajax.get({
+					//				ctrl: 'zhiboApp',
+					ctrl : 'XIAOWUApp',
+					fn : 'audience',
+					data : {
+						values : {
+							zboid : id,
+							zijiid : uid
+						}
+					},
+					hideLoading : true,
+					showError : true,
+					showProgress : false,
+					success : function(ctt) {
+						if (ctt.moasdas == 2) {
+						
+							$api.text($api.dom('.lahei'), '拉黑');
+							
+						}
+						if (ctt.moasdas == 1) {
+							$api.text($api.dom('.lahei'), '取消拉黑');
+						}
+					}
+				});
+				*/
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,318 @@
+<!doctype html>
+<html >
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no">
+		<title>开播申请</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/sweetalert.css"/>
+		<style type="text/css">
+			#main {
+				padding: 0 10px;
+				font-size: 14px;
+			}
+			.tel, .pwd, .code {
+				padding-top: 30px;
+				padding-bottom: 10px;
+				border-bottom: 1px solid #d9d9d9;
+			}
+			input {
+				padding-left: 10px;
+				width: 100%;
+			}
+			.tel input::-webkit-input-placeholder, .pwd input::-webkit-input-placeholder, .code input::-webkit-input-placeholder {
+				color: #909090;
+			}
+			.tel input:-moz-placeholder, .pwd input:-moz-placeholder, .code input:-moz-placeholder {
+				color: #909090;
+			}
+			.tel input::-moz-placeholder, .pwd input::-moz-placeholder, .code input::-moz-placeholder {
+				color: #909090;
+			}
+			.tel input:-ms-input-placeholder, .pwd input:-ms-input-placeholder, .code input:-ms-input-placeholder {
+				color: #909090;
+			}
+			.login_btn {
+				padding: 0 25px;
+				padding-top: 40px;
+			}
+			.login_btn > div {
+				border: 1px solid #FE5F99;
+				background-color: #f8dce6;
+				padding: 10px 0;
+				color: #FE5F99;
+				border-radius: 20px;
+			}
+			.forget {
+				color: #909090;
+				border-bottom: 1px solid #909090;
+			}
+			.get_code {
+				color: #909090;
+				font-size: 12px;
+				border-bottom: 1px solid #909090;
+			}
+			
+			.item-box{
+				margin-top: 10px;
+				background-color: #fff;
+				border-top: 0px solid #EBEBE9;
+				border-bottom: 1px solid #d9d9d9;
+			}
+			
+			.item{
+				padding-bottom: 10px;
+				margin-left: 10px;
+				min-height: 41px;
+			}
+			
+			.item-box .item:(:last-child){
+				border-bottom: 1px solid #EBEBE9;
+			}
+			
+			.item>div{
+				color: #909090;
+			}
+			
+			.text-right {
+				width: 35px;
+			}
+			
+			.ct-icon-arrow-right {
+				color: #909090;
+				font-size: 20px;
+				display: inline-block;
+				height: 100%;
+				z-index: 997;
+			}
+			
+			.img-frm,
+			.img {
+				background-image: url(../image/avatarzm.jpg);
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: cover;
+				border-radius: 10%;
+				width: 70px;
+				height: 40px;
+			}
+			.text-over,
+			.name {
+				display:-webkit-box!important;
+				overflow:hidden;
+				text-overflow:ellipsis;
+				word-break:break-all;
+				-webkit-box-orient:vertical;
+				-webkit-line-clamp:2;
+			}
+			select{
+				border: none;
+				border-radius: 0;
+				background-color: rgba(0,0,0,0);
+				margin: auto 0;
+				outline: none;
+				-webkit-appearance: none;
+				direction: rtl;
+				color: #909090;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main" >
+				<div class="pwd">
+					<input name="realname" type="input" placeholder="真实姓名" />
+				</div>
+				
+				 <div class="tel">
+					<input name="tel" type="tel" placeholder="请输入手机号" />
+				</div> 
+				
+				<div class="tel">
+				
+							<div style="width:50%;float:left"><input placeholder="绑定类型" /></div>
+							
+							<div class="ct-icon-arrow-right " style="float: right"></div>
+							<select class="flex-1  text shipinpriceselect" name="shipinprice" style="font-size: 14px;float: right">
+								<!--<option value="" selected="selected">支付类型</option>-->
+								<option value="支付宝">支付宝</option>
+								<!--<option value="微信号">微信号</option>-->
+							
+							</select>
+							<div class="content-color" >
+								<span class="content-color shipinprice"></span>
+							</div>
+							
+						
+				</div> 
+				
+				 <div class="tel">
+					<input name="zhanghao" type="tel" placeholder="请输入要绑定的账号" />
+				</div> 
+				 <div class="code flex-box">
+					<input name="code" class="flex-1" type="tel" placeholder="请输入验证码" />
+					<button class="get_code" onclick="get_code()" tapmode>
+						获取验证码
+					</button>
+				</div>  
+				
+				                                            
+			
+			
+				
+			
+			
+				
+				<div class="login_btn">
+					<div class="text-center" onclick="commit()" tapmode="">
+						提交审核
+					</div>
+				</div>
+				<!--<div class="text-center" style="padding-top: 30px;">
+				<span class="forget" onclick="openWin('win','agreement','用户协议','component','agreement')" tapmode="">用户许可及服务协议</span>
+				</div>-->
+			</div>
+		</div>
+	</body>
+	
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+<script>
+
+function commit() {
+
+			var realname = $api.trimAll($api.val($api.dom('[name=realname]'))),shipinprice = $api.trimAll($api.val($api.dom('[name=shipinprice]'))),code = $api.trimAll($api.val($api.dom('[name=code]'))), cardid = $api.trimAll($api.val($api.dom('[name=zhanghao]'))); tel = $api.trimAll($api.val($api.dom('[name=tel]')));
+			//pwd = $api.trimAll($api.val($api.dom('[name=pwd]')));
+			$api.dom('[name=realname]').blur();
+			$api.dom('[name=tel]').blur();
+			shipinprice='支付宝';
+			//alert('cardid'+cardid);			//alert('tel'+cardid);
+		
+			if (shipinprice == '' || shipinprice == '0') {
+				Tool.toast('请选择类型~');
+				return;
+			}
+			
+			if (realname == '') {
+				Tool.toast('姓名不能为空~');
+				return;
+			}
+			reg = /^[\u4E00-\u9FA5]{2,4}$/;
+			if (!reg.test(realname)) {
+				Tool.toast('请输入正确姓名');
+				return;
+			}
+			if (cardid == '') {
+				Tool.toast('绑定的账号不能为空~');
+				return;
+			}
+			
+			
+			if (!code) {
+				Tool.toast('验证码不能为空~');
+				return;
+			}
+			
+			
+			
+			//			if(!validatePassword(pwd)){
+			//				return;
+			//			}
+			ajax.get({
+				ctrl : 'zhiboApp',
+				fn : 'bangka',
+				data : {
+					values : {
+						id : $api.getStorage(CONFIG.memberId),
+						token : $api.getStorage(CONFIG.token),
+						realname : realname, //名字
+						cardid : cardid, //账号
+						tel : tel, //手机号
+						shipinprice : shipinprice, //类型
+						 code:code
+					}
+				},
+				showError : true,
+				showProgress : true,
+				hideLoading : true,
+				success : function(ct) {
+			
+			
+				
+					if(ct.code == 1){
+					
+				
+							
+							
+					Tool.toast('卡号'+cardid+'绑定成功');
+	setTimeout("api.closeWin({})","2000");
+					
+						
+						
+					}else if(ct.code == 3){
+					
+					api.toast({
+								msg : '验证码错误'
+							});
+					
+					}else if(ct.code == 4){
+					api.toast({
+								msg : '只能绑一个账号'
+							});
+					
+					}else{
+					
+					api.toast({
+								msg : '绑定失败'
+							});
+					
+					
+					}
+				
+				}
+			})
+		}
+//点击获取验证码
+		function get_code() {
+			var tel = $api.trimAll($api.val($api.dom('[name=tel]')));
+			if (!validatePhone(tel)) {
+				return;
+			}
+			ajax.get({
+				ctrl : 'zhiboApp',
+				fn : 'sendmsg',
+				data : {
+					values : {
+					id : $api.getStorage(CONFIG.memberId),
+						username : tel,
+						type : 1000
+					}
+				},
+				showError : true,
+				showProgress : true,
+				hideLoading : true,
+				success : function(ct) {
+					setTime();
+					Tool.toast('验证码发送成功，请注意查收~');
+				}
+			})
+		}
+
+		//倒计时
+		function setTime() {
+			var count = 60, code = $api.dom('.get_code');
+			code.disabled = true;
+			var InterValObj = setInterval(function() {
+				if (count > 0) {
+					$api.text(code, (count--) + 's后再发送');
+				} else {
+					clearInterval(InterValObj);
+					code.disabled = false;
+					$api.text(code, '获取验证码');
+				}
+			}, 1000);
+		}
+</script>
+</html>

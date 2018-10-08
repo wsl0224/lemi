@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no">
+	<title>我的二维码</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css" media="screen">
+			html,body,#main{
+				font-size: 14px;
+				background-color: #FCFBF5;
+
+			}
+			.item-box{
+				margin-top: 8px;
+				background-color: #fff;
+				border-top: 1px solid #EBEBE9;
+				border-bottom: 1px solid #EBEBE9;
+			}
+			.item-text{
+				width: 100%;
+				text-align: center;
+			}
+			.item{
+				padding: 10px;
+				margin-left: 10px;
+				min-height: 61px;
+			}
+			.item-box .item:not(:last-child){
+				border-bottom: 1px solid #EBEBE9;
+			}
+			.item>div{
+				color: #909090;
+			}
+			.img-frm,
+			.img {
+				background-image: url(../../img/pic8.jpg);
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: cover;
+				margin: 0 auto;
+				width: 200px;
+				height: 200px;
+			}
+		</style>
+</head>
+<body>
+	<div id='wrap'>
+		<div id='main'>
+			<div class="item-box">
+				<div class="item-text">
+					
+				</div>
+				<div class="item dimensional flex-box flex-h-ce" imgUrl="" data-status="" data-key="" data-callbackEvent="uploadDimensional" onclick="uploadDimensional()" tapmode>
+						<div class="img-frm">
+							<div class="img relative" data-original="">
+								<div class="upload-status flex-box hidden" style="background-color: rgba(0,0,0,0.4);border-radius:50%;-webkit-border-radius:50%;font-size: 11px;">
+									<div class="flex-1" style="color: #fff;">
+										等待上传
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+			</div>
+		</div>
+		
+		
+	</div>
+</body>
+<script type="text/template" template="dimensional">
+		<div class="close hidden"></div>
+		<div class="img relative" style="background-image: url({{= Tool.imageCompressByQiNiu(it, 0, 800, 800) }});background-size: cover;background-position: center;">
+			<div class="upload-status flex-box " style="background-color: rgba(0,0,0,0.4);border-radius:50%;-webkit-border-radius:50%;font-size: 11px;">
+				<div class="flex-1 status" style="color: #fff;">
+					等待上传
+				</div>
+			</div>
+		</div>
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/upload.js" ></script>
+	<script type="text/javascript" src="../../script/jquery-1.9.1.min.js" ></script>
+	<script type="text/javascript" src="../../script/jquery.lazyload.min.js" ></script>
+	<script type="text/javascript" src="../../script/jquery.ellipsis.js" ></script>
+	<script type="text/javascript">
+			var DimensionalUrl = '';
+			// 上传二维码
+			function uploadDimensional(){
+
+			if($api.getStorage(CONFIG.qrCode)=='qrCode'||$.getStorage(CONFIG.qrCode)==undefined){
+				Tool.actionSheet({
+				buttons:['拍照上传','相册选择照片'],
+				success:function(buttonIndex){
+					if(buttonIndex < 3){
+						Tool.getOnePic({
+							encodingType: 'jpg',
+							sourceType: buttonIndex === 1 ? 'camera' : 'library',
+							allowEdit: true,
+							success:function(ret){
+								DimensionalUrl = ret.data;
+								$api.setStorage(CONFIG.qrCode, DimensionalUrl);
+								T.html('.img-frm', 'dimensional',ret.data);
+								Upload.init({
+									file: {
+										url: DimensionalUrl,
+										callbackEvent: 'uploadDimensional'
+									}
+								});
+							}
+						});
+					}
+				}
+			})
+			}
+
+		}
+
+		function memberInfo() {
+			ajax.get({
+				//				ctrl: 'zhiboApp',
+				//				fn: 'memberinfo',
+				ctrl : 'zhiboApp',
+				fn : 'memberinfo',
+				data : {
+					values : {
+						id : $api.getStorage(CONFIG.memberId),
+						token : $api.getStorage(CONFIG.token)
+						
+					}
+				},
+				hideLoading : true,
+				showError : true,
+				showProgress : true,
+				success : function(ct) {
+					if(ct.qr_code){
+							$api.html($api.dom('.item_text'), '点击下图上传二维码');
+					
+					}else{
+						$api.html($api.dom('.item_text'), '');
+					}
+					$api.setStorage(CONFIG.qrCode, ct.qr_code);
+					$api.dom('.img').style.backgroundImage = 'url("' + Tool.imageCompressByQiNiu(ct.qr_code, 0, 200, 200) + '")';
+					$api.dom('.img').style.backgroundSize = 'cover';
+					$api.dom('.img').style.backgroundPosition = 'center';
+				}
+			});
+		}
+		apiready = function(){
+			memberInfo();
+		
+			//上传二维码
+			api.addEventListener({
+				name: 'uploadDimensional'
+			}, function(ret, err) {	
+				var key = $api.attr($api.dom('.dimensional'), 'data-key');
+				if(key) {
+					ajax.get({
+						ctrl: 'Pc',
+						fn: 'qr_code',
+						data: {
+							values: {
+								id: $api.getStorage(CONFIG.memberId),
+								token: $api.getStorage(CONFIG.token),
+							
+								qr_code: $api.getStorage(CONFIG.qrCode),
+							}
+						},
+						hideLoading: true,
+						showError: true,
+						showProgress: false,
+						success: function() {
+				
+							Tool.toast('修改二维码成功~');
+							//刷新我的二维码
+							api.showProgress();
+							
+							api.hideProgress();
+						}
+
+					});
+				}else {
+					
+					Tool.toast('修改二维码失败，请重新上传~');
+				}
+			});
+		}
+	</script>
+</html>
