@@ -27,14 +27,13 @@
             var list_w = (el_w/col)-padding-space;
 
             $api.css(el,'-webkit-column-width:'+list_w+'px;-webkit-column-count: '+col+';padding:'+padding+'px;-webkit-column-gap:'+space+'px;');
+
             
         }
         _setting();
         _init();
-        
+
     }
     window.$aui = aui;
 
 })(window);
-
-
