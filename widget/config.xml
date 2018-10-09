@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<widget id="A6083439442739" version="0.0.1">  
+<widget id="A6083439442739" version="0.0.1">
   <name>天空</name>
   <description/>
   <author email="45722415754@qq.com" href="http://www.apicloud.com">牛招</author>
@@ -14,7 +14,7 @@
   <preference name="fullScreen" value="false"/>
   <preference name="autoUpdate" value="true"/>
   <preference name="smartUpdate" value="true"/>
-  <preference name="debug" value="false"/>
+  <preference name="debug" value="true"/>
   <preference name="iOS7StatusBarAppearance" value="true"/>
   <preference name="softInputMode" value="resize"/>
   <preference name="urlScheme" value="yyszbapp"/>
