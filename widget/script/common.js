@@ -73,13 +73,13 @@
 		window.PROJECT_NAME = 'zhibo';
 		//是否为正式(生产)环境
 		window.IS_FORMAL_ENV = true;
-		
+
 		//域名
 //		window.DOMAIN = IS_FORMAL_ENV ? 'http://app.lianjiezhibo.com'
 //																	: 'http://testzhibo.milianjie.com';
 		// window.DOMAIN = 'http://www.zmwha.com';//wsl2018.9.30
-		window.DOMAIN = 'http://192.168.2.106/lemiapi';
-		// window.DOMAIN = 'http://www.libokeji.cn/lemiapi';
+		// window.DOMAIN = 'http://192.168.2.106/lemiapi';
+		 window.DOMAIN = 'http://www.libokeji.cn/lemiapi';
 		window.CONFIG = {
 				VERSION: '1.0.0',	//app版本号，是组成本地数据库文件的名称的一部分
 		 		DEBUG: IS_FORMAL_ENV ? false : true,
@@ -336,7 +336,7 @@
 
 	            return mark;
 	        }
-	        
+
 	    };
 	    u.remove = function(el){
 	        if(el && el.parentNode){
@@ -456,7 +456,7 @@
 	                    break;
 	            }
 	        }
-	        
+
 	    };
 	    u.prepend = function(el, html){
 	        if(!u.isElement(el)){
@@ -600,7 +600,7 @@
 	        }
 	    };
 
-	   
+
 	    /*by king*/
 	    u.fixIos7Bar = function(el){
 	        if(!u.isElement(el)){
@@ -732,7 +732,7 @@
 	    };
 
 	/*end*/
-	    
+
 
 	    window.$api = u;
 
@@ -746,7 +746,7 @@
 /***/ function(module, exports) {
 
 	/*调试模块
-	 * 
+	 *
 	 */
 	!function(window){
 		var d = {
@@ -792,7 +792,7 @@
 					    });
 					}
 				}catch(e){
-					
+
 				}
 			},
 			append: function(selector, template, data){
@@ -806,7 +806,7 @@
 					    });
 					}
 				}catch(e){
-					
+
 				}
 			},
 			prepend: function(selector, template, data,lazyload,lazyload_container,lazyload_selector){
@@ -820,7 +820,7 @@
 					    });
 					}
 				}catch(e){
-					
+
 				}
 			}
 		};
@@ -832,7 +832,7 @@
 /* 5 */
 /***/ function(module, exports) {
 
-	
+
 	/*
 	 * 创建于2015-05-23
 	 * DB模块封装了手机常用数据库sqlite的增删改查语句
@@ -1338,7 +1338,7 @@
 				var str ='';
 				if(url=='0'){
 				return '../../img/pic16.jpg';
-				
+
 				}
 				//alert(url); 去掉数字？什么情况
 				if(url!=null&&url!=undefined&&isNaN(url)){
@@ -1455,7 +1455,7 @@
 					scrollToBottom: args.scrollToBottom || scrollToBottom,
 					exchange: true
 				}, function(ret) {
-				
+
 					var index = 0; //记录图片索引
 
 					//闭包：将相册图片地址转换为可以直接使用的本地路径地址（临时文件夹的绝对路径）
@@ -1467,7 +1467,7 @@
 								ret.list[index].path = ret2.path;
 								index += 1;
 								if (ret.list.length > index) {
-								
+
 									//继续转换下一张图片路径
 									transPath(ret.list[index].path);
 								} else {
@@ -1478,14 +1478,14 @@
      			//transPath(ret.list[index].path);
     			//	} else {
     				//alert(77);
-var indexeee = ret.list[index].path .lastIndexOf("\/");  
+var indexeee = ret.list[index].path .lastIndexOf("\/");
 wenjianming  = ret.list[index].path .substring(indexeee + 1, ret.list[index].path .length);
 //alert('最原始文件名'+wenjianming);
 var yuanwenjianming=wenjianming;
-wenjianming = wenjianming.replace(/_/g, "");//取消字符串中出现的所有逗号 
-wenjianming = wenjianming.replace(/ /g, "");//取消字符串中出现的所有逗号 
-wenjianming = wenjianming.replace(/　/g, "");//取消字符串中出现的所有逗号 
-wenjianming = wenjianming.replace(/-/g, "");//取消字符串中出现的所有逗号 
+wenjianming = wenjianming.replace(/_/g, "");//取消字符串中出现的所有逗号
+wenjianming = wenjianming.replace(/ /g, "");//取消字符串中出现的所有逗号
+wenjianming = wenjianming.replace(/　/g, "");//取消字符串中出现的所有逗号
+wenjianming = wenjianming.replace(/-/g, "");//取消字符串中出现的所有逗号
 //alert('去掉下滑线空格文件名'+wenjianming);
 
 
@@ -1494,11 +1494,11 @@ if (escape(wenjianming).indexOf( "%u" )>=0) {
 var reg111=/[\u4E00-\u9FA5]/g;
 		var wenjianming=wenjianming.replace(reg111,'');
 		wenjianming= wenjianming.replace(/(^\s+)|(\s+$)/g, "");
-		
+
 }else{
 //alert('无中文'+wenjianming);
 }
-		
+
 //alert('1文件名：'+wenjianming);
 //alert('完整文件名：'+ret.list[index].path);
 
@@ -1536,12 +1536,12 @@ fs.rename({
    // alert('22原文件名：'+yuanwenjianming);
       //  alert('33path路径：'+ret.list[index].path);
         args.success(ret)
-        
+
     } else {
        // alert('重命名失败'+JSON.stringify(err667));
     }
 });
-		
+
 }else{
 //alert('出来了1');
 ret.list[index].path='fs://'+wenjianming;
@@ -1568,7 +1568,7 @@ ret.list[index].path='fs://'+wenjianming;
 }, function(ret22, err) {
     if (ret22.status) {
     //如果原文件名有中文
- 
+
   //如果原文件名有中文
     if (yuanwenjianming!=wenjianming) {
 //alert('11有中文');
@@ -1584,12 +1584,12 @@ fs.rename({
     //alert('原文件名：'+yuanwenjianming);
        // alert('path路径：'+ret.list[index].path);
         args.success(ret)
-        
+
     } else {
        // alert('重命名失败'+JSON.stringify(err667));
     }
 });
-		
+
 }else{
 
 //alert('出来了222');
@@ -1604,7 +1604,7 @@ ret.list[index].path='fs://'+wenjianming;
 
 }
  //如果原文件名有中文结束
-  
+
     } else {
      // alert('错误'+JSON.stringify(err));
     }
@@ -1615,17 +1615,17 @@ ret.list[index].path='fs://'+wenjianming;
 
 
     				//中文开始
-    				
+
 
     				//中文结束
-    			
+
     				//Tool.toast('清晰图片请选择非中文目录~');
     				//中文
       			//transPath(ret.list[index].thumbPath);
     						//}
-								
+
 									//执行回调，返回转换路径后的图片数组
-									
+
 								}
 							}
 						});
@@ -1633,11 +1633,11 @@ ret.list[index].path='fs://'+wenjianming;
 
 					if (ret.list instanceof Array && ret.list.length != 0) {
 						if (args.transPath) {
-						
-					
+
+
      			transPath(ret.list[index].path);
-    				
-						
+
+
 						} else {
 							args.success(ret)
 						}
@@ -1650,7 +1650,7 @@ ret.list[index].path='fs://'+wenjianming;
 				this.getOneMedia(args);
 			},
 			getOneMedia: function(args) {
-		
+
 				/**
 				 * 通过系统相册或拍照获取单张图片的回调函数
 				 * @callback	getOneMediaCallback
@@ -2510,17 +2510,17 @@ ret.list[index].path='fs://'+wenjianming;
 				 * 				boolean test
 				 *				string template 渲染模板
 				 *				string wrapper 渲染父节点, 模板的包裹层节点
-				 *				number countType 
+				 *				number countType
 				 * 					0 默认统计模式，page/pagesize并用;
 				 * 					1 时间戳模式，以时间戳为标识获取更多数据;
 				 *				function count 自定义判断加载条件是否符合，针对特殊场景，可为空
-				 *					return t{	
+				 *					return t{
 				 *						number status (0:马上终止执行下面的逻辑)
 				 *						json values	异步请求所需的参数(status=1:返回values)
 				 *					}
 				 *				string field 异步返回的ct里，需要被遍历合成模板的字段，如：ct[field]
 				 *				string countSelector 通过该css选择器获取当前节点数，判断是否符合加载下一个分页数据的条件
-				 * 				
+				 *
 				 */
 				api.addEventListener({
 					name: 'scrolltobottom'
@@ -2572,10 +2572,10 @@ ret.list[index].path='fs://'+wenjianming;
 								}
 							}catch(e){
 								return;
-							}		
+							}
 						}
 					}
-						
+
 //					 Debug.alt(JSON.stringify(args.values,null,2));
 					/*渲染“加载更多”UI*/
 					var loadMoreCode = ''+
@@ -2754,7 +2754,7 @@ ret.list[index].path='fs://'+wenjianming;
 			*参数
 			* string/number pts 过去的时间戳
 			* boolean flag: '我的消息'一周之外只显示：月/日
-			*/	
+			*/
 			pts = this.formatTS(pts);
 			var now = new Date(),
 					nts = now.getTime(),
@@ -2782,22 +2782,22 @@ ret.list[index].path='fs://'+wenjianming;
 				moment = '下午 ';
 			}else{
 				moment = '晚上 ';
-			}		
+			}
 			if(flag){
 				return (pass.getMonth()+1) + '月' + pass.getDate() + '日';
 			}else{
 				return (pass.getMonth()+1) + '月' + pass.getDate() + '日 ' + moment + (pass.getHours()>9?pass.getHours():'0'+pass.getHours()) + ':' + (pass.getMinutes()>9?pass.getMinutes():'0'+pass.getMinutes());
-			}		
+			}
 		};
 		d.t2 = function(ts){
 			/*仿微信朋友圈列表发布时间
-			 * ts 发布时间戳 
+			 * ts 发布时间戳
 			 */
 			ts = this.formatTS(ts);
 			var now = new Date(),
 					nts = now.getTime(),
 					pts = nts - ts; //时间差
-			
+
 			if(pts < 1000*60){
 				return '刚刚';
 			}else if(pts < 1000*60*60){
@@ -2841,8 +2841,8 @@ ret.list[index].path='fs://'+wenjianming;
 			/*由于PHP返回的时间戳为10位，不足13位则补充*/
 			if(ts.toString().length < 13){
 				ts *= 1000;
-			}		
-			return ts;		
+			}
+			return ts;
 		};
 		/*时间格式化f系列方法*/
 		d.f1 = function(t, flag){
@@ -2859,7 +2859,7 @@ ret.list[index].path='fs://'+wenjianming;
 				var moment;
 				/*三天内*/
 				if(now.getDate() == pass.getDate()){
-					/*今天*/ 
+					/*今天*/
 					var hours = pass.getHours();
 					if(hours>=0 && hours<6){
 						moment = '凌晨 ';
@@ -2881,7 +2881,7 @@ ret.list[index].path='fs://'+wenjianming;
 				}
 				return (moment||(pass.getMonth()+1)+'月'+pass.getDate()+'日 ') + (pass.getHours()>9?pass.getHours():'0'+pass.getHours()) + ':' + (pass.getMinutes()>9?pass.getMinutes():'0'+pass.getMinutes());
 			}
-			return false;		
+			return false;
 		};
 		d.isInWeek = function(pts, now){
 			/*是否在这一周内*/
@@ -2920,7 +2920,7 @@ ret.list[index].path='fs://'+wenjianming;
 			}
 			return false;
 		};
-		
+
 		window.D = d;
 	})(window);
 
@@ -2930,7 +2930,7 @@ ret.list[index].path='fs://'+wenjianming;
 /* 12 */
 /***/ function(module, exports) {
 
-	
+
 	/*表单字段验证
 	 * 创建于2016-1-27
 	 */
@@ -2953,7 +2953,7 @@ ret.list[index].path='fs://'+wenjianming;
 			}
 		}
 	};
-		
+
 		window.Former = f;
 	}(window);
 
@@ -3068,10 +3068,10 @@ function memberInfo(callback) {
 						setTimeout("openWin('win','sex','性别选择','one','sex',true)", "3500");
 
 		//return;
-		
-		
+
+
 		}
-		
+
 			//alert(ct.teding);
 			//$api.setStorage('teding', ct.teding||0);
 				$api.setStorage(CONFIG.memberInfo, ct);
@@ -3091,7 +3091,7 @@ function jpush(tags, callback) {
 		alias: alias,
 		tags: tags
 	};
-	JPush.init(function(ret) {	
+	JPush.init(function(ret) {
 //		Debug.alt('初始化成功!');
 		JPush.bindAliasAndTags(param, function() {
 //			Debug.alt('绑定别名成功')
@@ -3386,22 +3386,22 @@ function openLiveGroup(roomid,memberid,pwd){
 			bounces: false
 		}]
 	},function(ret,err){
-		
+
 	})
 }
 
 
 //格式化金额
-function fmoney(s, n) { 
+function fmoney(s, n) {
 	console.log(typeof s)
-	n = n > 0 && n <= 20 ? n : 2; 
-	s = parseFloat((s + "").replace(/[^\d\.-]/g, "")).toFixed(n) + ""; 
-	var l = s.split(".")[0].split("").reverse(), r = s.split(".")[1]; 
-	t = ""; 
-	for (i = 0; i < l.length; i++) { 
-	t += l[i] + ((i + 1) % 3 == 0 && (i + 1) != l.length ? "," : ""); 
-	} 
-	return t.split("").reverse().join("") + "." + r; 
+	n = n > 0 && n <= 20 ? n : 2;
+	s = parseFloat((s + "").replace(/[^\d\.-]/g, "")).toFixed(n) + "";
+	var l = s.split(".")[0].split("").reverse(), r = s.split(".")[1];
+	t = "";
+	for (i = 0; i < l.length; i++) {
+	t += l[i] + ((i + 1) % 3 == 0 && (i + 1) != l.length ? "," : "");
+	}
+	return t.split("").reverse().join("") + "." + r;
 }
 
 
@@ -3433,7 +3433,7 @@ function getRongToken(callback){
 
 /*
 function getRongToken(callback){
-		
+
 		api.ajax({
 		    url: window.DOMAIN + '/zhiboApp/getRongCloudToken',
 		    method: 'post',
@@ -3445,7 +3445,7 @@ function getRongToken(callback){
 		    }
 		}, function(ret, err) {
 		       callback(ret.content);
-		   
+
 		});
 
 }
@@ -3534,7 +3534,7 @@ function sendText(text,type,isLiver){
 			level: memberinfo.level,
 		}
 	};
-	
+
 	if(type == 1){
 		ajax.get({
 			ctrl: 'zhiboApp',
@@ -3560,7 +3560,7 @@ function sendText(text,type,isLiver){
 	}else{
 		send();
 	}
-	
+
 	function send(){
 		QJ.Chat.sendText({
 			text: text,
@@ -3593,13 +3593,13 @@ function renderGiftMsg(extra){
 /*渲染弹幕*/
 function barrage(extra,text){
 	var item={
-	   img:extra.avatar, //图片 
-	   info:text, //文字 
-	   close:false, //显示关闭按钮 
-	   duration:8000, //延迟,单位秒,默认6 
-	   bottom:0, //距离底部高度,单位px,默认随机 
-	   color:'#fff', //颜色,默认白色 
-	   old_ie_color:'#000000', //ie低版兼容色,不能与网页背景相同,默认黑色 
+	   img:extra.avatar, //图片
+	   info:text, //文字
+	   close:false, //显示关闭按钮
+	   duration:8000, //延迟,单位秒,默认6
+	   bottom:0, //距离底部高度,单位px,默认随机
+	   color:'#fff', //颜色,默认白色
+	   old_ie_color:'#000000', //ie低版兼容色,不能与网页背景相同,默认黑色
 	 }
 	$('.barrage_list_box').barrager(item);
 }
@@ -3758,7 +3758,7 @@ function roomnews(callback){
 			var memberinfo = $api.getStorage(CONFIG.memberInfo);
 			memberinfo.diamonds = ct.diamonds;
 			$api.setStorage(CONFIG.memberInfo,memberinfo);
-			
+
 			//过滤直播公告内容的html标签
       ct.notice = Tool.removeHTMLTag(ct.notice);
 			T.html('#wrap','main',ct,true);
@@ -3955,15 +3955,15 @@ function parseWan(num) {
 			}
 			return result;
 		}
-		
-		
+
+
 		//加密函数大斌
 		function tt(word){
-		
+
 		var timestamp = word;
 		if(typeof(timestamp)=='undefined'){
 		timestamp=0;
-		
+
 		}else{
 	    timestamp=timestamp.replace(/a/g, "0");
 	    timestamp=timestamp.replace(/j/g, "1");
@@ -3980,8 +3980,8 @@ function parseWan(num) {
 	   	}
 	    return timestamp;
 		}
-		
-	
+
+
 function setOnReceiveMessageListener(ret){
 
 	//alert("接收融云推送"+JSON.stringify(ret));
@@ -3992,14 +3992,14 @@ function setOnReceiveMessageListener(ret){
 					if(extra && typeof extra == 'string' && extra != '') {
 						extra = JSON.parse(extra);
 					}
-					 
+
 					switch(ret.message.objectName) {
 						case "RC:TxtMsg":
 							var ext = extra.extra;
 							if(ext && typeof ext == 'string' && ext != '') {
 								ext = JSON.parse(ext);
 							}
-							
+
 							switch(extra.type) {
 								case 1: //自定义消息类型： 文字消息
 									T.append('.live_msg', 'live_msg_text', {
@@ -4054,12 +4054,12 @@ function setOnReceiveMessageListener(ret){
 											}
 											//设置房间人数
 											$api.text($api.dom('.online_count'), $api.domAll('.fans').length);
-											
+
 											break;
 										case 2: //自定义 消息子类型：观众退出直播房间
 										//alert($api.dom('#fans' + ext.memberid));
 											//test111();
-											
+
 											//Audience.setRoomMemberCount();
 											if($api.dom('#fans' + ext.memberid)) {
 												$api.remove($api.dom('#fans' + ext.memberid));
@@ -4109,10 +4109,10 @@ function setOnReceiveMessageListener(ret){
 									}
 									break;
 								case 5: //自定义消息类型： 爱心消息
-								
+
 									hearts();
-								
-									
+
+
 									break;
 								case 6: //自定义消息类型： 爱心消息
 														api.openFrame({
@@ -4127,81 +4127,81 @@ function setOnReceiveMessageListener(ret){
 											},
 											pageParam: {
 												mid: ext.aid, // 主播id
-												roomid: ext.aid //房间id 
+												roomid: ext.aid //房间id
 											}
 										});
-									
+
 									break;
 									case 7: //自定义消息类型： 踢人的融云触发 大斌加的
-								
-								
+
+
 									tren(); //踢人
-									
+
 									break;
 									case 8: //自定义消息类型： 时间收费踢人的融云触发 大斌加的
 								//alert(JSON.stringify(ext.memberid))
-								
+
 									trennew(ext.memberid,ext.fangjianid); ///管理员单独T人
-									
+
 									break;
 									case 9: //自定义消息类型：解除T人  大斌加的  未完成
 								//alert(JSON.stringify(ext.memberid))
-								
+
 									trennew1(ext.memberid,ext.fangjianid); ///管理员单独T人
-									
+
 									break;
 									case 10: //私密房间主播端加魅力大斌
-									
+
 									var liveCharm = $api.dom('.live_charm');
 									$api.text(liveCharm, parseInt($api.text(liveCharm)) + parseInt(ext.charm));
 								case 11: //自定义消息类型： 私密收费踢人的融云触发 大斌加的
-								
-								
+
+
 									smtren(); //踢人
 										break;
 									case 13: //自定义消息类型： 私密收费踢人的融云触发 大斌加的
-								
-								
+
+
 									yuyinkai(); //踢人
-									
+
 									break;
 								case 14: //自定义消息类型： 私密收费踢人的融云触发 大斌加的
-								
-								
+
+
 									yuyinguan(); //踢人
-									
+
 									break;
 									case 20: //自定义消息类型： 私密收费踢人的融云触发 大斌加的
-								
-	
-							
+
+
+
 							if(extra.sendid!=$api.getStorage(CONFIG.memberId)){
 									openP2P(extra.sendid,extra.roomid); //发起连麦的ID
 									}
-									
+
 									break;
-									
+
 									case 21: //自定义消息类型：通知回主播
 								//alert('1房间'+JSON.stringify(ret));
-	
-							
+
+
 									openP2Pok(extra.sendid,extra.roomid); //发起连麦的ID
-									
+
 									break;
-									
+
 							case 25: //自定义消息类型：通知主播拒绝打开摄像头
 								//alert('1房间'+JSON.stringify(ret));
-	
-							
+
+
 									jujue($api.getStorage('yonghuname')); //发起连麦的ID
-									
+
 									break;
 									case 28: //自定义消息类型：通知主播关闭房间
-								
-	
-							
+
+
+
 									Anchor.quitLive();
-									
+
 									break;
 								default:
 									break;
@@ -4210,11 +4210,11 @@ function setOnReceiveMessageListener(ret){
 						case "RC:InfoNtf": //渲染  直播房间 公告消息
 						var extra = ret;
 					var ext = extra.text;
-						
+
 						if(ext && typeof ext == 'string' && ext != '') {
 						ext = JSON.parse(ret.text);
 					}
-					
+
 							T.append('.live_msg', 'live_msg_notice', {
 								notice: ext.nickName+'送了1个'+ext.giftName
 							});
@@ -4223,7 +4223,7 @@ function setOnReceiveMessageListener(ret){
 						default:
 							return;
 					}
-					
+
 					if (ret) {
 								api.sendEvent({
 									name : 'newMessage',
@@ -4231,10 +4231,10 @@ function setOnReceiveMessageListener(ret){
 								});
 								setBadge();
 							}
-					
-					
-						
-						
+
+
+
+
 }
 
 		function setBadge() {
@@ -4264,7 +4264,7 @@ function setOnReceiveMessageListener(ret){
 				}
 			});
 		}
-		
+
 function sendCloseText(aid){
 	//推送主播退出消息
 	extra = {
@@ -4285,7 +4285,7 @@ function sendCloseText(aid){
 function charging(){
 
 shoufei()
- window.shijianshoufei=setInterval('shoufei()',60000); 
+ window.shijianshoufei=setInterval('shoufei()',60000);
 //在控制台打印s1确认只调用一次。
 
  }
@@ -4293,18 +4293,18 @@ shoufei()
 function chargingone(){
 
 shoufeione();
- window.shijianshoufeione=setInterval('shoufeione()',60000); 
+ window.shijianshoufeione=setInterval('shoufeione()',60000);
 //在控制台打印s1确认只调用一次。
 
  }
  //1分钟后收费
  function charging1(){
- window.shijianshoufei=setInterval('shoufei()',60000); 
+ window.shijianshoufei=setInterval('shoufei()',60000);
 //在控制台打印s1确认只调用一次。
 
  }
 function shoufeione() {
-		
+
 			api.ajax({
 		    url: window.DOMAIN + '/zhiboApp/timeChargingone',
 		    method: 'post',
@@ -4328,21 +4328,21 @@ function shoufeione() {
 							quitjsone(); //关闭
 					}else{
 					//alert('aa'+api.pageParam.memberid);
-					
-					
+
+
 					var memberinfo = $api.getStorage(CONFIG.memberInfo);
-					
+
 					memberinfo.diamonds = ret.diamonds|| 0;
 					//$api.setStorage('teding', ct.teding);
 					$api.setStorage(CONFIG.memberInfo, memberinfo);
-					
+
 					// 这个是修改用户端魅力，私密 ，暂时无效 var liveCharm = $api.dom('.live_charm');
 
 					//$api.text(liveCharm, '10');
 					//alert('eeee'+JSON.stringify(ret.charm));
 					//下面这里是发送融云消息，给用户加钱
-				
-			
+
+
 			api.sendEvent({  //发送用户端的魅力
     name: 'yonghumeili',
     extra: {
@@ -4352,19 +4352,19 @@ function shoufeione() {
 					//var liveCharm = $api.dom('.live_charm');// 时间收费用户端定时加魅力大斌
 						//	alert('ggss'+ret.charm);
 							//alert('1ggss'+liveCharm);
-					//$api.text(liveCharm,parseInt($api.text(liveCharm))+parseInt(ret.charm)); // 时间收费用户端定时加魅力大斌		
-							
+					//$api.text(liveCharm,parseInt($api.text(liveCharm))+parseInt(ret.charm)); // 时间收费用户端定时加魅力大斌
+
 					if(ret.charm>'0'){
 					//alert('ee'+JSON.stringify(ret.charm));
 					var extra = {
 						type : 10,
 						extra : {
-							
+
 							roomid : api.pageParam.roomid, //房间号
-							
+
 							charm : ret.charm|| 0,
-							memberid : api.pageParam.memberid 
-							
+							memberid : api.pageParam.memberid
+
 						}
 					}
 					RongCloud2.sendTextMessage({
@@ -4377,13 +4377,13 @@ function shoufeione() {
 					})
 					$api.setStorage('sjcharm', 0); //写入魅力
 					}
-					
+
 					}
-		   
+
 		});
 		}
 function shoufei() {
-		
+
 			api.ajax({
 		    url: window.DOMAIN + '/zhiboApp/timeCharging',
 		    method: 'post',
@@ -4408,20 +4408,20 @@ function shoufei() {
 					}else{
 					//alert('aa'+api.pageParam.memberid);
 					//alert('bb'+api.pageParam.roomid);
-					
+
 					var memberinfo = $api.getStorage(CONFIG.memberInfo);
-					
+
 					memberinfo.diamonds = $api.getStorage('timePrice')|| 0;
 					//$api.setStorage('teding', ct.teding);
 					$api.setStorage(CONFIG.memberInfo, memberinfo);
-					
+
 					// 这个是修改用户端魅力，私密 ，暂时无效 var liveCharm = $api.dom('.live_charm');
 
 					//$api.text(liveCharm, '10');
 					//alert('eeee'+JSON.stringify(ret.charm));
 					//下面这里是发送融云消息，给用户加钱
-				
-			
+
+
 			api.sendEvent({  //发送用户端的魅力
     name: 'yonghumeili',
     extra: {
@@ -4431,19 +4431,19 @@ function shoufei() {
 					//var liveCharm = $api.dom('.live_charm');// 时间收费用户端定时加魅力大斌
 						//	alert('ggss'+ret.charm);
 							//alert('1ggss'+liveCharm);
-					//$api.text(liveCharm,parseInt($api.text(liveCharm))+parseInt(ret.charm)); // 时间收费用户端定时加魅力大斌		
-							
+					//$api.text(liveCharm,parseInt($api.text(liveCharm))+parseInt(ret.charm)); // 时间收费用户端定时加魅力大斌
+
 					if(ret.charm>'0'){
 					//alert('ee'+JSON.stringify(ret.charm));
 					var extra = {
 						type : 10,
 						extra : {
-							
+
 							roomid : api.pageParam.roomid, //房间号
-							
+
 							charm : ret.charm|| 0,
-							memberid : api.pageParam.memberid 
-							
+							memberid : api.pageParam.memberid
+
 						}
 					}
 					RongCloud2.sendTextMessage({
@@ -4456,9 +4456,9 @@ function shoufei() {
 					})
 					$api.setStorage('sjcharm', 0); //写入魅力
 					}
-					
+
 					}
-		   
+
 		});
 		}
 		function shoufeism() {
@@ -4469,7 +4469,7 @@ function shoufei() {
 																hideLoading : true,
 																showError : true,
 																showProgress : true,
-																
+
 																data : {
 																	values : {
 																		id : $api.getStorage(CONFIG.memberId),
@@ -4479,30 +4479,30 @@ function shoufei() {
 																	}
 																},
 																success : function(ct) {
-																
+
 																	if (ct.state == 1) {
 																		var memberinfo = $api.getStorage(CONFIG.memberInfo);
 					memberinfo.diamonds = ct.diamonds;
-				
+
 					//$api.setStorage('teding', ct.teding);
 					$api.setStorage(CONFIG.memberInfo, memberinfo);
-					
+
 					// 这个是修改用户端魅力，私密 ，暂时无效 var liveCharm = $api.dom('.live_charm');
 
 					//$api.text(liveCharm, '10');
-					
-					
+
+
 					//下面这里是发送融云消息，给用户加钱
 					if(ct.charm>'0'){
 					var extra = {
 						type : 10,
 						extra : {
-							
+
 							roomid : api.pageParam.roomid, //房间号
-							
+
 							charm : ct.charm|| 0,
-							memberid : api.pageParam.memberid 
-							
+							memberid : api.pageParam.memberid
+
 						}
 					}
 					RongCloud2.sendTextMessage({
@@ -4515,30 +4515,30 @@ function shoufei() {
 					})
 					$api.setStorage('smcharm', 0); //写入魅力
 					}
-		
-																		
+
+
 																	}
 																}
 															});
-		
+
 		}
-		
-		
+
+
 		function trennew(a,b){ //管理员单独T人,a是被T的人，b是房间号
-		
+
 	if($api.getStorage(CONFIG.memberId)==a){
 	$api.setStorage('T'+b+a,1);
 	 quitjs();
 	}
 	}
 	function trennew1(a,b){ //管理员单独T人,a是被T的人，b是房间号
-		
+
 	if($api.getStorage(CONFIG.memberId)==a){
 	$api.setStorage('T'+b+a,0);
-	
+
 	}
-		
-		
+
+
 		}
 function tren(){ //时间收费踢人
 		api.ajax({
@@ -4556,7 +4556,7 @@ function tren(){ //时间收费踢人
 		      if(ret.value==2){
 		      clearInterval(window.shijianshoufei);
 		   return;
-		   
+
 		   }else if(ret.value==1){
 		   clearInterval(window.shijianshoufei);
 		      api.alert({
@@ -4565,7 +4565,7 @@ function tren(){ //时间收费踢人
 							});
 		      //alert('被T了');
 		    quitjs();
-		       
+
 		       }else{
 		      // api.alert({
 								//title: '时间收费开始提示',
@@ -4596,17 +4596,17 @@ function tren(){ //时间收费踢人
 		       });
 		       }else{
 		       return;
-		       
+
 		       }
-		       
-		       
+
+
 		   }
 		});
-		
-		
+
+
 		}
 		function smtren(){ //私密房间踢人
-		
+
 		api.ajax({
 		    url: window.DOMAIN + '/zhiboApp/smtrenle',
 		    method: 'post',
@@ -4618,10 +4618,10 @@ function tren(){ //时间收费踢人
 		        }
 		    }
 		}, function(ret, err) {
-		
+
 		   if(ret.value==2){
 		   return;
-		   
+
 		   }else if(ret.value==1){
 		      api.alert({
 								title: '私密收费提示',
@@ -4629,7 +4629,7 @@ function tren(){ //时间收费踢人
 							});
 		      //alert('被T了');
 		    quitjs();
-		       
+
 		       }else{
 		      // api.alert({
 								//title: '时间收费开始提示',
@@ -4649,13 +4649,13 @@ function tren(){ //时间收费踢人
 										var index = ret1.buttonIndex;
 										if (index == '1') {
 		      // charging1(); 改为立即收费
-		      
+
 		      shoufeism();
 		        api.setFrameAttr({
 				name: 'live_camera',
 				hidden: false
 			});
-			
+
 					api.sendEvent({  //发送用户端的魅力
     name: 'yonghumeili',
     extra: {
@@ -4669,11 +4669,11 @@ function tren(){ //时间收费踢人
 		       }else{
 		       return;
 		       }
-		       
+
 		   }
 		});
-		
-		
+
+
 		}
 		function quitjs() {
 		//alert(api.pageParam.memberid);
@@ -4682,14 +4682,14 @@ function tren(){ //时间收费踢人
 			api.sendEvent({
 				name : 'closeLive'
 			});
-			
+
 				api.closeFrameGroup({
 					name : 'liveGroup'
 				});
 				api.closeWin(); //关闭当前窗口
-			
+
 		}
-		
+
 		function quitjsone() {
 		//alert(api.pageParam.memberid);
 		RongCloud2.quitChatRoom({chatRoomId: api.pageParam.memberid}); //关闭后退出聊天室,否额积累下来会卡，大斌
@@ -4697,19 +4697,19 @@ function tren(){ //时间收费踢人
 			api.sendEvent({
 				name : 'closeLive'
 			});
-			
+
 				api.closeFrameGroup({
 					name : 'liveGroup'
 				});
 				api.closeToWin({
 	                name: 'xiangxi'
                 });
-			
+
 		}
-		
+
 			//大斌获取私密房间上限
 		function shangxian(){
-		
+
 		api.ajax({
 		    url: window.DOMAIN + '/zhiboApp/shangxian',
 		    method: 'post',
@@ -4722,13 +4722,13 @@ function tren(){ //时间收费踢人
 		}, function(ret, err) {
 		  // alert(ret.state==1);
 		  if(ret.state == 1){
-		
+
 						$api.setStorage('shangxian',ret.shangxian);
 							//alert("获取成功！");
 						}
-		   
+
 		});
-		
+
 		}
 		//礼物图片缓存开始
 		function liwu(){
@@ -4747,10 +4747,10 @@ function tren(){ //时间收费踢人
 		  //开始
 		    for (var i=0; i<ret.content.length; i++) {
 		     var geshi =  (ret.content[i].img).substring((ret.content[i].img).lastIndexOf('.') + 1).toLowerCase();;
-		     
+
 		     var geshis=geshi||gif;
 		    var giftid=ret.content[i].id;
-	   	
+
 if(typeof($api.getStorage('giftid'+giftid))!='undefined'){ //如果已经下载跳过
 continue; //这里要用continue，不能用break等
 }
@@ -4762,40 +4762,40 @@ continue; //这里要用continue，不能用break等
                         savePath: 'fs://'+ret.content[i].id+'.'+geshis,
                         allowResume:true
                 },function(ret,err){
-                var index = ret.savePath.lastIndexOf("\/");  
+                var index = ret.savePath.lastIndexOf("\/");
 var neirong=ret.savePath.substring(index + 1, ret.savePath.length);
 var giftid=neirong.substr(0, neirong.indexOf('.'));
 
                         if(ret.state == 1){
-                      
+
 $api.setStorage('giftid'+giftid, ret.savePath);
 
                         console.log(giftid+'下载成功');
                         }
-                     
+
                 });
-                
-                
-                
-                
-                
-                
-               
+
+
+
+
+
+
+
         }
-        
+
         //礼物图片缓存结束
 		  //结束
-		 
-		  
+
+
 		  }
-		   
+
 		});
-		
+
 		}
 
 		//打开连麦请求提示
 	function openP2P(remoteId,roomId){
-	
+
 	var dialogBox = api.require('dialogBox');
 		dialogBox.alert({
 		    texts: {
@@ -4835,12 +4835,12 @@ $api.setStorage('giftid'+giftid, ret.savePath);
 		}, function(ret) {
 		    if (ret.eventType == 'left') {
 		    var localId=$api.getStorage(CONFIG.memberId);
-		
-		    	//连麦模块里，iOS和Android的调用方式略有不同，所以做个区分。	
+
+		    	//连麦模块里，iOS和Android的调用方式略有不同，所以做个区分。
 		    	if(api.systemType=='ios'){ //苹果的需要打开这个页面，安卓的不需要哦
-		    	//alert('ios');    
-		    		
-			    		
+		    	//alert('ios');
+
+
 					p2p = api.require('gotyeLiveP2P');
 					p2p.joinRoom({
 						roomId:roomId,
@@ -4856,8 +4856,8 @@ $api.setStorage('giftid'+giftid, ret.savePath);
 						}
 					});
 				}else{
-			
-				//alert('anzhuo');    
+
+				//alert('anzhuo');
 					p2p = api.require('gotyeLiveP2P');
 					p2p.joinRoom({
 						roomId:roomId,
@@ -4870,7 +4870,7 @@ $api.setStorage('giftid'+giftid, ret.savePath);
 							paddingRight:20,
 							ratio:0.5
 						}
-					});					
+					});
 				}
 				RongCloud2.sendTextMessage({
 						text: '连麦',
@@ -4893,9 +4893,9 @@ $api.setStorage('giftid'+giftid, ret.savePath);
 		   dialogBox.close({
 		            dialogName: 'alert'
 		        });
-		    	
+
 		    }else if (ret.eventType == 'right') {
-		    
+
 		    RongCloud2.sendTextMessage({
 						text: '连麦',
 						targetId:remoteId,
@@ -4919,27 +4919,27 @@ $api.setStorage('giftid'+giftid, ret.savePath);
 		        });
 		    }
 		});
-		  
-		
+
+
 	}
-	
+
 	function jixulianmai(roomid,id){ //主播打开用户详细页申请连麦
-	
+
 	setP2PUser(id,roomid)
-	
+
 	}
 		function jujue(yonghu){
 		Tool.toast(yonghu+'拒绝打开摄像头');
-		
-		}	
+
+		}
 	//打开连麦请求提示
 	function openP2Pok(remoteId,roomId){
-	
+
 
 	var localId=$api.getStorage(CONFIG.memberId);
-		
-		    	//连麦模块里，iOS和Android的调用方式略有不同，所以做个区分。	
-		    	if(api.systemType=='ios'){    
+
+		    	//连麦模块里，iOS和Android的调用方式略有不同，所以做个区分。
+		    	if(api.systemType=='ios'){
 				    	api.openFrame({
 						    name: 'p2p',
 						    url : api.wgtRootDir + '/html/p2p.html',
@@ -4954,7 +4954,7 @@ $api.setStorage('giftid'+giftid, ret.savePath);
 						    vScrollBarEnabled:false,
 						    hScrollBarEnabled:false
 						});
-						
+
 						p2p = api.require('gotyeLiveP2P');
 						p2p.joinRoom({
 							roomId:api.pageParam.roomId,
@@ -4982,17 +4982,17 @@ $api.setStorage('giftid'+giftid, ret.savePath);
 								paddingRight:20,
 								ratio:0.4
 							}
-						});	
+						});
 					}
-				
-			
-				
-			
-			
-				
-				
-			
-					
+
+
+
+
+
+
+
+
+
 				/*
 				//接受连麦邀请后，发送一个接受的消息给主播端，然后主播端也调用joinRoom方法，加入连麦
 				chat.sendNotify({notify: localId,extra:'inviteaccept'}, function(ret, err) {
@@ -5004,11 +5004,11 @@ $api.setStorage('giftid'+giftid, ret.savePath);
 						})
 				    }
 				});
-				
+
 				*/
-				
-		   
-	
+
+
+
 	}
 	function shipin(id,nickname,avatar,mname){  //用户发起视频，主播通过init.html newmessage来接收通知，主播调用zhuboshipin,
 		api.openWin({
@@ -5020,10 +5020,10 @@ $api.setStorage('giftid'+giftid, ret.savePath);
 				yonghuavatar: avatar
 				}
 			});
-			
-			
-			
-			
+
+
+
+
 			var extra = new Object();
 			extra['type'] = 120;
 			extra['nickname'] = nickname;
@@ -5036,7 +5036,7 @@ $api.setStorage('giftid'+giftid, ret.savePath);
 			extra['memberid'] = id;
 			extra['content'] = '请求视频通话';
 			extra['yonghuid'] = $api.getStorage(CONFIG.memberId);
-			
+
 			RongCloud2.sendTextMessage({
 						text: '连麦',
 						targetId:id,
@@ -5082,8 +5082,8 @@ $api.setStorage('giftid'+giftid, ret.savePath);
 		    }
 		}, function(ret) {
 		    if (ret.eventType == 'left') {
-		    
-		  
+
+
 		    	RongCloud2.sendTextMessage({
 						text: '连麦',
 						targetId:b,
@@ -5091,12 +5091,12 @@ $api.setStorage('giftid'+giftid, ret.savePath);
 						extra: {
 						type: 120,
 						yonghuid: $api.getStorage(CONFIG.memberId)
-						
+
 					}
 					});
 					Tool.toast('邀请已发出！');
-					
-					
+
+
 		        dialogBox.close({
 		            dialogName: 'alert'
 		        });
@@ -5111,7 +5111,7 @@ $api.setStorage('giftid'+giftid, ret.savePath);
 	function quxiaolianmai(){
 	//放弃 api.require('gotyeLiveP2P').leaveRoom();
 	Tool.toast('取消连麦成功~');
-	
+
 	}
 function zhuboshipin(yonghuid,yonghuname,yonghuavatar){  //主播端接受到视频，则发起直播。并且开启连麦，并且通知给用户
 
@@ -5125,7 +5125,7 @@ api.openWin({
 				},
 				slidBackEnabled: false,
 			});
-		
+
 
 }
 function yuyinzhubo(yonghuid,yonghuname,yonghuavatar){  //主播端接受到视频，则发起直播。并且开启连麦，并且通知给用户
@@ -5140,7 +5140,7 @@ api.openWin({
 				},
 				slidBackEnabled: false,
 			});
-		
+
 
 }
 function yuyinshipin(yonghuid,leixing,nickname,avatar){  //主播端接受到视频，则发起直播。并且开启连麦，并且通知给用户
@@ -5170,10 +5170,10 @@ Tool.toast('您不能主动发送语音给用户');
 					if(ct.shebeihao!=api.deviceId){
 					Tool.toast('该帐号异地登录,如非本人登录,请修改密码!');
 	setTimeout("relogin()","2000");
-					
+
 					return;
 					}
-					
+
 					if(ct.shipinrenzheng != 1){
 						Tool.toast('请先进行视频认证！');
 						return;
@@ -5182,30 +5182,30 @@ Tool.toast('您不能主动发送语音给用户');
 					var neirong='语音聊';
 					}else{
 					var neirong='视频聊';
-					
+
 					}
 						if(ct.zijilahei == '1'){
-						
+
 						Tool.toast("您已拉黑该主播,不能进入与TA私聊~");
 						return;
 						}if(ct.zhubolahei == '1'){
-						
+
 						Tool.toast("您已被主播拉黑,不能进入与TA私聊~");
 						return;
 						}else if(ct.manglu == '1'){
-						
+
 						Tool.toast("Ta正在热聊中，请稍后再拨");
 						return;
 						}else if(ct.wurao == '1'){
-						
+
 						Tool.toast("该主播已开启勿扰模式！");
 						return;
 						}else if(yonghuid == $api.getStorage(CONFIG.memberInfo).id){
-						
+
 						Tool.toast('自己不能与自己'+neirong+'~');
 						return;
 						}else{
-						
+
 						if($api.getStorage(CONFIG.memberInfo).sex==1){
 						//开始
 						var dialogBox = api.require('dialogBox');
@@ -5252,7 +5252,7 @@ Tool.toast('您不能主动发送语音给用户');
 
 // 返回时left  表示 不打开
     if (ret.eventType == 'left') {
-       
+
         dialogBox.close({
             dialogName: 'alert'
         });
@@ -5261,11 +5261,11 @@ Tool.toast('您不能主动发送语音给用户');
     					if ($api.getStorage(CONFIG.memberInfo).diamonds < ct.price) {
 		Tool.toast('与Ta'+neirong+'需要支付'+ct.price+'钻石/分钟，请先充值');
 			setTimeout("openWin('recharge','recharge','充值','mine','recharge','','',250)","2000");
-		
-		
+
+
 												}else{
    // shipin(homepage.id,homepage.nickname,homepage.avatar,homepage.mname);
-  
+
    if(leixing==1){
   api.openWin({
 				name: 'yuyinkehu',
@@ -5277,7 +5277,7 @@ Tool.toast('您不能主动发送语音给用户');
 				avatar: avatar
 				},
 				slidBackEnabled: false
-			}); 
+			});
 			}else{
 			 api.openWin({
 				name: 'tonghuakehu',
@@ -5289,17 +5289,17 @@ Tool.toast('您不能主动发送语音给用户');
 				avatar: avatar
 				},
 				slidBackEnabled: false
-			}); 
-			
+			});
+
 			}
   }
-		
+
 	dialogBox.close({
             dialogName: 'alert'
         });
         return;
-		 
-  
+
+
     }
 });
 
@@ -5318,16 +5318,16 @@ Tool.toast('您不能主动发送语音给用户');
 			});
 
 }
-						
+
 						//结束
-						
+
 						}
 					}
-				});	
+				});
 //结束
 
 
-		
+
 
 }
 function yonghushipin(memberid,roomId,yonghunickname,yonghuavatar){  //用户接受到通知，则进入房间
@@ -5347,8 +5347,8 @@ var extra = new Object();
 			extra['yonghuid'] = $api.getStorage(CONFIG.memberId);
 			extra['sendid'] = $api.getStorage(CONFIG.memberId);
 			extra['roomid'] = roomId;
-			
-			
+
+
 			RongCloud2.sendTextMessage({
 						text: '连麦',
 						targetId:memberid,
@@ -5395,15 +5395,15 @@ api.openWin({
 	});
 	*/
 	//进入房间后发送通知给主播创建连麦
-	
-	
+
+
 }
 
 function setP2PUser(memberid,roomid){
-		
-	
+
+
 	//alert('连麦对象'+JSON.stringify(memberid));
-	
+
 		RongCloud2.sendTextMessage({
 						text: '连麦',
 						targetId:memberid,
@@ -5423,14 +5423,14 @@ function setP2PUser(memberid,roomid){
 					}
 					});
 					Tool.toast('正在连接视频');
-		
+
 	}
-	
+
 
 /*全局AJAX方法*/
 function ajaxRequest(url, method, datas, callBack) {
 	//判断网络
-	
+
 	var connectionType = api.connectionType;
 	if (connectionType == "none") {
 		api.openWin({
@@ -5466,12 +5466,12 @@ function startlive(yonghuid) {
 					bounces : false
 				}
 			});
-			
+
 		api.addEventListener({  //监听开播了，通知用户连线
 				name : 'kaibo1'
 			}, function(ret) {
-			
-			
+
+
 			var extra = new Object();
 			extra['type'] = 121;
 			extra['nickname'] = ret.value.yonghuname;
@@ -5485,20 +5485,20 @@ function startlive(yonghuid) {
 			extra['yonghuid'] = $api.getStorage(CONFIG.memberId);
 			extra['roomid'] = ret.value.roomid;
 			extra['sendid'] = $api.getStorage(CONFIG.memberId);
-			
+
 			RongCloud2.sendTextMessage({
 						text: '连麦',
 						targetId:yonghuid,
 						conversationType:'PRIVATE',
 						extra: extra,
 					});
-					
-					
-			
-				
+
+
+
+
 			});
 		}
-		
+
 
 function openLive(yonghuid) {
 
@@ -5543,7 +5543,7 @@ function openLive(yonghuid) {
 		}
 		//判断是否被主播拉黑
 		function isblackone(mid,nickname,avatar,username,tidings,concernstatus){
-		
+
 				ajax.get({
 					ctrl : 'YiApp',
 					fn : 'xiangxichaxun',
@@ -5560,62 +5560,62 @@ function openLive(yonghuid) {
 					showError : true,
 					showProgress : false,
 					success : function(ct) {
-					
+
 					if(ct.shebeihao!=api.deviceId){
 					Tool.toast('该帐号异地登录,如非本人登录,请修改密码!');
 	setTimeout("relogin()","2000");
-					
+
 					return;
 					}
 					if(ct.shipinrenzheng != 1){
 						Tool.toast('请先进行视频认证！');
 						return;
 					}
-					
+
 						if(ct.zijilahei == '1'){
-						
+
 						Tool.toast("您已拉黑该主播,不能进入与TA私聊~");
 						return;
 						}if(ct.zhubolahei == '1'){
-						
+
 						Tool.toast("您已被主播拉黑,不能进入与TA私聊~");
 						return;
 						}else if(ct.manglu == '1'){
-						
+
 						Tool.toast("Ta正在热聊中，请稍后再拨");
 						return;
 						}else if(ct.wurao == '1'){
-						
+
 						Tool.toast("该主播已开启勿扰模式！");
 						return;
 						}else if(mid == $api.getStorage(CONFIG.memberInfo).id){
-						
+
 						Tool.toast('自己不能与自己聊天~');
 						return;
 						}else{
 						//alert(ct.tuijian);
-						openTalkWithone(mid,nickname,avatar,username,tidings,concernstatus,ct.xiaoxiprice,ct.yuyinprice,ct.tupianprice,ct.tuijian,ct.vip); 
-						
+						openTalkWithone(mid,nickname,avatar,username,tidings,concernstatus,ct.xiaoxiprice,ct.yuyinprice,ct.tupianprice,ct.tuijian,ct.vip);
+
 						}
 					}
-				});	
+				});
 		}
 //打开私聊
 			function openTalkWithone(mid,nickname,avatar,username,tidings,concernstatus,xiaoxiprice,yuyinprice,tupianprice,tuijian,vip){
-			
+
 //alert('1tuijian'+tuijian);
 //alert('vip'+$api.getStorage(CONFIG.memberInfo).is_vip);
 		if($api.getStorage(CONFIG.memberInfo).sex==2){
-			
+
 			if(tuijian==1){
 			if($api.getStorage(CONFIG.memberInfo).is_vip!=1){
-			
+
 			Tool.toast('热门专区VIP用户才能聊天~');
 			return;
 			}
-			
+
 			}
-   
+
        if(tidings == '0' || tidings == '1' && concernstatus == 1){
 					api.openWin({
 						name:　'talk_with',
@@ -5643,21 +5643,21 @@ function openLive(yonghuid) {
             dialogName: 'alert'
         });
        return;
-   
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+
+
+
+
+
+
+
+
+
+
+
 			}else{
-			
+
 			//这里开始判断收费的问题
-			
+
 				var dialogBox = api.require('dialogBox');
 dialogBox.alert({
     texts: {
@@ -5708,9 +5708,9 @@ dialogBox.alert({
         });
         return;
     }else if(ret.eventType == 'right') {
-    //返回是right  表示同意 
+    //返回是right  表示同意
        //用户的账号钱
-      
+
        if(tidings == '0' || tidings == '1' && concernstatus == 1){
 					api.openWin({
 						name:　'talk_with',
@@ -5740,20 +5740,20 @@ dialogBox.alert({
        return;
     }
 });
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+
+
+
+
+
+
+
+
+
+
 			}
 		}
 		function yuyinquxiao(){
-	
+
 api.setFrameAttr({
 				name: 'live_camera',
 				hidden: false
@@ -5772,7 +5772,7 @@ api.setFrameAttr({
 function yuyin(_this){
 
 if($api.hasCls(_this, 'on')){
-		
+
 		$api.removeCls(_this,'on');
 		$api.text($api.dom('.yuyins'), '语音模式');
 		RongCloud2.sendTextMessage({
@@ -5783,7 +5783,7 @@ if($api.hasCls(_this, 'on')){
 							type: 14
 						}
 					});
-					
+
 			api.ajax({
 		    url: window.DOMAIN + '/zhiboApp/yuyin',
 		    method: 'post',
@@ -5800,12 +5800,12 @@ if($api.hasCls(_this, 'on')){
 				name: 'live_camera',
 				hidden: false
 			});
-		   
+
 		});
 		}else{
-		
+
 		$api.addCls(_this,'on');
-		
+
 		$api.text($api.dom('.yuyins'), '视频模式');
 		RongCloud2.sendTextMessage({
 						text: '踢人',
@@ -5815,7 +5815,7 @@ if($api.hasCls(_this, 'on')){
 							type: 13
 						}
 					});
-					
+
 			api.ajax({
 		    url: window.DOMAIN + '/zhiboApp/yuyin',
 		    method: 'post',
@@ -5828,15 +5828,15 @@ if($api.hasCls(_this, 'on')){
 		        }
 		    }
 		}, function(ret, err) {
-	
+
 		       api.setFrameAttr({
 				name: 'live_camera',
 				hidden: true
 			});
-		   
+
 		});
 		}
-}	
+}
 function yuyinkai(_this){
 
 api.setFrameAttr({
@@ -5858,21 +5858,21 @@ api.setFrameAttr({
 			});
 
 }
- 
+
                 function rotateCamera(){
                     rotateStr++;
                     if(rotateStr>3)
                         rotateStr = 0;
                     rtcApi.rotateCamera({value:rotateStr});
                 }
-                
+
 function zhuxiao(){
 
  var rtcApi = api.require('tyRTC');
 rtcApi.logout();
 }
- 
-                
+
+
 function donghua(img){
 
 $api.html($api.dom('.donghua'), "<img id='pic' src='"+img+"'  /> ");
@@ -5892,5 +5892,3 @@ function weizhi(memberid,nickname,avatar){
 
 
 }
-
-
