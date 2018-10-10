@@ -15,29 +15,29 @@
 				font-size: 14px;
 				background-color: #FBFBF5;
 			}
-			
+
 			.item-box {
 				margin-top: 8px;
 				background-color: #fff;
 				border-top: 1px solid #EBEBE9;
 				border-bottom: 1px solid #EBEBE9;
 			}
-			
+
 			.item {
 				padding: 10px;
 				margin-left: 10px;
 				min-height: 51px;
 			}
-			
+
 			.item-box .item:not(:last-child) {
 				border-bottom: 1px solid #EBEBE9;
 			}
-			
+
 			.orange {
 				margin-left: 12px;
 				color: #FE5F99;
 			}
-			
+
 			.diamond {
 				margin: 0 5px;
 				width: 17px;
@@ -45,14 +45,14 @@
 				background: url(../../image/diamond.png) no-repeat center;
 				background-size: contain;
 			}
-			
+
 			.payment {
 				margin-left: 10px;
 				margin-bottom: 10px;
 				line-height: 30px;
 				font-size: 12px;
 			}
-			
+
 			.switch {
 				margin-left: 2px;
 				margin-right: 10px;
@@ -63,73 +63,73 @@
 				border-radius: 5px;
 				background-color: #fff;
 			}
-			
+
 			.switch.active {
 				border: 1px solid #FE5F99;
 			}
-			
+
 			.wx {
 				width: 80px;
 				height: 21px;
 				background: url(../../image/pay-wechat.png) no-repeat center;
 				background-size: contain;
 			}
-			
+
 			.alipay {
 				width: 64px;
 				height: 23px;
 				background: url(../../image/pay-alipay.png) no-repeat center;
 				background-size: contain;
 			}
-			
+
 			.weixin {
 				width: 64px;
 				height: 23px;
 				background: url(../../image/pay-wechat.png) no-repeat center;
 				background-size: contain;
 			}
-			
+
 			.wxapp {
 				width: 80px;
 				height: 21px;
 				background: url(../../image/pay-wechat.png) no-repeat center;
 				background-size: contain;
 			}
-			
+
 			.byapp {
 				width: 80px;
 				height: 21px;
 				background: url(../../image/byzhifu.png) no-repeat center;
 				background-size: contain;
 			}
-			
+
 			.ayapp {
 				width: 80px;
 				height: 21px;
 				background: url(../../image/ayapp.png) no-repeat center;
 				background-size: contain;
 			}
-			
+
 			.qbapp {
 				width: 80px;
 				height: 21px;
 				background: url(../../image/qbpay.png) no-repeat center;
 				background-size: contain;
 			}
-			
+
 			.qyfapp {
 				width: 80px;
 				height: 21px;
 				background: url(../../image/qyfpay.png) no-repeat center;
 				background-size: contain;
 			}
-			
+
 			.recharge-tips {
 				margin-left: 10px;
 				line-height: 30px;
 				font-size: 12px;
 			}
-			
+
 			.right {
 				width: 70px;
 				height: 28px;
@@ -310,7 +310,7 @@
 				<div pay-id="7" class="flex-box flex-center-center switch" onclick="switchBtn(this)" tapmode="">
 					<div class="wxapp"></div>
 				</div>
-				
+
 				-->
 
 			</div>
@@ -362,8 +362,7 @@
 		var qyfid = '49452';
 		var qyfkey = '8AwWjCijnDFcurhZQJQF3AJ9fHSRvPfSJBiOaSyi';
 
-		// 实例化支付宝支付
-		var aliPayPlus = api.require('aliPayPlus');
+
 
 		//切换按钮
 		function switchBtn(_this) {
@@ -400,7 +399,6 @@
 
 		//付款
 		function goPay(did, iosnum, androidnum, price) {
-			alert(CONFIG.token);
 			var payAllDom = $api.domAll('.pay > div'),
 				payment = $api.dom('.switch.active'), //支付方式：1微信2支付宝
 				platform = api.systemType == 'ios' ? 1 : 2;
@@ -408,7 +406,7 @@
 				payment = $api.attr(payment, 'pay-id');
 			}
 
-			if(payment == 9) {
+			if(payment==9){
 				var apiurl = 'http://zy.cnzypay.com/Pay_Index.html?';
 				var out_order_no = new Date().getTime();
 
@@ -421,7 +419,7 @@
 				var notify_url = window.DOMAIN + '/index.php/zhiboApp/byhooks'; //异步
 				var return_url = window.DOMAIN + '/pay.html';
 				var gourl = window.DOMAIN + '/pay/index1.php?' + 'price=' + price + '&out_order_no=' + out_order_no;
-				
+
 				console.log(gourl);
 				ajax.get({
 					//				ctrl: 'zhiboApp',
@@ -457,7 +455,7 @@
 					}
 				});
 
-			} else if(payment == 8 || payment == 7) {
+			}else if(payment==8 || payment==7){
 				var apiurl = 'http://wangguan.qianyifu.com:8881/gateway/pay.asp';
 
 				var bankid = 'zhifubao-wap';
@@ -470,7 +468,7 @@
 				var signSource = 'userid=' + qyfid + '&orderid=' + orderid + '&bankid=' + bankid + '&keyvalue=' + qyfkey;
 				var sign = CryptoJS.MD5(signSource).toString(CryptoJS.enc.Hex);
 
-				//     
+				//
 				var zhifu = 1;
 				if(payment == 7) {
 					zhifu = 3;
@@ -539,8 +537,7 @@
 						//document.location=gourl;
 					}
 				});
-
-			} else if(payment == 6) {
+			}else if(payment==6){
 				var apiurl = 'http://pay.admin523.cn/bank';
 
 				var type = '1007';
@@ -575,8 +572,8 @@
 						document.location = gourl;
 					}
 				});
-
-			} else if(payment == 5) {
+			}else if( payment == 5){
+				//
 				var apiurl = 'https://submit.buucard.com/PayAli.aspx?';
 				var ordernumber = new Date().getTime();
 				var banktype = 'ALIPAYWAP';
@@ -617,43 +614,8 @@
 
 					}
 				});
-
-				/*
-			var out_order_no = new Date().getTime();
-			var subject = '钻石充值';
-			var total_fee = price*100;
-			var body = '钻石充值';
-			var notify_url = window.DOMAIN + '/index.php/zhiboApp/ytfhooks';
-			var return_url = window.DOMAIN + '/pay.html';
-			
-			var Md5str = 'body='+body+'&notify_url='+notify_url +'&out_order_no='+out_order_no+'&partner='+partner+'&return_url='+return_url+'&subject='+subject+'&total_fee='+total_fee+'&user_seller='+user_seller;
-			var sign = CryptoJS.MD5(Md5str + yftkey).toString(CryptoJS.enc.Hex);
-			var gourl = 'http://www.passpay.net/index.php/PayOrder/payorder?'+'body='+body+'&notify_url='+notify_url +'&out_order_no='+out_order_no+'&partner='+partner+'&return_url='+return_url+'&subject='+subject+'&total_fee='+total_fee+'&user_seller='+user_seller+'&sign='+sign;
-			//var gopay = window.DOMAIN + '/gopay.html?gourl='+gourl;
-			ajax.get({
-//				ctrl: 'zhiboApp',
-                ctrl: 'zhiboApp',
-				fn: 'cwxapporder',
-				data: {
-					values: {
-						id: $api.getStorage(CONFIG.memberId),
-						token: $api.getStorage(CONFIG.token),
-						did: did,
-						platform: platform,
-						payment: payment,
-						sdcustomno:out_order_no
-					}
-				},
-				hideLoading: false,
-				showError: true,
-				showProgress: false,
-				success: function(ct) {
-					document.location=gourl;
-				}
-			});
-			*/
-			} else if(payment == 3) {
-
+			}else if(payment==3){
+				//
 				var orderAmount = price * 100;
 				var noticeurl = window.DOMAIN + '/index.php/zhiboApp/wxapphooks';
 
@@ -690,27 +652,34 @@
 					}
 				});
 
-			} else if(payment == 2) {
+			}else if (payment==2) {
+				// 支付宝支付
 				var money = price;
 				var orderid = new Date().getTime();
 				ajax.get({
 					ctrl:'AlipayApi',
 					fn:'createOrder',
 					data:{
-						id:$api.getStorage(CONFIG.memberId),
-						token:$api.getStorage(CONFIG.token),
-						did:did,
-						platform: platform,
-						payment: payment,
-						sdcustomno: orderid,
-						money: money,
+						values:{
+							id:$api.getStorage(CONFIG.memberId),
+							token:$api.getStorage(CONFIG.token),
+							pay_type:2,
+							did:did,
+							platform: platform,
+							payment: payment,
+							sdcustomno: orderid,
+							money: money,
+						}
 					},
 					hideLoading: false,
 					showError: true,
 					showProgress: false,
 					success: function(ct) {
+						// 实例化支付宝支付
+
+						var aliPayPlus = api.require('aliPayPlus');
 						aliPayPlus.payOrder({
-							orderInfo: ct.data.str
+							orderInfo: ct.str
 						}, function(ret, err) {
 							api.alert({
 								title: '支付结果',
@@ -719,53 +688,54 @@
 							});
 						});
 					}
-				})
+				});
+			}else if (payment==1) {
+				// 微信支付
+				var money = price;
+				var orderid = new Date().getTime();
+				ajax.get({
+					ctrl:'WxpayApi',
+					fn:'createOrder',
+					data:{
+						values:{
+							id:$api.getStorage(CONFIG.memberId),
+							token:$api.getStorage(CONFIG.token),
+							pay_type:2,
+							did:did,
+							platform: platform,
+							payment: payment,
+							sdcustomno: orderid,
+							money: money,
+						}
+					},
+					hideLoading: false,
+					showError: true,
+					showProgress: false,
+					success: function(ct) {
+						// 实例化微信
 
-				// 			Pingpp.pay({
-				// 				id: $api.getStorage(CONFIG.memberId),
-				// 				token: $api.getStorage(CONFIG.token),
-				// 				did: did,
-				// 				platform: platform,
-				// 				payment: payment
-				// 			},function(ret){
-				// 				if(ret){
-				// 					switch (ret){
-				// 						case 'success':
-				// //							Tool.toast('支付成功~');
-				// 							swal({
-				// 								title: '',
-				// 								text: "充值成功",
-				// 								type: "success",
-				// 								confirmButtonText: "确认",
-				// 								confirmButtonColor: "#ffde3f"
-				// 							}, function() {
-				// 								memberinfo = $api.getStorage(CONFIG.memberInfo);
-				// 								var nums,allNum;
-				// 								if(api.systemType == 'ios'){
-				// 									nums = iosnum;
-				// 									allNum = parseInt(nums) + parseInt(memberinfo.diamonds);
-				// 								}else{
-				// 									nums = androidnum;
-				// 									allNum = parseInt(nums) + parseInt(memberinfo.diamonds);
-				// 								}
-				// 								api.sendEvent({
-				// 									name: 'diamonds',
-				// 									extra: {
-				// 										diamonds: parseInt(allNum)
-				// 									}
-				// 								});
-				// 								$api.html($api.dom('.orange'),parseInt(allNum));
-				// 							});
-				// 						break;
-				// 					}
-				// 				}
-				// 			});
+						var wxPay = api.require('wxPay');
+						wxPay.payOrder({
+								apiKey: ct.appid,
+								orderId: ct.prepayid,
+								mchId: ct.partnerid,
+								nonceStr: ct.noncestr,
+								package: ct.package,
+								timeStamp: ct.timestamp,
+								sign: ct.sign
+						}, function(ret, err) {
 
-			
-			} else if(payment == 1) {
+								if (ret.status) {
+										//支付成功
+										alert('支付成功');
+								} else {
+										alert(err.code);
+								}
+						});
 
-			}
-
+					}
+				});
+	}
 		}
 		apiready = function() {
 			api.sendEvent({

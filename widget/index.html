@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
 		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-		<title>Hello APP</title>
+		<title>启动页</title>
 		<link rel="stylesheet" type="text/css" href="./css/api.css" />
 		<style type="text/css">
 			html, body, #wrap {
@@ -32,12 +32,12 @@
 			ajax.get({
 					ctrl : 'zhiboApp',
 					fn : 'indexJump',
-					
 					success : function(data) {
+
 					if (data.gg1 == 1) {
-				
+
 				 $api.setStorage('shenhe',1);
-				
+
 				}else{
 				 $api.setStorage('shenhe',0);
 				}
@@ -49,15 +49,14 @@
 						return;
 					}
 				$api.setStorage('smcharm', 0); //写入魅力
-				$api.setStorage('sjcharm', 0); //写入魅力	
-					
-		
-					}
+				$api.setStorage('sjcharm', 0); //写入魅力
+
+			}
+
 				});
 		}
 
 		function init() {
-		
 			Tool.initApp();
 		}
 
@@ -67,11 +66,11 @@
 				url : api.wgtRootDir + '/html/login_type.html',
 				bounces : false
 			});
-			
 		}
 
 		//服务器运行中
 		function getServiceStatusSucc() {
+
 			//缓存城市列表
 			/* 大斌取消城市定位
 			ajax.get({
@@ -86,7 +85,7 @@
 					$api.setStorage('areaList', ct);
 				}
 			});
-			
+
 			*/
 			//			init();
 			//设置退出机制
@@ -97,6 +96,7 @@
 				$api.setStorage(CONFIG.appVersion, api.appVersion);
 				$api.setStorage(CONFIG.firstOpen, 'true');
 			}
+
 			if ($api.getStorage(CONFIG.firstOpen) == 'true' || typeof $api.getStorage(CONFIG.firstOpen) == 'undefined') {
 				api.openFrame({
 					name : 'launch',
@@ -113,9 +113,9 @@
 			} else if (!$api.getStorage(CONFIG.memberId) && !$api.getStorage(CONFIG.token)) {
 				openLogin();
 			} else {
-			
+
 				init();
-				
+
 				window.setTimeout(openLogin, 300);
 			}
 			//静默更新
@@ -126,9 +126,8 @@
 
 		var test = 0;
 		apiready = function() {
-		
 		//礼物图片缓存开始
-		var liwuhc = api.getPrefs({  
+		var liwuhc = api.getPrefs({
     sync: true,
     key: 'liwu'
 });
@@ -136,30 +135,33 @@
 //if(liwuhc!=1){
 			//liwu();
 			//}
-			
+
 			//礼物图片缓存结束
 		//shangxian(); //上限
 			//设置状态栏为黑色
-			
+
 			//api.addEventListener({
 				//name : 'appintent'
 			//}, function(ret, err) {
 				//var appParam = ret.appParam;
-				// alert(ret.appParam.param2);       
+				// alert(ret.appParam.param2);
 			//});
-			
-			
+
+
 			api.setStatusBarStyle({
 				style : 'dark'
 			});
 			indexJump();
+
 			//跳转至商城
 			//			init();
 			//			openLogin()
 			//打开数据库
 			DB.init({
 				success : function() {
+
 					getServiceStatusSucc();
+
 					if (api.connectionType != 'none') {
 						//检测服务器状态
 						//lock 1是开启2是关闭
@@ -178,6 +180,7 @@
 								}
 							},
 							success : function(ct) {
+
 								if (ct.status == '1') {
 									//服务器处于维修状态
 									api.alert({
@@ -208,13 +211,13 @@
 									//保存服务端配置
 									if(typeof(ct.vipstart) != "undefined"){
 									$api.setStorage('vipstart',ct.vipstart);
-									
+
 									//window.CONFIG.vipstart=ct.vipstart;
 									//console.log(ct.config['vipstart']);
 									//ct.config.vipstart;
 									//alert(ct.vipstart);
 									}
-								}	
+								}
 							}
 						});
 					}
@@ -231,6 +234,7 @@
 			//					}
 			//				}
 			//			})
+
 		}
 	</script>
 </html>

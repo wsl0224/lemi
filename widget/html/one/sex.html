@@ -256,37 +256,45 @@
 										avatar = ret.data;
 										//alert(avatar);
 										$api.setStorage('avatar', avatar);
-										if('ios' == api.systemType) {
-											T.html('.img-frm', 'avatar', ret.data);
-											Upload.init({
-												file: {
-													url: ret.data,
-													callbackEvent: 'uploadAvatar'
-												}
-											});
-										} else {
-											/*若为android系统，则使用screenClip模块进行截图*/
-											// if(ret.data){
-											// 	api.openWin({
-											// 		name: 'imageClip',
-											// 		url: api.wgtRootDir + '/html/window/image_clip.html',
-											// 		pageParam: {
-											// 			imgSrc: ret.data,
-											// 			callbackEvent: 'getAvatarClipImage'
-											// 		}
-											// 	});
-											// }
-											api.sendEvent({
-												name: 'getAvatarClipImage'
-											})
+										T.html('.img-frm', 'avatar', ret.data);
+										Upload.init({
+											file: {
+												url: ret.data,
+												callbackEvent: 'uploadAvatar'
+											}
+										});
+										// if('ios' == api.systemType) {
+										// 	T.html('.img-frm', 'avatar', ret.data);
+										// 	Upload.init({
+										// 		file: {
+										// 			url: ret.data,
+										// 			callbackEvent: 'uploadAvatar'
+										// 		}
+										// 	});
+										// } else {
+										// 	/*若为android系统，则使用screenClip模块进行截图*/
+										// 	// if(ret.data){
+										// 	// 	api.openWin({
+										// 	// 		name: 'imageClip',
+										// 	// 		url: api.wgtRootDir + '/html/window/image_clip.html',
+										// 	// 		pageParam: {
+										// 	// 			imgSrc: ret.data,
+										// 	// 			callbackEvent: 'getAvatarClipImage'
+										// 	// 		}
+										// 	// 	});
+										// 	// }
+										// 	api.sendEvent({
+										// 		name: 'getAvatarClipImage'
+										// 	})
+										//
+										// }
 
-										}
 									}
 									});
 									}
 						}
 							})
-				
+
 		}//点击获取验证码
 		function get_code(){
 		//alert(111);
@@ -359,4 +367,3 @@
 	</script>
 </body>
 </html>
-

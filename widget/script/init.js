@@ -41,7 +41,7 @@ function init(RongIMLib,protobuf){
 		        }
 		}
 	});
-	
+
 	RongIMClient.setOnReceiveMessageListener({
 		// 接收到的消息
 		onReceived: function (message) {
@@ -52,13 +52,13 @@ function init(RongIMLib,protobuf){
 		    switch(message.messageType){
 		        case RongIMClient.MessageType.TextMessage:
 		        	/*
-		        	显示消息方法： 
+		        	显示消息方法：
 		        	消息里是 原生emoji
 		        	RongIMLib.RongIMEmoji.emojiToHTML(message.content.content);
 		            */
 		            break;
 		        case RongIMClient.MessageType.VoiceMessage:
-		            // 对声音进行预加载                
+		            // 对声音进行预加载
 		            // message.content.content 格式为 AMR 格式的 base64 码
 		            break;
 		        case RongIMClient.MessageType.ImageMessage:
@@ -101,8 +101,8 @@ function init(RongIMLib,protobuf){
 		    }
 		}
 	});
-	
-	
+
+
 	//开始链接
 	RongIMClient.connect(token, {
 		onSuccess: function(userId) {

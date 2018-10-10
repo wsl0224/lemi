@@ -2069,6 +2069,8 @@ ret.list[index].path='fs://'+wenjianming;
 							//因权限不足，自家服务器拒绝访问，可能原因：登录信息过期/在其他端登录
 							this.serverStatus_403(ret);
 							break;
+							default:
+							this.serverStatus_error(ret);
 					}
 					if(this.args.loadType){
 						this.loadType();
@@ -2133,6 +2135,22 @@ ret.list[index].path='fs://'+wenjianming;
 						this.args.success(ret.body.content, this.localCache);
 					}
 				}
+			},
+			serverStatus_error:function(ret){
+						if(ret.body.msg){
+							api.toast({
+								msg: ret.body.msg,
+								location: 'bottom',
+								duration: 3000
+							});
+						}else{
+							api.toast({
+								msg: '服务器拒绝访问~',
+								location: 'bottom',
+								duration: 2000
+							});
+						}
+
 			},
 			serverStatus_404: function(ret){
 				//自家服务器返回状态码为404

@@ -6,38 +6,38 @@
 		<meta name="format-detection" content="telephone=no">
 		<title>编辑资料</title>
 		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
-		
+
 		<style type="text/css">
 			html,body,#main {
 				font-size: 14px;
 				background-color: #FCFBF5;
 			}
-			
+
 			.item-box{
 				margin-top: 8px;
 				background-color: #fff;
 				border-top: 1px solid #EBEBE9;
 				border-bottom: 1px solid #EBEBE9;
 			}
-			
+
 			.item{
 				padding: 10px;
 				margin-left: 10px;
 				min-height: 61px;
 			}
-			
+
 			.item-box .item:not(:last-child){
 				border-bottom: 1px solid #EBEBE9;
 			}
-			
+
 			.item>div{
 				color: #909090;
 			}
-			
+
 			.text-right {
 				width: 35px;
 			}
-			
+
 			.ct-icon-arrow-right {
 				color: #909090;
 				font-size: 20px;
@@ -45,7 +45,7 @@
 				height: 100%;
 				z-index: 997;
 			}
-			
+
 			.img-frm,
 			.img {
 				background-image: url(../../img/pic8.jpg);
@@ -104,9 +104,9 @@
 					</div>
 				</div>
 				<div class="item-box">
-				
+
 					<div class="item  flex-box flex-h-ce " >
-						<div class="flex-1">相册</div>  
+						<div class="flex-1">相册</div>
 						<div class="img-frm img-frmxc1" imgUrl="" data-status="" data-key="" data-callbackEvent="uploadAvatarxc1" onclick="uploadAvatarxc1()" tapmode>
 							<div class="img relative imgxc1" data-original="">
 								<div class="upload-status flex-box hidden" style="background-color: rgba(0,0,0,0.4);border-radius:50%;-webkit-border-radius:50%;font-size: 11px;">
@@ -156,7 +156,7 @@
 				<div class="item flex-box flex-h-ce" onchange="selectSex()" tapmode="">
 						<div class="flex-1">性别</div>
 						<select class="flex-1 text-right text" name="sex" style="font-size: 14px;">
-							
+
 						</select>
 						<div class="text-right">
 							<div class="ct-icon-arrow-right "></div>
@@ -178,7 +178,7 @@
 							<div class="ct-icon-arrow-right "></div>
 						</div>
 					</div>
-					
+
 				</div>
 				<!--<div class="item-box ">
 					<div class="item certification flex-box flex-h-ce" onclick="" >
@@ -271,7 +271,7 @@
 	</script>
 	<script type="text/javascript">
 		var memberinfo = '';
-		
+
 		//实名认证
 		function certification(){
 			api.openWin({
@@ -284,7 +284,7 @@
 				}
 			})
 		}
-		
+
 		var avatar = '';
 		//上传头像
 		function uploadAvatar(){
@@ -312,7 +312,7 @@
 			})
 		}
 		function uploadAvatarxc1(){
-		
+
 			Tool.actionSheet({
 				buttons:['拍照上传','相册选择照片','删除照片'],
 				success:function(buttonIndex){
@@ -342,7 +342,7 @@
 								// 				imgSrc: ret.data,
 								// 				callbackEvent: 'getAvatarClipImagexc1'
 								// 			}
-								// 		});	
+								// 		});
 								// 	}
 								// }
 								T.html('.img-frmxc1', 'img-frmxc1', ret.data);
@@ -373,22 +373,22 @@
 						T.html('.img-frmxc1', 'img-frmxc1' ,'0');
 							Tool.toast('相册删除成功~');
 							//刷新我的头像
-							
-						
+
+
 							api.hideProgress();
 						}
 					});
-					
+
 					}
 				}
 			})
 		}
 		function uploadAvatarxc2(){
-		
+
 			Tool.actionSheet({
 				buttons:['拍照上传','相册选择照片','删除照片'],
 				success:function(buttonIndex){
-				
+
 					if(buttonIndex <3){
 						Tool.getOnePic({
 							encodingType: 'jpg',
@@ -414,7 +414,7 @@
 								// 				imgSrc: ret.data,
 								// 				callbackEvent: 'getAvatarClipImagexc2'
 								// 			}
-								// 		});	
+								// 		});
 								// 	}
 								// }
 								T.html('.img-frmxc2', 'img-frmxc2', ret.data);
@@ -423,8 +423,8 @@
 											url: ret.data,
 											callbackEvent: 'uploadAvatarxc2'
 										}
-									});	
-								
+									});
+
 							}
 						});
 					}else if(buttonIndex == 3){
@@ -446,22 +446,22 @@
 						T.html('.img-frmxc2', 'img-frmxc2','0');
 							Tool.toast('相册删除成功~');
 							//刷新我的头像
-							
-						
+
+
 							api.hideProgress();
 						}
 					});
-					
+
 					}
 				}
 			})
 		}
 		function uploadAvatarxc3(){
-		
+
 			Tool.actionSheet({
 				buttons:['拍照上传','相册选择照片','删除照片'],
 				success:function(buttonIndex){
-				
+
 					if(buttonIndex <3){
 						Tool.getOnePic({
 							encodingType: 'jpg',
@@ -487,7 +487,7 @@
 								// 				imgSrc: ret.data,
 								// 				callbackEvent: 'getAvatarClipImagexc3'
 								// 			}
-								// 		});	
+								// 		});
 								// 	}
 								// }
 								T.html('.img-frmxc3', 'img-frmxc3', ret.data);
@@ -496,8 +496,8 @@
 											url: ret.data,
 											callbackEvent: 'uploadAvatarxc3'
 										}
-									});	
-								
+									});
+
 							}
 						});
 					}else if(buttonIndex == 3){
@@ -519,23 +519,23 @@
 						T.html('.img-frmxc3', 'img-frmxc3','0');
 							Tool.toast('相册删除成功~');
 							//刷新我的头像
-							
-						
+
+
 							api.hideProgress();
 						}
 					});
-					
+
 					}
 				}
 			})
 		}
-		
+
 		function uploadAvatarxc4(){
-		
+
 			Tool.actionSheet({
 				buttons:['拍照上传','相册选择照片','删除照片'],
 				success:function(buttonIndex){
-				
+
 					if(buttonIndex <3){
 						Tool.getOnePic({
 							encodingType: 'jpg',
@@ -561,7 +561,7 @@
 								// 				imgSrc: ret.data,
 								// 				callbackEvent: 'getAvatarClipImagexc4'
 								// 			}
-								// 		});	
+								// 		});
 								// 	}
 								// }
 								T.html('.img-frmxc4', 'img-frmxc4', ret.data);
@@ -570,8 +570,8 @@
 											url: ret.data,
 											callbackEvent: 'uploadAvatarxc4'
 										}
-									});	
-								
+									});
+
 							}
 						});
 					}else if(buttonIndex == 3){
@@ -593,18 +593,18 @@
 						T.html('.img-frmxc4', 'img-frmxc4','0');
 							Tool.toast('相册删除成功~');
 							//刷新我的头像
-							
-						
+
+
 							api.hideProgress();
 						}
 					});
-					
+
 					}
 				}
 			})
 		}
 		function uploadAvatarxc(a){
-		
+
 			Tool.actionSheet({
 				buttons:['拍照上传','删除照片'],
 				success:function(buttonIndex){
@@ -615,7 +615,7 @@
 							allowEdit: true,
 							success:function(ret){
 								avatar = ret.data;
-								
+
 									T.html('.img-frmxc'+a, 'img-frmxc'+a, ret.data);
 									Upload.init({
 										file: {
@@ -623,7 +623,7 @@
 											callbackEvent: 'uploadAvatarxc'+a
 										}
 									});
-								
+
 							}
 						});
 					}
@@ -635,7 +635,7 @@
 			var name = $api.dom(_this,'.name'),
 					_text = $api.text(name);
 			api.prompt({
-		    title: '请输入昵称', 
+		    title: '请输入昵称',
 		    buttons: ['取消','确定'],
 		    text: _text
 	   	},function(ret){
@@ -674,7 +674,7 @@
 	   		}
 	   	});
 		}
-		
+
 		//选择性别
 		function selectSex(){
 		Tool.toast('性别不能修改哦~');
@@ -704,7 +704,7 @@
 				}
 			});
 		}
-		
+
 		//年龄
 		function changeAge(_this){
 			var age = $api.dom(_this,'.age'),
@@ -713,7 +713,7 @@
 				_text = 0;
 			}
 			api.prompt({
-		    title: '请输入年龄', 
+		    title: '请输入年龄',
 		    buttons: ['确定','取消'],
 		    type: 'number',
 		    text: _text
@@ -754,7 +754,7 @@
 	   		}
 	   	});
 		}
-		
+
 		//获取城市
 		function getCity() {
 			var area = $api.getStorage(CONFIG.memberInfo).area;
@@ -770,11 +770,11 @@
 			}
 			return str;
 		}
-		
+
 		apiready = function(){
 			memberInfo(function(ct){
 				//头像
-		
+
 				$api.attr($api.dom('.img'),'data-original',Tool.imageCompressByQiNiu(ct.avatar, 0, 200, 200));
 				if(ct.xiangce1!='0'){
 				$api.attr($api.dom('.imgxc1'),'data-original',Tool.imageCompressByQiNiu(ct.xiangce1, 0, 200, 200));
@@ -816,7 +816,7 @@
 		      effect : "fadeIn"
 		    });
 			});
-			
+
 			//监听签名
 			api.addEventListener({
 				name: 'signature'
@@ -826,11 +826,11 @@
 					memberinfo = $api.getStorage(CONFIG.memberInfo);
 					memberinfo.signature = signature;
 					$api.html($api.dom('.signature'), signature);
-		ellipsisOne			ellipsisOne();
+					ellipsisOne();
 					$api.setStorage(CONFIG.memberInfo, memberinfo);
 				}
 			});
-			
+
 			//监听是否实名认证
 			api.addEventListener({
 				name: 'certification'
@@ -838,7 +838,7 @@
 				$api.text($api.dom('.cer'),'已认证');
 				$api.attr($api.dom('.certification'),'onclick','');
 			});
-			
+
 			//监听城市切换
 			api.addEventListener({
 				name: 'city'
@@ -866,14 +866,14 @@
 						$api.html($api.dom('.city'), pname);
 					}
 					$api.setStorage(CONFIG.memberInfo,memberinfo);
-					
+
 //					var memberinfo = $api.getStorage(CONFIG.memberInfo);
 //					memberinfo.city = ret.value.cityname;
 //					$api.html($api.dom('.city'),ret.value.cityname);
 //					$api.setStorage(CONFIG.memberInfo,memberinfo);
 				}
 			})
-			
+
 			//上传头像
 			api.addEventListener({
 				name: 'uploadAvatar'
@@ -909,11 +909,11 @@
 
 					});
 				}else {
-					
+
 					Tool.toast('修改头像失败，请重新上传~');
 				}
 			});
-			
+
 			//监听头像截图
 			api.addEventListener({
 				name: 'getAvatarClipImage'
@@ -927,7 +927,7 @@
 					}
 				});
 			});
-			
+
 			//监听相册截图 1
 			api.addEventListener({
 				name: 'getAvatarClipImagexc1'
@@ -941,7 +941,7 @@
 					}
 				});
 			});
-			
+
 			//上传相册
 			api.addEventListener({
 				name: 'uploadAvatarxc1'
@@ -957,7 +957,7 @@
 								token: $api.getStorage(CONFIG.token),
 								avatar: key,
 								pid:0
-						
+
 							}
 						},
 						hideLoading: true,
@@ -981,7 +981,7 @@
 					Tool.toast('相册上传失败，请重新上传~');
 				}
 			});
-			
+
 			//监听相册截图 2
 			api.addEventListener({
 				name: 'getAvatarClipImagexc2'
@@ -995,7 +995,7 @@
 					}
 				});
 			});
-			
+
 			//上传相册2
 			api.addEventListener({
 				name: 'uploadAvatarxc2'
@@ -1020,7 +1020,7 @@
 							Tool.toast('相册上传成功~');
 							//刷新我的头像
 							api.showProgress();
-						
+
 							api.hideProgress();
 						}
 					});
@@ -1028,8 +1028,8 @@
 					Tool.toast('相册上传失败，请重新上传~');
 				}
 			});
-			
-			
+
+
 			//监听相册截图 3
 			api.addEventListener({
 				name: 'getAvatarClipImagexc3'
@@ -1043,7 +1043,7 @@
 					}
 				});
 			});
-			
+
 			//上传相册3
 			api.addEventListener({
 				name: 'uploadAvatarxc3'
@@ -1068,7 +1068,7 @@
 							Tool.toast('相册上传成功~');
 							//刷新我的头像
 							api.showProgress();
-							
+
 							api.hideProgress();
 						}
 					});
@@ -1076,8 +1076,8 @@
 					Tool.toast('相册上传失败，请重新上传~');
 				}
 			});
-			
-			
+
+
 			//监听相册截图4
 			api.addEventListener({
 				name: 'getAvatarClipImagexc4'
@@ -1091,7 +1091,7 @@
 					}
 				});
 			});
-			
+
 			//上传相册4
 			api.addEventListener({
 				name: 'uploadAvatarxc4'
@@ -1116,7 +1116,7 @@
 							Tool.toast('相册上传成功~');
 							//刷新我的头像
 							api.showProgress();
-							
+
 							api.hideProgress();
 						}
 					});
@@ -1124,8 +1124,8 @@
 					Tool.toast('相册上传失败，请重新上传~');
 				}
 			});
-			
-			
+
+
 		}
 	</script>
 </html>
