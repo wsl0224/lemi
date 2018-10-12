@@ -1,0 +1,184 @@
+/*重写浏览器的所有默认样式*/
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, code, form, input, textarea, p, th, td, figure{margin:0;padding:0;}
+table{border-collapse:collapse;border-spacing:0;}
+i, em, b, strong{font-style:normal;font-weight:normal;}
+li{list-style:none;vertical-align:top;}
+table{ border-collapse:collapse;}
+textarea{resize:none;overflow:auto;}
+h1, h2, h3, h4, h5, h6{font-size:100%;font-weight:normal;line-height: inherit;font-size: inherit;color: inherit;}
+input, button, textarea, select{font-family:inherit;font-size:inherit;font-weight:inherit;}
+textarea{resize:none;overflow:auto;}
+a{text-decoration:none;outline:none;font-size: inherit;line-height: inherit;color:inherit;}
+img{border:none; vertical-align:top;}
+/*基本属性*/
+body{background:#fff;}
+/*各浏览器的默认属性clear*/
+/*清楚Iphone 的圆角*/
+input[type=submit], input[type=text], input[type=button]{
+	-webkit-appearance:none;
+	line-height: inherit;
+}
+/*ios系统中元素被触摸时产生的半透明灰色遮罩*/
+*{
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+/*部分android系统中元素被点击时产生的边框怎么去掉*/
+/*-webkit-user-modify有个副作用，就是输入法不再能够输入多个字符*/
+/*另外，有些机型去除不了，如小米2*/
+/*对于按钮类还有个办法，不使用a或者input标签，直接用div标签*/
+a, button, input, textarea{
+-webkit-tap-highlight-color: rgba(0,0,0,0);
+/*-webkit-user-modify:read-write-plaintext-only;*/
+}
+/*winphone系统a、input标签被点击时产生的半透明灰色背景怎么去掉*/
+/*<meta name="msapplication-tap-highlight" content="no">*/
+/*webkit表单元素的默认外观怎么重置*/
+/*.css{-webkit-appearance:none;}*/
+/*禁止ios 长按时不触发系统的菜单，禁止ios&android长按时下载图片*/
+/*.css{-webkit-touch-callout: none}*/
+/*禁止ios和android用户选中文字*/
+/*.css{-webkit-user-select:none}*/
+/*audio元素和video元素在ios和andriod中无法自动播放*/
+/*$('html').one('touchstart',function(){*/
+/*audio.play()*/
+/*})*/
+/*手机拍照和上传图片*/
+/* 选择照片*/
+/*<input type=file accept="image/*">*/
+/* 选择视频*/
+/*<input type=file accept="video/*">*/
+/*取消input在ios下，输入的时候英文首字母的默认大写*/
+<input autocapitalize="off" autocorrect="off" />
+
+ /*android 上去掉语音输入按钮*/
+input::-webkit-input-speech-button {display: none}
+/*禁止winphone默认触摸事件 */
+/*html{-ms-touch-action: none;}*/
+/*1.目前只有ios7+、winphone8+支持自动播放*/
+/*2.支持Airplay的设备（如：音箱、Apple TV)播放*/
+/*x-webkit-airplay="true" */
+/*3.播放视频不全屏，ios7+、winphone8+支持，部分android4+支持（含华为、小米、魅族）*/
+/*webkit-playsinline="true" */
+/*<video x-webkit-airplay="true" webkit-playsinline="true" preload="auto" autoplay src="http:"></video>*/
+/*禁用 select 默认下拉箭头*/
+/*::-ms-expand 适用于表单选择控件下拉箭头的修改，有多个属性值，设置它隐藏 (display:none) 并使用背景图片来修饰可得到我们想要的效果。*/
+select::-ms-expand {
+display: none;
+}
+/*禁用 radio 和 checkbox 默认样式*/
+/*::-ms-check 适用于表单复选框或单选按钮默认图标的修改，同样有多个属性值，设置它隐藏 (display:none) 并使用背景图片来修饰可得到我们想要的效果。*/
+input[type=radio]::-ms-check, input[type=checkbox]::-ms-check{
+display: none;
+}
+/*移动端定义字体的代码*/
+/*body{font-family:Helvetica;}*/
+/*::-webkit-scrollbar {
+	display: none;
+}
+手机端滚动条干掉
+*/
+/*清除浮动 */
+.clear {
+	zoom: 1;
+}
+.clear:after {
+	content: '';
+	display: block;
+	clear: both;
+
+}
+.fb{font-weight: bold;}
+.auto{margin:0 auto;}
+.fl{float:left;}
+.fr{float:right;}
+.transition{
+	 transition:all 0.6s ease;
+}
+.poa{
+position: absolute;
+}
+.pof{
+	position: fixed;
+}
+.por{
+	position: relative;
+}
+/*meta*/
+/*
+	<meta name="description" content="不超过150个字符"/>
+	<!-- 页面关键词 -->
+	<meta name="keywords" content=""/>
+	<!-- 网页作者 -->
+	<!-- iOS 设备 begin -->
+	<meta name="apple-mobile-web-app-title" content="标题">
+	<!-- 添加到主屏后的标题（iOS 6 新增） -->
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<!-- 是否启用 WebApp 全屏模式，删除苹果默认的工具栏和菜单栏 -->
+	<meta name="apple-itunes-app" content="app-id=myAppStoreID, affiliate-data=myAffiliateData, app-argument=myURL">
+	<!-- 添加智能 App 广告条 Smart App Banner（iOS 6+ Safari） -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+	<!-- 设置苹果工具栏颜色 -->
+	<meta name="format-detection" content="telphone=no, email=no"/>
+	<!-- 忽略页面中的数字识别为电话，忽略email识别 -->
+	<!-- 启用360浏览器的极速模式(webkit) -->
+	<meta name="renderer" content="webkit">
+	<!-- 避免IE使用兼容模式 -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+	<meta name="HandheldFriendly" content="true">
+	<!-- 微软的老式浏览器 -->
+	<meta name="MobileOptimized" content="320">
+	<!-- uc强制竖屏 -->
+	<meta name="screen-orientation" content="portrait">
+	<!-- QQ强制竖屏 -->
+	<meta name="x5-orientation" content="portrait">
+	<!-- UC强制全屏 -->
+	<meta name="full-screen" content="yes">
+	<!-- QQ强制全屏 -->
+	<meta name="x5-fullscreen" content="true">
+	<!-- UC应用模式 -->
+	<meta name="browsermode" content="application">
+	<!-- QQ应用模式 -->
+	<meta name="x5-page-mode" content="app">
+	<!-- windows phone 点击无高光 -->
+	<meta name="msapplication-tap-highlight" content="no">
+	<!-- iOS 图标 begin -->
+	<link rel="apple-touch-icon-precomposed" href="/apple-touch-icon-57x57-precomposed.png"/>
+	<!-- iPhone 和 iTouch，默认 57x57 像素，必须有 -->
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/apple-touch-icon-114x114-precomposed.png"/>
+	<!-- Retina iPhone 和 Retina iTouch，114x114 像素，可以没有，但推荐有 -->
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144x144-precomposed.png"/>
+	<!-- Retina iPad，144x144 像素，可以没有，但推荐有 -->
+	<!-- iOS 图标 end -->
+
+	<!-- iOS 启动画面 begin -->
+	<link rel="apple-touch-startup-image" sizes="768x1004" href="/splash-screen-768x1004.png"/>
+	<!-- iPad 竖屏 768 x 1004（标准分辨率） -->
+	<link rel="apple-touch-startup-image" sizes="1536x2008" href="/splash-screen-1536x2008.png"/>
+	<!-- iPad 竖屏 1536x2008（Retina） -->
+	<link rel="apple-touch-startup-image" sizes="1024x748" href="/Default-Portrait-1024x748.png"/>
+	<!-- iPad 横屏 1024x748（标准分辨率） -->
+	<link rel="apple-touch-startup-image" sizes="2048x1496" href="/splash-screen-2048x1496.png"/>
+	<!-- iPad 横屏 2048x1496（Retina） -->
+
+	<link rel="apple-touch-startup-image" href="/splash-screen-320x480.png"/>
+	<!-- iPhone/iPod Touch 竖屏 320x480 (标准分辨率) -->
+	<link rel="apple-touch-startup-image" sizes="640x960" href="/splash-screen-640x960.png"/>
+	<!-- iPhone/iPod Touch 竖屏 640x960 (Retina) -->
+	<link rel="apple-touch-startup-image" sizes="640x1136" href="/splash-screen-640x1136.png"/>
+	<!-- iPhone 5/iPod Touch 5 竖屏 640x1136 (Retina) -->
+	<!-- iOS 启动画面 end -->
+
+	<!-- iOS 设备 end -->
+	<meta name="msapplication-TileColor" content="#000"/>
+	<!-- Windows 8 磁贴颜色 -->
+	<meta name="msapplication-TileImage" content="icon.png"/>
+	<!-- Windows 8 磁贴图标 -->
+
+	<link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml"/>
+	<!-- 添加 RSS 订阅 -->
+	<link rel="shortcut icon" type="image/ico" href="/favicon.ico"/>
+	<!-- 添加 favicon icon -->
+*/
+
+/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInJlc2V0LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxnQkFBZ0I7QUFDaEIsMEdBQXFGLFNBQVMsVUFBVSxDQUFDO0FBQ3pHLE1BQU0seUJBQXlCLGlCQUFpQixDQUFDO0FBQ2pELGlCQUFjLGtCQUFrQixtQkFBbUIsQ0FBQztBQUNwRCxHQUFHLGdCQUFnQixtQkFBbUIsQ0FBQztBQUN2QyxPQUFPLHlCQUF5QixDQUFDO0FBQ2pDLFNBQVMsWUFBWSxjQUFjLENBQUM7QUFDcEMsdUJBQWtCLGVBQWUsbUJBQW1CLHFCQUFxQixtQkFBbUIsZUFBZSxDQUFDO0FBQzVHLGdDQUE2QixvQkFBb0Isa0JBQWtCLG9CQUFvQixDQUFDO0FBQ3hGLFNBQVMsWUFBWSxjQUFjLENBQUM7QUFDcEMsRUFBRSxxQkFBcUIsYUFBYSxtQkFBbUIscUJBQXFCLGNBQWMsQ0FBQztBQUMzRixJQUFJLFlBQVksQ0FBQyxtQkFBbUIsQ0FBQztBQUlwQyxRQUFRO0FBQ1QsS0FBSyxnQkFBZ0IsQ0FBQztBQUtyQixrQkFBa0I7QUFFbEIsZ0JBQWdCO0FBQ2pCO0NBQ0Msd0JBQXdCO0NBQ3hCLHFCQUFxQjtDQUNyQjtBQUVBLDBCQUEwQjtBQUMzQjtDQUNDLDJDQUEyQztDQUMzQztBQUVBLCtCQUErQjtBQUMvQiw0Q0FBNEM7QUFDNUMsb0JBQW9CO0FBQ3BCLHFDQUFxQztBQUN0QztBQUNBLDJDQUEyQztBQUMzQyxrREFBa0Q7Q0FDakQ7QUFFQSx5Q0FBeUM7QUFDekMsMERBQTBEO0FBRTFELHVCQUF1QjtBQUN2QixrQ0FBa0M7QUFFbEMsMENBQTBDO0FBQzFDLHFDQUFxQztBQUVyQyx1QkFBdUI7QUFDdkIsa0NBQWtDO0FBRWxDLHNDQUFzQztBQUN0QywwQ0FBMEM7QUFDdEMsZ0JBQWdCO0FBQ3BCLE1BQU07QUFFTixhQUFhO0FBQ2IsU0FBUztBQUNULHNDQUFzQztBQUN0QyxTQUFTO0FBQ1Qsc0NBQXNDO0FBRXRDLGdDQUFnQztBQUNqQzs7O29DQUdvQyxhQUFhLENBQUM7QUFFbEQscUJBQXFCO0FBQ3BCLGlDQUFpQztBQUVqQyxnQ0FBZ0M7QUFDaEMsbUNBQW1DO0FBQ25DLDRCQUE0QjtBQUM1Qix5REFBeUQ7QUFDekQsOEJBQThCO0FBQzlCLHlHQUF5RztBQUV6RyxvQkFBb0I7QUFFckIsbUZBQW1GO0FBRW5GO0FBQ0EsY0FBYztDQUNiO0FBQ0QsNEJBQTRCO0FBRTVCLHdGQUF3RjtBQUV4RjtBQUNBLGNBQWM7Q0FDYjtBQUlELGNBQWM7QUFDYixnQ0FBZ0M7QUFFakM7Ozs7RUFJRTtBQUVBLFNBQVM7QUFDWDtDQUNDLFFBQVE7Q0FDUjtBQUNEO0NBQ0MsWUFBWTtDQUNaLGVBQWU7Q0FDZixZQUFZOztDQUVaO0FBR0QsSUFBSSxrQkFBa0IsQ0FBQztBQUN2QixNQUFNLGNBQWMsQ0FBQztBQUNyQixJQUFJLFdBQVcsQ0FBQztBQUNoQixJQUFJLFlBQVksQ0FBQztBQUNqQjtFQUNFLHlCQUF5QjtDQUMxQjtBQUVEO0FBQ0EsbUJBQW1CO0NBQ2xCO0FBQ0Q7Q0FDQyxnQkFBZ0I7Q0FDaEI7QUFDRDtDQUNDLG1CQUFtQjtDQUNuQjtBQUlELFFBQVE7QUFDUjs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0VBMkVFIiwiZmlsZSI6InJlc2V0LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi8q6YeN5YaZ5rWP6KeI5Zmo55qE5omA5pyJ6buY6K6k5qC35byPKi9cclxuYm9keSxkaXYsZGwsZHQsZGQsdWwsb2wsbGksaDEsaDIsaDMsaDQsaDUsaDYsY29kZSxmb3JtLGlucHV0LHRleHRhcmVhLHAsdGgsdGQsZmlndXJle21hcmdpbjowO3BhZGRpbmc6MDt9XHJcbnRhYmxle2JvcmRlci1jb2xsYXBzZTpjb2xsYXBzZTtib3JkZXItc3BhY2luZzowO31cclxuaSxlbSxiLHN0cm9uZ3tmb250LXN0eWxlOm5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7fVxyXG5saXtsaXN0LXN0eWxlOm5vbmU7dmVydGljYWwtYWxpZ246dG9wO31cclxudGFibGV7IGJvcmRlci1jb2xsYXBzZTpjb2xsYXBzZTt9XHJcbnRleHRhcmVhe3Jlc2l6ZTpub25lO292ZXJmbG93OmF1dG87fVxyXG5oMSxoMixoMyxoNCxoNSxoNntmb250LXNpemU6MTAwJTtmb250LXdlaWdodDpub3JtYWw7bGluZS1oZWlnaHQ6IGluaGVyaXQ7Zm9udC1zaXplOiBpbmhlcml0O2NvbG9yOiBpbmhlcml0O31cclxuaW5wdXQsYnV0dG9uLHRleHRhcmVhLHNlbGVjdHtmb250LWZhbWlseTppbmhlcml0O2ZvbnQtc2l6ZTppbmhlcml0O2ZvbnQtd2VpZ2h0OmluaGVyaXQ7fVxyXG50ZXh0YXJlYXtyZXNpemU6bm9uZTtvdmVyZmxvdzphdXRvO31cclxuYXt0ZXh0LWRlY29yYXRpb246bm9uZTtvdXRsaW5lOm5vbmU7Zm9udC1zaXplOiBpbmhlcml0O2xpbmUtaGVpZ2h0OiBpbmhlcml0O2NvbG9yOmluaGVyaXQ7fVxyXG5pbWd7Ym9yZGVyOm5vbmU7IHZlcnRpY2FsLWFsaWduOnRvcDt9XHJcblxyXG5cclxuXHJcbiAvKuWfuuacrOWxnuaApyovXHJcbmJvZHl7YmFja2dyb3VuZDojZmZmO31cclxuXHJcblxyXG5cclxuXHJcbiAvKuWQhOa1j+iniOWZqOeahOm7mOiupOWxnuaAp2NsZWFyKi9cclxuXHJcbiAvKua4healmklwaG9uZSDnmoTlnIbop5IqL1xyXG5pbnB1dFt0eXBlPXN1Ym1pdF0saW5wdXRbdHlwZT10ZXh0XSxpbnB1dFt0eXBlPWJ1dHRvbl17XHJcblx0LXdlYmtpdC1hcHBlYXJhbmNlOm5vbmU7XHJcblx0bGluZS1oZWlnaHQ6IGluaGVyaXQ7XHJcbn1cclxuXHJcbiAvKmlvc+ezu+e7n+S4reWFg+e0oOiiq+inpuaRuOaXtuS6p+eUn+eahOWNiumAj+aYjueBsOiJsumBrue9qSovXHJcbip7XHJcblx0LXdlYmtpdC10YXAtaGlnaGxpZ2h0LWNvbG9yOiByZ2JhKDAsMCwwLDApO1xyXG59XHJcblxyXG4gLyrpg6jliIZhbmRyb2lk57O757uf5Lit5YWD57Sg6KKr54K55Ye75pe25Lqn55Sf55qE6L655qGG5oCO5LmI5Y675o6JKi9cclxuIC8qLXdlYmtpdC11c2VyLW1vZGlmeeacieS4quWJr+S9nOeUqO+8jOWwseaYr+i+k+WFpeazleS4jeWGjeiDveWkn+i+k+WFpeWkmuS4quWtl+espiovXHJcbiAvKuWPpuWklu+8jOacieS6m+acuuWei+WOu+mZpOS4jeS6hu+8jOWmguWwj+exszIqL1xyXG4gLyrlr7nkuo7mjInpkq7nsbvov5jmnInkuKrlip7ms5XvvIzkuI3kvb/nlKhh5oiW6ICFaW5wdXTmoIfnrb7vvIznm7TmjqXnlKhkaXbmoIfnrb4qL1xyXG5hLGJ1dHRvbixpbnB1dCx0ZXh0YXJlYXtcclxuLXdlYmtpdC10YXAtaGlnaGxpZ2h0LWNvbG9yOiByZ2JhKDAsMCwwLDApO1xyXG4vKi13ZWJraXQtdXNlci1tb2RpZnk6cmVhZC13cml0ZS1wbGFpbnRleHQtb25seTsqL1xyXG59XHJcblxyXG4gLyp3aW5waG9uZeezu+e7n2HjgIFpbnB1dOagh+etvuiiq+eCueWHu+aXtuS6p+eUn+eahOWNiumAj+aYjueBsOiJsuiDjOaZr+aAjuS5iOWOu+aOiSovXHJcbiAvKjxtZXRhIG5hbWU9XCJtc2FwcGxpY2F0aW9uLXRhcC1oaWdobGlnaHRcIiBjb250ZW50PVwibm9cIj4qL1xyXG5cclxuIC8qd2Via2l06KGo5Y2V5YWD57Sg55qE6buY6K6k5aSW6KeC5oCO5LmI6YeN572uKi9cclxuIC8qLmNzc3std2Via2l0LWFwcGVhcmFuY2U6bm9uZTt9Ki9cclxuXHJcbiAvKuemgeatomlvcyDplb/mjInml7bkuI3op6blj5Hns7vnu5/nmoToj5zljZXvvIznpoHmraJpb3MmYW5kcm9pZOmVv+aMieaXtuS4i+i9veWbvueJhyovXHJcbiAvKi5jc3N7LXdlYmtpdC10b3VjaC1jYWxsb3V0OiBub25lfSovXHJcblxyXG4gLyrnpoHmraJpb3PlkoxhbmRyb2lk55So5oi36YCJ5Lit5paH5a2XKi9cclxuIC8qLmNzc3std2Via2l0LXVzZXItc2VsZWN0Om5vbmV9Ki9cclxuXHJcbiAvKmF1ZGlv5YWD57Sg5ZKMdmlkZW/lhYPntKDlnKhpb3PlkoxhbmRyaW9k5Lit5peg5rOV6Ieq5Yqo5pKt5pS+Ki9cclxuIC8qJCgnaHRtbCcpLm9uZSgndG91Y2hzdGFydCcsZnVuY3Rpb24oKXsqL1xyXG4gICAgIC8qYXVkaW8ucGxheSgpKi9cclxuIC8qfSkqL1xyXG5cclxuIC8q5omL5py65ouN54Wn5ZKM5LiK5Lyg5Zu+54mHKi9cclxuIC8qIOmAieaLqeeFp+eJhyovXHJcbiAvKjxpbnB1dCB0eXBlPWZpbGUgYWNjZXB0PVwiaW1hZ2UvKlwiPiovXHJcbiAvKiDpgInmi6nop4bpopEqL1xyXG4gLyo8aW5wdXQgdHlwZT1maWxlIGFjY2VwdD1cInZpZGVvLypcIj4qL1xyXG5cclxuIC8q5Y+W5raIaW5wdXTlnKhpb3PkuIvvvIzovpPlhaXnmoTml7blgJnoi7HmlofpppblrZfmr43nmoTpu5jorqTlpKflhpkqL1xyXG48aW5wdXQgYXV0b2NhcGl0YWxpemU9XCJvZmZcIiBhdXRvY29ycmVjdD1cIm9mZlwiIC8+XHJcblxyXG4gLyphbmRyb2lkIOS4iuWOu+aOieivremfs+i+k+WFpeaMiemSriovXHJcbmlucHV0Ojotd2Via2l0LWlucHV0LXNwZWVjaC1idXR0b24ge2Rpc3BsYXk6IG5vbmV9XHJcblxyXG4vKuemgeatondpbnBob25l6buY6K6k6Kem5pG45LqL5Lu2ICovXHJcbiAvKmh0bWx7LW1zLXRvdWNoLWFjdGlvbjogbm9uZTt9Ki9cclxuXHJcbiAvKjEu55uu5YmN5Y+q5pyJaW9zNyvjgIF3aW5waG9uZTgr5pSv5oyB6Ieq5Yqo5pKt5pS+Ki9cclxuIC8qMi7mlK/mjIFBaXJwbGF555qE6K6+5aSH77yI5aaC77ya6Z+z566x44CBQXBwbGUgVFYp5pKt5pS+Ki9cclxuIC8qeC13ZWJraXQtYWlycGxheT1cInRydWVcIiAqL1xyXG4gLyozLuaSreaUvuinhumikeS4jeWFqOWxj++8jGlvczcr44CBd2lucGhvbmU4K+aUr+aMge+8jOmDqOWIhmFuZHJvaWQ0K+aUr+aMge+8iOWQq+WNjuS4uuOAgeWwj+exs+OAgemtheaXj++8iSovXHJcbiAvKndlYmtpdC1wbGF5c2lubGluZT1cInRydWVcIiAqL1xyXG4gLyo8dmlkZW8geC13ZWJraXQtYWlycGxheT1cInRydWVcIiB3ZWJraXQtcGxheXNpbmxpbmU9XCJ0cnVlXCIgcHJlbG9hZD1cImF1dG9cIiBhdXRvcGxheSBzcmM9XCJodHRwOlwiPjwvdmlkZW8+Ki9cclxuXHJcbiAvKuemgeeUqCBzZWxlY3Qg6buY6K6k5LiL5ouJ566t5aS0Ki9cclxuXHJcbi8qOjotbXMtZXhwYW5kIOmAgueUqOS6juihqOWNlemAieaLqeaOp+S7tuS4i+aLieeureWktOeahOS/ruaUue+8jOacieWkmuS4quWxnuaAp+WAvO+8jOiuvue9ruWug+makOiXjyAoZGlzcGxheTpub25lKSDlubbkvb/nlKjog4zmma/lm77niYfmnaXkv67ppbDlj6/lvpfliLDmiJHku6zmg7PopoHnmoTmlYjmnpzjgIIqL1xyXG5cclxuc2VsZWN0OjotbXMtZXhwYW5kIHtcclxuZGlzcGxheTogbm9uZTtcclxufVxyXG4vKuemgeeUqCByYWRpbyDlkowgY2hlY2tib3gg6buY6K6k5qC35byPKi9cclxuXHJcbi8qOjotbXMtY2hlY2sg6YCC55So5LqO6KGo5Y2V5aSN6YCJ5qGG5oiW5Y2V6YCJ5oyJ6ZKu6buY6K6k5Zu+5qCH55qE5L+u5pS577yM5ZCM5qC35pyJ5aSa5Liq5bGe5oCn5YC877yM6K6+572u5a6D6ZqQ6JePIChkaXNwbGF5Om5vbmUpIOW5tuS9v+eUqOiDjOaZr+WbvueJh+adpeS/rumlsOWPr+W+l+WIsOaIkeS7rOaDs+imgeeahOaViOaenOOAgiovXHJcblxyXG5pbnB1dFt0eXBlPXJhZGlvXTo6LW1zLWNoZWNrLGlucHV0W3R5cGU9Y2hlY2tib3hdOjotbXMtY2hlY2t7XHJcbmRpc3BsYXk6IG5vbmU7XHJcbn1cclxuXHJcblxyXG5cclxuLyrnp7vliqjnq6/lrprkuYnlrZfkvZPnmoTku6PnoIEqL1xyXG4gLypib2R5e2ZvbnQtZmFtaWx5OkhlbHZldGljYTt9Ki9cclxuXHJcbi8qOjotd2Via2l0LXNjcm9sbGJhciB7XHJcblx0ZGlzcGxheTogbm9uZTtcclxufVxyXG7miYvmnLrnq6/mu5rliqjmnaHlubLmjolcclxuKi9cclxuXHJcbiAgLyrmuIXpmaTmta7liqggKi9cclxuLmNsZWFyIHtcclxuXHR6b29tOiAxO1xyXG59XHJcbi5jbGVhcjphZnRlciB7XHJcblx0Y29udGVudDogJyc7XHJcblx0ZGlzcGxheTogYmxvY2s7XHJcblx0Y2xlYXI6IGJvdGg7XHJcblxyXG59XHJcblxyXG5cclxuLmZie2ZvbnQtd2VpZ2h0OiBib2xkO31cclxuLmF1dG97bWFyZ2luOjAgYXV0bzt9XHJcbi5mbHtmbG9hdDpsZWZ0O31cclxuLmZye2Zsb2F0OnJpZ2h0O31cclxuLnRyYW5zaXRpb257XHJcblx0IHRyYW5zaXRpb246YWxsIDAuNnMgZWFzZTtcclxufVxyXG5cclxuLnBvYXtcclxucG9zaXRpb246IGFic29sdXRlO1xyXG59XHJcbi5wb2Z7XHJcblx0cG9zaXRpb246IGZpeGVkO1xyXG59XHJcbi5wb3J7XHJcblx0cG9zaXRpb246IHJlbGF0aXZlO1xyXG59XHJcblxyXG5cclxuXHJcbi8qbWV0YSovXHJcbi8qXHJcblx0PG1ldGEgbmFtZT1cImRlc2NyaXB0aW9uXCIgY29udGVudD1cIuS4jei2hei/hzE1MOS4quWtl+esplwiLz5cclxuXHQ8IS0tIOmhtemdouWFs+mUruivjSAtLT5cclxuXHQ8bWV0YSBuYW1lPVwia2V5d29yZHNcIiBjb250ZW50PVwiXCIvPlxyXG5cdDwhLS0g572R6aG15L2c6ICFIC0tPlxyXG5cdDwhLS0gaU9TIOiuvuWkhyBiZWdpbiAtLT5cclxuXHQ8bWV0YSBuYW1lPVwiYXBwbGUtbW9iaWxlLXdlYi1hcHAtdGl0bGVcIiBjb250ZW50PVwi5qCH6aKYXCI+XHJcblx0PCEtLSDmt7vliqDliLDkuLvlsY/lkI7nmoTmoIfpopjvvIhpT1MgNiDmlrDlop7vvIkgLS0+XHJcblx0PG1ldGEgbmFtZT1cImFwcGxlLW1vYmlsZS13ZWItYXBwLWNhcGFibGVcIiBjb250ZW50PVwieWVzXCIvPlxyXG5cdDwhLS0g5piv5ZCm5ZCv55SoIFdlYkFwcCDlhajlsY/mqKHlvI/vvIzliKDpmaToi7nmnpzpu5jorqTnmoTlt6XlhbfmoI/lkozoj5zljZXmoI8gLS0+XHJcblx0PG1ldGEgbmFtZT1cImFwcGxlLWl0dW5lcy1hcHBcIiBjb250ZW50PVwiYXBwLWlkPW15QXBwU3RvcmVJRCwgYWZmaWxpYXRlLWRhdGE9bXlBZmZpbGlhdGVEYXRhLCBhcHAtYXJndW1lbnQ9bXlVUkxcIj5cclxuXHQ8IS0tIOa3u+WKoOaZuuiDvSBBcHAg5bm/5ZGK5p2hIFNtYXJ0IEFwcCBCYW5uZXLvvIhpT1MgNisgU2FmYXJp77yJIC0tPlxyXG5cdDxtZXRhIG5hbWU9XCJhcHBsZS1tb2JpbGUtd2ViLWFwcC1zdGF0dXMtYmFyLXN0eWxlXCIgY29udGVudD1cImJsYWNrXCIvPlxyXG5cdDwhLS0g6K6+572u6Iu55p6c5bel5YW35qCP6aKc6ImyIC0tPlxyXG5cdDxtZXRhIG5hbWU9XCJmb3JtYXQtZGV0ZWN0aW9uXCIgY29udGVudD1cInRlbHBob25lPW5vLCBlbWFpbD1ub1wiLz5cclxuXHQ8IS0tIOW/veeVpemhtemdouS4reeahOaVsOWtl+ivhuWIq+S4uueUteivne+8jOW/veeVpWVtYWls6K+G5YirIC0tPlxyXG5cdDwhLS0g5ZCv55SoMzYw5rWP6KeI5Zmo55qE5p6B6YCf5qih5byPKHdlYmtpdCkgLS0+XHJcblx0PG1ldGEgbmFtZT1cInJlbmRlcmVyXCIgY29udGVudD1cIndlYmtpdFwiPlxyXG5cdDwhLS0g6YG/5YWNSUXkvb/nlKjlhbzlrrnmqKHlvI8gLS0+XHJcblx0PG1ldGEgaHR0cC1lcXVpdj1cIlgtVUEtQ29tcGF0aWJsZVwiIGNvbnRlbnQ9XCJJRT1lZGdlXCI+XHJcblx0PCEtLSDpkojlr7nmiYvmjIHorr7lpIfkvJjljJbvvIzkuLvopoHmmK/pkojlr7nkuIDkupvogIHnmoTkuI3or4bliKt2aWV3cG9ydOeahOa1j+iniOWZqO+8jOavlOWmgum7keiOkyAtLT5cclxuXHQ8bWV0YSBuYW1lPVwiSGFuZGhlbGRGcmllbmRseVwiIGNvbnRlbnQ9XCJ0cnVlXCI+XHJcblx0PCEtLSDlvq7ova/nmoTogIHlvI/mtY/op4jlmaggLS0+XHJcblx0PG1ldGEgbmFtZT1cIk1vYmlsZU9wdGltaXplZFwiIGNvbnRlbnQ9XCIzMjBcIj5cclxuXHQ8IS0tIHVj5by65Yi256uW5bGPIC0tPlxyXG5cdDxtZXRhIG5hbWU9XCJzY3JlZW4tb3JpZW50YXRpb25cIiBjb250ZW50PVwicG9ydHJhaXRcIj5cclxuXHQ8IS0tIFFR5by65Yi256uW5bGPIC0tPlxyXG5cdDxtZXRhIG5hbWU9XCJ4NS1vcmllbnRhdGlvblwiIGNvbnRlbnQ9XCJwb3J0cmFpdFwiPlxyXG5cdDwhLS0gVUPlvLrliLblhajlsY8gLS0+XHJcblx0PG1ldGEgbmFtZT1cImZ1bGwtc2NyZWVuXCIgY29udGVudD1cInllc1wiPlxyXG5cdDwhLS0gUVHlvLrliLblhajlsY8gLS0+XHJcblx0PG1ldGEgbmFtZT1cIng1LWZ1bGxzY3JlZW5cIiBjb250ZW50PVwidHJ1ZVwiPlxyXG5cdDwhLS0gVUPlupTnlKjmqKHlvI8gLS0+XHJcblx0PG1ldGEgbmFtZT1cImJyb3dzZXJtb2RlXCIgY29udGVudD1cImFwcGxpY2F0aW9uXCI+XHJcblx0PCEtLSBRUeW6lOeUqOaooeW8jyAtLT5cclxuXHQ8bWV0YSBuYW1lPVwieDUtcGFnZS1tb2RlXCIgY29udGVudD1cImFwcFwiPlxyXG5cdDwhLS0gd2luZG93cyBwaG9uZSDngrnlh7vml6Dpq5jlhYkgLS0+XHJcblx0PG1ldGEgbmFtZT1cIm1zYXBwbGljYXRpb24tdGFwLWhpZ2hsaWdodFwiIGNvbnRlbnQ9XCJub1wiPlxyXG5cdDwhLS0gaU9TIOWbvuaghyBiZWdpbiAtLT5cclxuXHQ8bGluayByZWw9XCJhcHBsZS10b3VjaC1pY29uLXByZWNvbXBvc2VkXCIgaHJlZj1cIi9hcHBsZS10b3VjaC1pY29uLTU3eDU3LXByZWNvbXBvc2VkLnBuZ1wiLz5cclxuXHQ8IS0tIGlQaG9uZSDlkowgaVRvdWNo77yM6buY6K6kIDU3eDU3IOWDj+e0oO+8jOW/hemhu+aciSAtLT5cclxuXHQ8bGluayByZWw9XCJhcHBsZS10b3VjaC1pY29uLXByZWNvbXBvc2VkXCIgc2l6ZXM9XCIxMTR4MTE0XCIgaHJlZj1cIi9hcHBsZS10b3VjaC1pY29uLTExNHgxMTQtcHJlY29tcG9zZWQucG5nXCIvPlxyXG5cdDwhLS0gUmV0aW5hIGlQaG9uZSDlkowgUmV0aW5hIGlUb3VjaO+8jDExNHgxMTQg5YOP57Sg77yM5Y+v5Lul5rKh5pyJ77yM5L2G5o6o6I2Q5pyJIC0tPlxyXG5cdDxsaW5rIHJlbD1cImFwcGxlLXRvdWNoLWljb24tcHJlY29tcG9zZWRcIiBzaXplcz1cIjE0NHgxNDRcIiBocmVmPVwiL2FwcGxlLXRvdWNoLWljb24tMTQ0eDE0NC1wcmVjb21wb3NlZC5wbmdcIi8+XHJcblx0PCEtLSBSZXRpbmEgaVBhZO+8jDE0NHgxNDQg5YOP57Sg77yM5Y+v5Lul5rKh5pyJ77yM5L2G5o6o6I2Q5pyJIC0tPlxyXG5cdDwhLS0gaU9TIOWbvuaghyBlbmQgLS0+XHJcblxyXG5cdDwhLS0gaU9TIOWQr+WKqOeUu+mdoiBiZWdpbiAtLT5cclxuXHQ8bGluayByZWw9XCJhcHBsZS10b3VjaC1zdGFydHVwLWltYWdlXCIgc2l6ZXM9XCI3Njh4MTAwNFwiIGhyZWY9XCIvc3BsYXNoLXNjcmVlbi03Njh4MTAwNC5wbmdcIi8+XHJcblx0PCEtLSBpUGFkIOerluWxjyA3NjggeCAxMDA077yI5qCH5YeG5YiG6L6o546H77yJIC0tPlxyXG5cdDxsaW5rIHJlbD1cImFwcGxlLXRvdWNoLXN0YXJ0dXAtaW1hZ2VcIiBzaXplcz1cIjE1MzZ4MjAwOFwiIGhyZWY9XCIvc3BsYXNoLXNjcmVlbi0xNTM2eDIwMDgucG5nXCIvPlxyXG5cdDwhLS0gaVBhZCDnq5blsY8gMTUzNngyMDA477yIUmV0aW5h77yJIC0tPlxyXG5cdDxsaW5rIHJlbD1cImFwcGxlLXRvdWNoLXN0YXJ0dXAtaW1hZ2VcIiBzaXplcz1cIjEwMjR4NzQ4XCIgaHJlZj1cIi9EZWZhdWx0LVBvcnRyYWl0LTEwMjR4NzQ4LnBuZ1wiLz5cclxuXHQ8IS0tIGlQYWQg5qiq5bGPIDEwMjR4NzQ477yI5qCH5YeG5YiG6L6o546H77yJIC0tPlxyXG5cdDxsaW5rIHJlbD1cImFwcGxlLXRvdWNoLXN0YXJ0dXAtaW1hZ2VcIiBzaXplcz1cIjIwNDh4MTQ5NlwiIGhyZWY9XCIvc3BsYXNoLXNjcmVlbi0yMDQ4eDE0OTYucG5nXCIvPlxyXG5cdDwhLS0gaVBhZCDmqKrlsY8gMjA0OHgxNDk277yIUmV0aW5h77yJIC0tPlxyXG5cclxuXHQ8bGluayByZWw9XCJhcHBsZS10b3VjaC1zdGFydHVwLWltYWdlXCIgaHJlZj1cIi9zcGxhc2gtc2NyZWVuLTMyMHg0ODAucG5nXCIvPlxyXG5cdDwhLS0gaVBob25lL2lQb2QgVG91Y2gg56uW5bGPIDMyMHg0ODAgKOagh+WHhuWIhui+qOeOhykgLS0+XHJcblx0PGxpbmsgcmVsPVwiYXBwbGUtdG91Y2gtc3RhcnR1cC1pbWFnZVwiIHNpemVzPVwiNjQweDk2MFwiIGhyZWY9XCIvc3BsYXNoLXNjcmVlbi02NDB4OTYwLnBuZ1wiLz5cclxuXHQ8IS0tIGlQaG9uZS9pUG9kIFRvdWNoIOerluWxjyA2NDB4OTYwIChSZXRpbmEpIC0tPlxyXG5cdDxsaW5rIHJlbD1cImFwcGxlLXRvdWNoLXN0YXJ0dXAtaW1hZ2VcIiBzaXplcz1cIjY0MHgxMTM2XCIgaHJlZj1cIi9zcGxhc2gtc2NyZWVuLTY0MHgxMTM2LnBuZ1wiLz5cclxuXHQ8IS0tIGlQaG9uZSA1L2lQb2QgVG91Y2ggNSDnq5blsY8gNjQweDExMzYgKFJldGluYSkgLS0+XHJcblx0PCEtLSBpT1Mg5ZCv5Yqo55S76Z2iIGVuZCAtLT5cclxuXHJcblx0PCEtLSBpT1Mg6K6+5aSHIGVuZCAtLT5cclxuXHQ8bWV0YSBuYW1lPVwibXNhcHBsaWNhdGlvbi1UaWxlQ29sb3JcIiBjb250ZW50PVwiIzAwMFwiLz5cclxuXHQ8IS0tIFdpbmRvd3MgOCDno4HotLTpopzoibIgLS0+XHJcblx0PG1ldGEgbmFtZT1cIm1zYXBwbGljYXRpb24tVGlsZUltYWdlXCIgY29udGVudD1cImljb24ucG5nXCIvPlxyXG5cdDwhLS0gV2luZG93cyA4IOejgei0tOWbvuaghyAtLT5cclxuXHJcblx0PGxpbmsgcmVsPVwiYWx0ZXJuYXRlXCIgdHlwZT1cImFwcGxpY2F0aW9uL3Jzcyt4bWxcIiB0aXRsZT1cIlJTU1wiIGhyZWY9XCIvcnNzLnhtbFwiLz5cclxuXHQ8IS0tIOa3u+WKoCBSU1Mg6K6i6ZiFIC0tPlxyXG5cdDxsaW5rIHJlbD1cInNob3J0Y3V0IGljb25cIiB0eXBlPVwiaW1hZ2UvaWNvXCIgaHJlZj1cIi9mYXZpY29uLmljb1wiLz5cclxuXHQ8IS0tIOa3u+WKoCBmYXZpY29uIGljb24gLS0+XHJcbiovXHJcbiJdfQ== */

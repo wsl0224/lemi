@@ -42,7 +42,7 @@
 		function setTitle(title){
 			$api.text($api.dom('span.title'), title);
 		}
-		
+
 		function close_win(winname) {
 			switch(api.pageParam.frameName){
 				case 'black_list':
@@ -65,7 +65,7 @@
 				return ;
 			}
 		}
-		
+
 		apiready = function(){
 			var header = $api.byId('header');
 			$api.fixIos7Bar(header);
@@ -73,7 +73,7 @@
 					headerPos = $api.offset(header),
 					winParam = api.pageParam,
 					mainPos = $api.offset(main);
-			
+
 			api.addEventListener({
 				name: 'keyback'
 			}, function(ret, err){
@@ -85,9 +85,8 @@
 					api.closeWin();
 				}
 			});
-			
-			
 			if(typeof winParam.frameParam != "undefined"){
+
 				api.openFrame({
 					name: winParam.frameName,
 					url: winParam.frameUrl,

@@ -1,0 +1,7 @@
+<div class="list">
+	<span onclick="Audience.getAnchor('{{= it.extra.memberid }}')" tapmode="">
+				<span class="level" style="display: inline-block;background-image: url(../../image/level/rank_{{= it.extra.level}}.png);"></span>
+	<span class="title">{{= it.extra.nickname}}：</span>
+	</span>
+	<span class="blue pink">我送了主播({{= it.extra.shouid}})一个{{= it.extra.name}}</span>
+</div>

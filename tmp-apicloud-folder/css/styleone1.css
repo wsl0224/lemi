@@ -1,0 +1,8 @@
+
+
+/*导航*/
+.nav{ border-bottom:2px solid #E5E5E5; position:relative;}
+.nav a{color:#A16881; display:block; text-align:center; font-size:1.4rem;}
+.nav a.now{color:#FF6099; border-bottom:2px solid #FF6099;}
+.nav-icon{position:absolute; right:0; width:3rem; text-align:center; background:#fff; height:4.3rem; line-height:4.3rem; top:0; z-index:100;}
+.nav-icon i{background:#fff; font-size:2.4rem; color:#A16881; font-weight:bold;}

@@ -1,0 +1,121 @@
+<!doctype html>
+<html >
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no">
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			html,body,#main {
+				font-size: 14px;
+				background-color: #fff;
+			}
+			#main{
+				padding:10px 15px;
+			}
+			.item{
+				padding: 20px 0;
+				border-bottom: 1px solid #C7C7C7;
+			}
+			.answer{
+				margin-top: 10px;
+				font-size: 12px;
+				color: #909090;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<div class="item hidden">
+					<div class="question">如何购买魅力值？</div>
+					<div class="answer">魅力值是直播主播收到的礼物，不能购买。</div>
+				</div>
+				<div class="item hidden">
+					<div class="question">如何充值钻石？</div>
+					<div class="answer">打开直播APP，在 我的-账户 里面即可充值。</div>
+				</div>
+				<div class="item hidden">
+					<div class="question">IOS版本有哪些充值方式？</div>
+					<div class="answer">IOS版本充值只支持APPStore充值。</div>
+				</div>
+				<div class="item hidden">
+					<div class="question">IOS版本充值失败怎么办？</div>
+					<div class="answer">建议退出帐号后重新登录、切换网络或稍后再试。</div>
+				</div>
+				<div class="item hidden">
+					<div class="question">如何设置封面？</div>
+					<div class="answer">直播封面就是个人头像，在 编辑资料-头像 即可修改。</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript">
+		//获取帮助中心
+		function helpcenter(i){
+		
+		
+			ajax.get({
+				ctrl: 'zhiboApp',
+				fn: 'novel',
+				data: {
+					values: {
+						id: $api.getStorage(CONFIG.memberId),
+						token: $api.getStorage(CONFIG.token),
+						title: api.pageParam.title,
+						cateid:api.pageParam.title,
+						page:i||0
+					}
+				},
+				hideLoading: false,
+				showError: true,
+				showProgress: false,
+				success: function(ct) {
+				
+	
+				if(ct[0].content){
+					$api.html($api.dom('#main'),ct[0].content);
+					}else{
+					$api.html($api.dom('#main'),'无内容了');
+					}
+					
+				}
+			});
+		}
+		apiready = function(){
+		var i=0;
+				helpcenter();
+				
+				
+				       api.addEventListener({
+                                name : 'scrolltobottom',
+                                extra : {
+                                        threshold : 0 //设置距离底部多少距离时触发，默认值为0，数字类型
+                                }
+                        }, function(ret, err) {
+                        //$api.html($api.dom('#main'),'3333333333333');
+                               i++;
+                               helpcenter(i);
+                              
+                              
+                        });
+                        //下拉刷新
+                        api.setRefreshHeaderInfo({
+                                loadingImg : 'wgt://img/loading_more.gif',
+                                bgColor : '#ccc',
+                                textColor : '#fff',
+                                textDown : '下拉刷新...',
+                                textUp : '松开刷新...'
+                        }, function(ret, err) {
+                        api.refreshHeaderLoadDone();
+                             helpcenter();
+                        });
+               
+			
+		}
+	</script>
+</html>

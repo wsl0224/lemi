@@ -1,0 +1,44 @@
+
+<div class="gift_box ">
+	<!-- 礼物 -->
+	<div id="gift" class="swipe">
+		<div class="swipe-wrap">
+			{{? it instanceof Array && it.length != 0}}
+				{{ for(var i=0;i < Audience.getPage(it.length);i++) { }}
+				<div class="row">
+					{{ for(var j=(i*8);j < Audience.getP(i, it.length);j++) { }}
+						<div class="list odd {{? j >=4}}{{? j%2 == 0}}even {{?}} {{??}}{{? j%2 != 0}}even {{?}} {{?}}col-3 flex-box-v flex-h-ce flex-h-zhu" gift = {{= JSON.stringify(it[j])}} onclick="Audience.selectGift(this,event)" tapmode="">
+							<div class="img" data-original="{{= Tool.imageCompressByQiNiu(it[j].img,0,200,200)}}"></div>
+							<div class="price flex-box flex-h-ce">
+								<span>{{= it[j].price }}</span>
+								<span class="diamond"></span>
+							</div>
+							<div class="xp text-overflow">+<span>{{= it[j].exp}}</span>2222经验值</div>
+							<span class="ct-icon-select-yes hidden">
+             	 	<span class="path1"></span><span class="path2"></span>
+              </span>
+						</div>
+					{{ } }}
+				</div>
+				{{ } }}
+			{{?}}
+		</div>
+		<div id="pointer" class="">
+			{{ for(var i=0;i < Audience.getPage(it.length);i++) { }}
+				<a id="p{{=i}}" class="point{{? i==0}} active{{?}}"></a>
+			{{ } }}
+		</div>
+	</div>
+	<!-- 充值 -->
+	<div class="flex-box flex-h-ce recharge ">
+		<div class="flex-1 flex-box flex-h-ce">
+			<div onclick="openWin('recharge','recharge','充值','mine','recharge')" tapmode="">
+				充值：<span class="diamond_num">{{= memberinfo.diamonds}}</span>
+				<span class="diamond"></span>
+				<span class="ct-icon-arrow-right"></span>
+			</div>
+		</div>
+		<div class="send " onclick="Audience.sendGift()" tapmode=''>发送</div>
+		<div class="hidden liansong flex-box-v flex-h-ce flex-h-zhu" onclick="Audience.sendGift(1)" tapmode=''><span>5</span><div>连送</div></div>
+	</div>
+</div>

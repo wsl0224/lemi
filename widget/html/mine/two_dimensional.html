@@ -50,7 +50,7 @@
 		<div id='main'>
 			<div class="item-box">
 				<div class="item-text">
-					
+
 				</div>
 				<div class="item dimensional flex-box flex-h-ce" imgUrl="" data-status="" data-key="" data-callbackEvent="uploadDimensional" onclick="uploadDimensional()" tapmode>
 						<div class="img-frm">
@@ -65,8 +65,8 @@
 					</div>
 			</div>
 		</div>
-		
-		
+
+
 	</div>
 </body>
 <script type="text/template" template="dimensional">
@@ -91,7 +91,7 @@
 			// 上传二维码
 			function uploadDimensional(){
 
-			if($api.getStorage(CONFIG.qrCode)=='qrCode'||$.getStorage(CONFIG.qrCode)==undefined){
+			if($api.getStorage(CONFIG.qrCode)=='qrCode'||$api.getStorage(CONFIG.qrCode)==undefined||$api.getStorage(CONFIG.qrCode)==null||$api.getStorage(CONFIG.qrCode)==""){
 				Tool.actionSheet({
 				buttons:['拍照上传','相册选择照片'],
 				success:function(buttonIndex){
@@ -101,6 +101,7 @@
 							sourceType: buttonIndex === 1 ? 'camera' : 'library',
 							allowEdit: true,
 							success:function(ret){
+
 								DimensionalUrl = ret.data;
 								$api.setStorage(CONFIG.qrCode, DimensionalUrl);
 								T.html('.img-frm', 'dimensional',ret.data);
@@ -120,6 +121,7 @@
 		}
 
 		function memberInfo() {
+
 			ajax.get({
 				//				ctrl: 'zhiboApp',
 				//				fn: 'memberinfo',
@@ -129,19 +131,22 @@
 					values : {
 						id : $api.getStorage(CONFIG.memberId),
 						token : $api.getStorage(CONFIG.token)
-						
+
 					}
 				},
 				hideLoading : true,
 				showError : true,
 				showProgress : true,
 				success : function(ct) {
+
 					if(ct.qr_code){
-							$api.html($api.dom('.item_text'), '点击下图上传二维码');
-					
+
+					$api.html($api.dom('.item_text'), '点击下图上传二维码');
 					}else{
-						$api.html($api.dom('.item_text'), '');
+							$api.html($api.dom('.item_text'), '');
+
 					}
+
 					$api.setStorage(CONFIG.qrCode, ct.qr_code);
 					$api.dom('.img').style.backgroundImage = 'url("' + Tool.imageCompressByQiNiu(ct.qr_code, 0, 200, 200) + '")';
 					$api.dom('.img').style.backgroundSize = 'cover';
@@ -151,11 +156,12 @@
 		}
 		apiready = function(){
 			memberInfo();
-		
+
 			//上传二维码
 			api.addEventListener({
 				name: 'uploadDimensional'
-			}, function(ret, err) {	
+			}, function(ret, err) {
+
 				var key = $api.attr($api.dom('.dimensional'), 'data-key');
 				if(key) {
 					ajax.get({
@@ -165,25 +171,25 @@
 							values: {
 								id: $api.getStorage(CONFIG.memberId),
 								token: $api.getStorage(CONFIG.token),
-							
-								qr_code: $api.getStorage(CONFIG.qrCode),
+
+								qr_code: key,
 							}
 						},
 						hideLoading: true,
 						showError: true,
 						showProgress: false,
 						success: function() {
-				
+
 							Tool.toast('修改二维码成功~');
 							//刷新我的二维码
 							api.showProgress();
-							
+
 							api.hideProgress();
 						}
 
 					});
 				}else {
-					
+
 					Tool.toast('修改二维码失败，请重新上传~');
 				}
 			});

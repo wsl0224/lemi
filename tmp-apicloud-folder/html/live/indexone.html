@@ -1,0 +1,331 @@
+<!doctype html>
+<html >
+	<head>
+		<link rel="stylesheet" type="text/css" href="../css/aui.css" />
+	<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no">
+		<title>准备直播</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css" />
+		<script type="text/javascript" src="../../script/rongCloud2.js" ></script>
+		<style type="text/css">
+			html, body, #main {
+				background-color: rgba(0, 0, 0, 0);
+			}
+			#wrap {
+				position: relative;
+			}
+			#main {
+				font-size: 14px;
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: cover;
+			}
+			.close {
+				position: absolute;
+				top: 20px;
+				right: 25px;
+			}
+			.ct-icon-close {
+				font-size: 30px;
+				color: #fff;
+				text-shadow: 1px 1px 1px #9E918A;
+				z-index: 1;
+			}
+			.title {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+			}
+			.title .a{
+			position:relative;
+				width: 164px;
+				font-size: 18px;
+				text-align: center;
+				color: #fff;
+				outline: none;
+				resize: none;
+				text-shadow: 1px 1px 1px #9E918A;
+			}
+			.title textarea {
+			padding-top: 15px;
+				width: 164px;
+				font-size: 15px;
+				text-align: left;
+				color: #fff;
+				outline: none;
+				resize: none;
+				text-shadow: 1px 1px 1px #9E918A;
+			}
+			.title textarea::-webkit-input-placeholder {
+				color: #fff;
+			}
+			.start {
+				position: absolute;
+				bottom: 10%;
+				width: 100%;
+			}
+			.btn {
+				margin: 0 15%;
+				width: 70%;
+				border-radius: 50px;
+				padding: 12px 0;
+				background-color: #FE5F99;
+				color: #FFF;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<div class="close" onclick="close_win()" tapmode>
+					<span class="ct-icon-close" </span>
+				</div>
+				<!--
+				<div class="title flex-box flex-center-center">
+				<textarea name="name" rows="2" cols="" placeholder="" oninput="onTitleInput(this)"> </textarea>
+				</div>
+				-->
+			<!--
+				<div   class="flex-box flex-center-center" style="padding-top: 65%;">
+				
+				
+				
+				<span  onclick="shijian(this)" style="background-color: #FE5F99;color: #fff;border-radius:5px 0 0 5px";>时间收费:</span><span onclick="shijian(this)" id="shijian" style="background-color: #FE5F99;color: #fff;border-radius:0 5px 5px 0;"><span>
+					
+					
+					
+				</div>
+				<div   class="flex-box flex-center-center" style="padding-top: 30px">
+				
+				
+				
+				<span  onclick="simi(this)" style="background-color: #FE5F99;color: #fff;border-radius:5px 0 0 5px">私密收费:</span><span onclick="simi(this)" id="simi" style="background-color: #FE5F99;color: #fff;border-radius:0 5px 5px 0;"><span>
+					
+					
+					
+				</div>
+				-->
+				<div class="start">
+				<!--
+					<div class="btn" onclick="Anchor.live()" tapmode>
+						正在连线用户中,请稍候
+					</div>
+					-->
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js"></script>
+	<script type="text/javascript" src="../../script/common.js"></script>
+	<script type="text/javascript" src="../../script/gotyeLive.Core.js"></script>
+	<script type="text/javascript" src="../../script/gotyeLive.Publisher.js"></script>
+	<script type="text/javascript" src="../../script/gotyeLive.Chat.js" ></script>
+	<script type="text/javascript" src="../../script/anchor.js" ></script>
+	<script type="text/javascript">
+		function onTitleInput(_this) {
+			//alert(JSON.stringify($api.val(_this)));
+			if ($api.val(_this).length > 0) {
+				$api.css(_this, "width:70%;text-align:center;");
+			} else {
+				$api.css(_this, "width:182px;text-align:left;");
+			}
+		}
+
+		function shijian(_this) {
+		
+	
+		Anchor.configTime(event,$api.val(_this));
+			//alert(JSON.stringify($api.val(_this)));
+			//if ($api.val(_this).length > 0) {
+				//$api.css(_this, "width:70%;text-align:center;");
+		//	} else {
+				//$api.css(_this, "width:182px;text-align:left;");
+			//}
+		}
+		function simi(_this) {
+		
+	
+		Anchor.configSecret(event,$api.val(_this));
+			//alert(JSON.stringify($api.val(_this)));
+			//if ($api.val(_this).length > 0) {
+				//$api.css(_this, "width:70%;text-align:center;");
+		//	} else {
+				//$api.css(_this, "width:182px;text-align:left;");
+			//}
+		}
+
+		function close_win() {
+			QJ.Core.destroyRoomSession(Anchor.session);
+			api.closeWin();
+		}
+		//时间收费改前台
+  function shijians(){
+  var uid=$api.getStorage(CONFIG.memberId);
+		var utoken=$api.getStorage(CONFIG.token);
+		
+		
+  api.ajax({
+				url : window.DOMAIN + '/zhiboApp/chaxun',
+				method : 'post',
+				data : {
+					values : {
+						 id : uid,
+					 token : utoken,
+					 roomid : uid,  //准备播放页面应该提交房间号
+					 uid : uid
+					}
+				}
+			}, function(ret, err) {
+			
+					
+			});
+  
+  }
+    function simis(){
+  var uid=$api.getStorage(CONFIG.memberId);
+		var utoken=$api.getStorage(CONFIG.token);
+		//alert($api.getStorage('roomid'));
+  api.ajax({
+				url : window.DOMAIN + '/zhiboApp/chaxun',
+				method : 'post',
+				data : {
+					values : {
+						 id : uid,
+					 token : utoken,
+					 roomid : uid,
+					 uid : uid
+					}
+				}
+			}, function(ret, err) {
+				
+				//alert(JSON.stringify(ret.content));
+					
+					
+			});
+  
+  }
+    function chuangjian(){ //过7秒后创建房间，并且自动创建直播
+ 	
+  Anchor.live();
+ setTimeout("tongzhi()","1500"); 
+ 
+
+					
+  }
+
+					
+  function tongzhi(){
+  //alert('tongzhi'+JSON.stringify(api.pageParam));
+   api.sendEvent({
+    name: 'kaibo1',
+    extra: {
+        roomid: Anchor.session.roomId,
+        yonghuname: $api.getStorage('yonghuname'),
+        yonghuavatar: $api.getStorage('yonghuavatar')
+    }
+});
+  
+  }
+		apiready = function() {
+	api.toast({
+							msg: '正在连线用户中,请稍候',
+							duration: 3000,
+							location: 'middle'
+						});
+	api.addEventListener({  //监听电话挂掉
+				name : 'kaibo'
+			}, function(retzb) {
+				chuangjian();
+				
+			});
+		// setTimeout("chuangjian()","7000"); //7秒后大斌连麦自动开播
+		  //setTimeout("openP2P(3,)","14000"); //14秒后主播端自动打开连麦
+		//Anchor.live(); //大斌连麦自动开播
+		//shijians(); //时间收费改前台
+		//simis(); //时间收费改前台
+		
+		
+		
+			//alert(111);
+			
+			$api.css($api.dom('#main'), "background-image: url(" + $api.getStorage(CONFIG.memberInfo).avatar + ");")
+			QJ.Core.registerApp();
+			QJ.Core.setDebugLogEnabled({
+				enabled : true
+			});
+			//主播室初始化
+			Anchor.init();
+			//事件：摄像头切换
+			api.addEventListener({
+				name : 'switchCamera'
+			}, function(ret, err) {
+				QJ.Publisher.switchCamera();
+			});
+			//事件：闪光灯开关
+			api.addEventListener({
+				name : 'setTorchOn'
+			}, function(ret, err) {
+				QJ.Publisher.setTorchOn({
+					on : ret.value.on
+				});
+			});
+			//事件：滤镜模式-美白磨皮
+			api.addEventListener({
+				name : 'setFilter'
+			}, function(ret, err) {
+				QJ.Publisher.setFilter({
+					filter : ret.value.filter
+				});
+			});
+			//事件：主播退出
+			
+			
+			api.addEventListener({
+				name : 'stopPublish'
+			}, function(ret, err) {
+				api.require('gotyeLivePublisher').stop();
+				
+				api.sendEvent({
+					name : 'live_list_init',
+					extra : {
+						roomid : Anchor.session.roomId
+					}
+				});
+				
+				//
+			api.sendEvent({  //关闭后首页再触发融云监听
+   					name: 'dianhuagua'
+					});
+				
+				setTimeout("api.closeWin();",300);
+                
+				//				QJ.Publisher.endRecording(function(ret,err){
+				//					QJ.Publisher.stop();
+				//					QJ.Core.destroyRoomSession(Anchor.session);
+				//					api.sendEvent({
+				//						name: 'live_list_init',
+				//						extra: {
+				//							roomid: Anchor.session.roomId
+				//						}
+				//					});
+				//
+				//					//判断录制视频是否保存成功
+				////					console.log(JSON.stringify(err, null, 2))
+				//					if(err && err.code){
+				//						setTimeout("api.closeWin();",300);
+				//					}else{
+				//						api.sendEvent({
+				//							name:'quit_liver_saveSuccess'
+				//						});
+				//					}
+				//				});
+			});
+			
+			
+		}
+	</script>
+</html>

@@ -1,0 +1,127 @@
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<meta charset="utf-8">
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<title></title>
+	</head>
+	<style>
+	.jinee{
+	text-align: center;
+	color: #ffffff;
+	width:100%;
+	height:30%;
+	float: left;
+	}
+	.jineeq{
+	background-color: #FE5F99;width:100%;height:100%;border-radius: 8px
+	}
+	.jineew{
+	text-align: center;color: #ffffff;width:100%;height:40%;float: left;border-radius: 8px
+	}
+	.jineee{
+	width:50%;height:20%;float: left;color: #ffffff;text-align: center;
+	}
+	.jineeee{
+	width:100%;height:20%;float: left;color: #ffffff;text-align: center;
+	}
+	</style>
+	
+	<body>
+	
+		<div class="jineeq">
+			<div class="jineew">
+				<div style="margin-top:20px">APP分享提现</div>
+			</div>
+			<div class="jinee">
+			<div class="jineeee">您可以提现：0.00元</div>
+			</div>
+			<div class="jineee" onclick="tixianxiankaishi(1)">
+				取消
+			</div>
+			<div class="jineee"onclick="tixianxiankaishi(2)">
+				确定
+			</div>
+		</div>
+		<script type="text/javascript" src="../../script/api.js"></script>
+		<script type="text/javascript" src="../../script/common.js"></script>
+		<script type="text/javascript" src="../../script/doT.min.js" ></script>
+		<script type="text/javascript" src="../../script/jquery-1.9.1.min.js" ></script>
+		<script type="text/javascript" src="../../script/jquery.lazyload.min.js" ></script>
+		<script>
+			function tixianxiankaishi(q) {
+				if (q == 1) {
+					api.closeFrame({
+						name : 'apptuxian'
+					});
+				} else {
+				
+					
+ajax.get({
+				ctrl : 'zhiboApp',
+				fn : 'commissionssssss',
+				data : {
+					values : {
+						id : $api.getStorage(CONFIG.memberId),
+						token : $api.getStorage(CONFIG.token),
+						shenhe : 1,
+						jia: 1
+					}
+				},
+				hideLoading : false,
+				showError : true,
+				showProgress : false,
+				success : function(ct) {
+				
+				if(ct.appshenhe == 1){
+				Tool.toast('您已经成功提交！');
+				api.closeFrame({
+						name : 'apptuxian'
+					});
+							return;
+				
+				}else if(ct.appshenhe == 2){
+				Tool.toast('您提交失败！');
+							return;
+				}else{
+				Tool.toast('您的提交时非法的！');
+							return;
+				
+				}
+				}
+			});
+
+
+				}
+			}
+			
+			apiready = function() {
+			
+ajax.get({
+				ctrl : 'zhiboApp',
+				fn : 'commissionsssss',
+				data : {
+					values : {
+						id : $api.getStorage(CONFIG.memberId),
+						token : $api.getStorage(CONFIG.token),
+						jia: 1
+					}
+				},
+				hideLoading : false,
+				showError : true,
+				showProgress : false,
+				success : function(ct) {
+					$api.html($api.dom('.jinee'), '您可以提现：' + ct.lala);
+				}
+			});
+
+
+
+		}
+		</script>
+	</body>
+</html>

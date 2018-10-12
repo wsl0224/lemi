@@ -77,9 +77,9 @@
 		//域名
 //		window.DOMAIN = IS_FORMAL_ENV ? 'http://app.lianjiezhibo.com'
 //																	: 'http://testzhibo.milianjie.com';
-		// window.DOMAIN = 'http://www.zmwha.com';//wsl2018.9.30
+		 window.DOMAIN = 'http://www.zmwha.com';//wsl2018.9.30
 		// window.DOMAIN = 'http://192.168.2.106/lemiapi';
-		 window.DOMAIN = 'http://www.libokeji.cn/lemiapi';
+		 //window.DOMAIN = 'http://www.libokeji.cn/lemiapi';
 		window.CONFIG = {
 				VERSION: '1.0.0',	//app版本号，是组成本地数据库文件的名称的一部分
 		 		DEBUG: IS_FORMAL_ENV ? false : true,
@@ -92,8 +92,8 @@
 		 		SHARE_URL: 'http://' + (IS_FORMAL_ENV ? '' : 'test') + PROJECT_NAME + '.milianjie.com/AppShare',
 		 		/*异步请求配置，用于获取服务器端数据*/
 		 		AJAX: {
-		 		    // BASE_URL: DOMAIN + '/index.php'
-		 		       BASE_URL: DOMAIN
+		 		     BASE_URL: DOMAIN + '/index.php'
+		 		       //BASE_URL: DOMAIN
 		 			//BASE_URL: DOMAIN + '/index.php/api'
 		 		},
 		 		AJ_PUSH: IS_FORMAL_ENV ? false : true,	/*是否绑定极光推送测试*/
@@ -5185,6 +5185,7 @@ Tool.toast('您不能主动发送语音给用户');
 					showError : true,
 					showProgress : false,
 					success : function(ct) {
+
 					if(ct.shebeihao!=api.deviceId){
 					Tool.toast('该帐号异地登录,如非本人登录,请修改密码!');
 	setTimeout("relogin()","2000");

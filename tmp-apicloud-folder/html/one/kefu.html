@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link  type="text/css" rel="stylesheet" href="../../css/huiyuan.css" />
+		<style>
+			body {
+			}
+		</style>
+	</head>
+	<body>
+		<div class="Fxhaoyou" id ="hidshu">
+			
+			<!--
+			<div class="kefu">
+				客服二维码
+			</div>
+			<div class="kefuq  kefuweiixn">
+				<img src="../55/yonghuImg/eewm.png" class="kefuw">
+			</div>
+			-->
+			<div class="kefue">
+				<div class="kefur"></div>
+				<div class ="kefut" onclick="weixin()">
+					<div class="top">
+						复制微信号并添加好友
+					</div>
+				</div>
+			</div>
+			
+			<div class="kefue">
+				<div style="width:10px;height:80%"></div>
+				<div class ="kefutr" onclick="weixin(222)" >
+					
+					<div class ="qqkefu"></div>
+					
+				</div>
+			</div>
+			
+			<div class="kefue">
+				<div style="width:10px;height:80%"></div>
+				<div class ="kefutr" onclick="dianhua()" >
+					
+					<div class ="qqkefu qqkefu1"></div>
+					
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js"></script>
+	<script type="text/javascript">
+		function weixin(qq) {
+			//获取客服微信号
+			ajax.get({
+				ctrl : "XIAOWUApp",
+				fn : "Xkefu",
+				async : false,
+				data : {
+					values : {
+						id : $api.getStorage("uid"),
+					}
+				},
+				success : function(ct) {
+				
+				if(qq == 222){
+			
+				//进这里是QQ聊天
+		 api.openWin({name: 'qq',url: 'http://wpa.qq.com/msgrd?v=3&amp;uin='+ct.qq +'&amp;site=qq&amp;menu=yes'});	
+				return;
+				}else{
+					var clipBoard = api.require('clipBoard');
+					clipBoard.set({
+						value : ct.weixin
+					}, function(ret, err) {
+			if(ret){
+			
+			var dialogBox = api.require('dialogBox');
+dialogBox.alert({
+    texts: {
+        title: '打开微信',
+        content: '复制成功,打开微信添加好友',
+        leftBtnTitle: '取消',
+        rightBtnTitle: '确认'
+    },
+    styles: {
+        bg: '#FE5F99',
+        w: 300,
+        title: {
+            marginT: 20,
+            icon: 'widget://res/gou.png',
+            iconSize: 40,
+            titleSize: 14,
+            titleColor: '#fff'
+        },
+        content: {
+            color: '#fff',
+            size: 14
+        },
+        left: {
+            marginB: 7,
+            marginL: 20,
+            w: 130,
+            h: 35,
+            corner: 2,
+            bg: '#e0e',
+            size: 12
+        },
+        right: {
+            marginB: 7,
+            marginL: 10,
+            w: 130,
+            h: 35,
+            corner: 2,
+            bg: '#e0e',
+            size: 12
+        }
+    }
+}, function(ret) {
+    if (ret.eventType == 'left') {
+        var dialogBox = api.require('dialogBox');
+        dialogBox.close({
+            dialogName: 'alert'
+        });
+    }else{
+     var dialogBox = api.require('dialogBox');
+     dialogBox.close({
+            dialogName: 'alert'
+        });
+    	if (api.systemType != 'ios') {
+						
+							api.openApp({
+								androidPkg : 'com.tencent.mm',
+								mimeType : 'text/html',
+								uri : 'wechat://'
+							});
+						} else {
+							api.openApp({
+								iosUrl : 'weixin://', //打开微信的，其中weixin为微信的URL Scheme
+								appParam : {
+									appParam : ''
+								}
+							});
+						}
+    
+    }
+});
+			}
+					})
+				}}
+			});
+		}
+function dianhua(){
+
+
+api.call({
+    type: 'tel_prompt',
+    number: $api.getStorage('phone')
+});
+}
+		apiready = function() {//注意，使用apicloud的 api时必需要使用apiready
+			ajax.get({
+				ctrl : "XIAOWUApp",
+				fn : "Xkefu",
+				async : false,
+				data : {
+					values : {
+						id : $api.getStorage("uid"),
+					}
+				},
+				success : function(ct) {
+					//$api.html($api.dom('.kefuweiixn'), '<img src= "' + ct.kefu + '"style="margin-top:5%;width:180px;180px">');
+					
+					$api.html($api.dom('.qqkefu'), "QQ客服："+ ct.qq);
+					$api.html($api.dom('.qqkefu1'), "QQ客服："+ ct.phone);
+					$api.setStorage('phone',ct.phone);
+				}
+			});
+		}
+		
+		function getInfo() {
+			var a = "";
+			a += window.screen.availHeight;
+			x = document.getElementById("hidshu");
+			// 定义外高
+			x.style.height = a + "px";
+		}
+
+		getInfo()
+	</script>
+</html>

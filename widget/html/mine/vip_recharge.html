@@ -212,20 +212,20 @@
 	<script type="text/javascript" src="../../script/sweetalert.min.js" ></script>
 	<script type="text/javascript" src="../../script/crypto-js.js" ></script>
 	<script type="text/template" template="main">
-		
+
 		<div class="payment">
 		<div>
 		请选择付款方式
 		</div>
 		<div class="flex-box pay">
-		
+
 		<div pay-id="7" class="flex-box flex-center-center switch" onclick="switchBtn(this)" tapmode="">
 					<div class="weixin"></div>
 				</div>
 				<div pay-id="8" class="flex-box flex-center-center switch" onclick="switchBtn(this)" tapmode="">
 					<div class="alipay"></div>
 				</div>
-				
+
 		</div>
 		</div>
 		</div>
@@ -235,7 +235,7 @@
 		<div class="item-box diamond_wrap" style="margin-top: 0;">
 		{{? it instanceof Array && it.length != 0}}
 			{{~ it:value:index}}
-			
+
 			<div class="item flex-box flex-h-ce ">
 				<div class="left flex-1 flex-box flex-h-ce">
 					<div class="nums">
@@ -310,128 +310,96 @@
 			if (payment) {
 				payment = $api.attr(payment, 'pay-id');
 			}
-			 if (payment == 9) {
-				var apiurl = 'http://pay.78pay.com/Bank';
-				var type = '1007';
-				var value = money;
+
+	if(payment == 7){
+		payment=1;
+				// 微信支付
 				var orderid = new Date().getTime();
-				var callbackurl = window.DOMAIN + '/index.php/zhiboApp/ayhooks2';
-				//异步
-				var attach = 1;
-				var signSource = 'parter=' + qbid + '&type=' + type + '&value=' + value + '&orderid=' + orderid + '&callbackurl=' + callbackurl + qbkey;
-				var sign = CryptoJS.MD5(signSource).toString(CryptoJS.enc.Hex);
-				//var gourl = 'http://pay.78pay.com/Bank?' + 'parter=' + qbid + '&type=' + type + '&value=' + value + '&orderid=' + orderid + '&callbackurl=' + callbackurl + '&attach=' + attach + '&sign=' + sign;
-				var gourl = window.DOMAIN +'/tt/test1.php?'+'order_no='+orderid+'&money='+value;
-				//			console.log(JSON.stringify(gourl));
 				ajax.get({
-					//				ctrl: 'zhiboApp',
-					ctrl : 'zhiboApp',
-					fn : 'addvip2',
-					data : {
-						values : {
-							id : $api.getStorage(CONFIG.memberId),
-							token : $api.getStorage(CONFIG.token),
-							did : id,
-							platform : platform,
-							payment : payment,
-							sdcustomno : orderid
+					ctrl:'WxpayApi',
+					fn:'createOrder',
+					data:{
+						values:{
+							id:$api.getStorage(CONFIG.memberId),
+							token:$api.getStorage(CONFIG.token),
+							pay_type:1,
+							did:id,
+							platform: platform,
+							payment: payment,
+							sdcustomno: orderid,
+
 						}
 					},
-					hideLoading : false,
-					showError : true,
-					showProgress : false,
-					success : function(ct) {
-						document.location = gourl;
+					hideLoading: false,
+					showError: true,
+					showProgress: false,
+					success: function(ct) {
+						// 实例化微信
+
+						var wxPay = api.require('wxPay');
+						wxPay.payOrder({
+								apiKey: ct.appid,
+								orderId: ct.prepayid,
+								mchId: ct.partnerid,
+								nonceStr: ct.noncestr,
+								package: ct.package,
+								timeStamp: ct.timestamp,
+								sign: ct.sign
+						}, function(ret, err) {
+
+								if (ret.status) {
+										//支付成功
+										alert('支付成功');
+
+								} else {
+										alert('支付失败');
+								}
+									document.location = './vip_recharge.html';
+						});
+
 					}
 				});
-			}else if(payment == 8||payment == 7){
-		
-			var apiurl = 'http://wangguan.qianyifu.com:8881/gateway/pay.asp';
-			
-			var bankid = 'zhifubao-wap';
-			var money = money;
-			var orderid = new Date().getTime();
-			var url = window.DOMAIN + '/index.php/zhiboApp/qyfhooks';//异步
-			var attach = id;
-			
-			//userid={userid}&orderid={orderid}&bankid={bankid}&keyvalue={keyvalue}
-			var signSource = 'userid='+qyfid+'&orderid='+orderid+'&bankid='+bankid+'&keyvalue='+qyfkey;
-			var sign = CryptoJS.MD5(signSource).toString(CryptoJS.enc.Hex);
 
-			//     
-			var zhifu=1; 
-			if(payment==7){
-			 zhifu=3;
-			}else if(payment==8){
-			 zhifu=1;
-			}     
-			                                                   
-			var gourl = 'http://www.zmwha.com/codepay/index.php?'+'&orderid='+orderid+'&money='+money+'&uid='+orderid+'|vip|'+shijian+'&zhifu='+zhifu; //3代表微信 1代表支付宝
-		//console.log('ggccc'+JSON.stringify(gourl));
-			ajax.get({
-                ctrl: 'zhiboApp',
-				fn: 'cwxappordervip',
-				data: {
-					values: {
-						id: $api.getStorage(CONFIG.memberId),//id
- 						token: $api.getStorage(CONFIG.token),
-						did: id,
-						platform: platform,
-						payment: payment,
-						sdcustomno:orderid,
-						money: money,
-						shijian: shijian
-					}
-				},
-				hideLoading: false,
-				showError: true,
-				showProgress: false,
-				success: function(ct) {
-				window.setInterval(showalert, 7000);
-function showalert()
-{
+			}else{
+				// 支付宝支付
+		payment=2;
+				var orderid = new Date().getTime();
+				ajax.get({
+					ctrl:'AlipayApi',
+					fn:'createOrder',
+					data:{
+						values:{
+							id:$api.getStorage(CONFIG.memberId),
+							token:$api.getStorage(CONFIG.token),
+							pay_type:1,
+							did:id,
+							platform: platform,
+							payment: payment,
+							sdcustomno: orderid,
 
-api.ajax({
-		    url: window.DOMAIN + '/zhiboApp/huivip',
-		    method: 'post',
-		    data: {
-		        values: {
-		        out_order_no:orderid
-		        }
-		    }
-		}, function(ct, err) {
-				
-	if(ct.state=='1'){
-	api.sendEvent({
-					name: 'viewappear'
-				});
-	alert('冲值成功');
-	api.closeWin();
-	return;
-	}
-		})
-		}
-		
-				api.openFrame({
-						name : 'mine',
-						url : gourl,
-						bounces : false,
-						bgColor : '#F0F0F0',
-						rect : {
-							x : 0,
-							y : 65,
-							w : 'auto',
-							h : 'auto'
 						}
-					});
-	
-				return;
-					//document.location=gourl;
-				}
-			});
-			
-			
-			} 
+					},
+					hideLoading: false,
+					showError: true,
+					showProgress: false,
+					success: function(ct) {
+						// 实例化支付宝支付
+
+						var aliPayPlus = api.require('aliPayPlus');
+						aliPayPlus.payOrder({
+							orderInfo: ct.str
+						}, function(ret, err) {
+							if(ret.code==9000){
+								alert('充值成功');
+							}else{
+								alert('充值失败');
+							}
+						document.location = './vip_recharge.html';
+						});
+					}
+				});
+			}
+
 		}
 
 		apiready = function() {

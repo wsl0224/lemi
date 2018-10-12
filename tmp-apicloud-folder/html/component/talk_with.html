@@ -1,0 +1,2163 @@
+<!doctype html>
+<html >
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no">
+		<title>聊天</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			body, #main {
+				padding: 10px 0;
+			}
+			body, #main, #main > .list-view, .datetime {
+				background-color: #F2F2F2;
+			}
+			#main {
+				-webkit-box-flex: 1;
+				box-flex: 1;
+				-webkit-flex: 1;
+				flex: 1;
+			}
+			.datetime {
+				/*margin-top: 10px;*/
+			}
+			.datetime > span {
+				padding: 3px 8px;
+				color: #fff;
+				background-color: #DFDFDF;
+				font-size: 12px;
+				border-radius: 4px;
+			}
+			.list-view {
+				/*min-height: 80px;*/
+				position: relative;
+				padding: 10px;
+			}
+			.list-view.other {
+			}
+			.me {
+				justify-content: flex-end;
+				-webkit-justify-content: flex-end;
+				-webkit-box-pack: end;
+			}
+			.mesg {
+				letter-spacing: 1px;
+				max-width: 220px;
+				min-width: 30px;
+				position: relative;
+				height: 100%;
+				background-color: #fff;
+				padding: 8px 8px;
+				font-size: 14px;
+				line-height: 1.5;
+				border-radius: 5px;
+				word-break: break-word;
+			}
+			.mesg {
+				margin-left: 12px;
+			}
+			.me .mesg {
+				margin-right: 12px;
+				background-color: #B2E866;
+			}
+			.mesg::before {
+				content: '';
+				display: inline-block;
+				position: absolute;
+				width: 0;
+				height: 0;
+				top: 10px;
+				border: solid #fff;
+				border-width: 4px 8px;
+			}
+			.other .mesg::before {
+				left: -16px;
+				border-color: transparent #fff transparent transparent;
+			}
+			.me .mesg::before {
+				right: -16px;
+				border-color: transparent transparent transparent #B2E866;
+			}
+			/*begin 语音消息*/
+			.mesg.voice {
+				height: 40px;
+				width: 70px;
+			}
+			.me .mesg.voice {
+				background-color: #B2E866;
+				justify-content: flex-end;
+				-webkit-justify-content: flex-end;
+				-webkit-box-pack: end;
+			}
+			.me .mesg.voice::before {
+				border-color: transparent transparent transparent #B2E866;
+			}
+			.voice-dur {
+				position: absolute;
+				bottom: 5px;
+				color: #999
+			}
+			.me .voice-dur {
+				left: -25px;
+			}
+			.other .voice-dur {
+				right: -25px;
+			}
+			/*未读红点*/
+			.voice.new::after {
+				content: '';
+				position: absolute;
+				background-color: #E44240;
+				width: 8px;
+				height: 8px;
+				border-radius: 50%;
+				display: block;
+				top: 0;
+			}
+			.other .voice.new::after {
+				right: -20px;
+			}
+			/*end 语音消息*/
+			.img-frm, .img {
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: cover;
+				height: 50px;
+				width: 50px;
+				border-radius: 50%;
+				background-image: url(../../image/circle/pic_bg.png);
+			}
+			.list-view .img-frm {
+				height: 50px;
+				width: 50px;
+				border-radius: 50%;
+				border: 1px solid #ddd;
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: cover;
+				background-image: url(../../image/circle/pic_bg.png);
+			}
+			img.expression {
+				position: relative;
+				top: 6px;
+				/*left: -5px;*/
+				width: 25px;
+				height: 25px;
+			}
+			.other .img-mesg-frm {
+				position: relative;
+				width: 90px;
+				height: 130px;
+				background-repeat: no-repeat;
+				background-size: cover;
+				background-position: center;
+				margin-left: 6px;
+				-webkit-clip-path: polygon(
+				85px 0,/*右上角起点*/
+				88px 1px,
+				90px 5px, /*右上角终点*/
+				90px 125px, /*右下角起点*/
+				88px 129px,
+				85px 130px, /*右下角终点*/
+				15px 130px,/*左下角起点*/
+				11px 128px,
+				10px 125px,/*左下角终点*/
+				10px 40px,/*箭头起点*/
+				1px 32px,
+				0px 30px,
+				1px 27px,
+				10px 20px,/*箭头终点*/
+				10px 5px,/*左上角起点*/
+				11px 2px,
+				15px 0/*左上角终点*/
+				);
+			}
+			.other .img-mesg {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				background-repeat: no-repeat;
+				background-size: cover;
+				background-position: center;
+				width: 100%;
+				height: 100%;
+				background-image: url(../../image/circle/pic_bg.png);
+				-webkit-clip-path: polygon(
+				85px 1px,/*右上角起点*/
+				87px 2px,
+				89px 5px, /*右上角终点*/
+				89px 125px, /*右下角起点*/
+				87px 128px,
+				85px 129px, /*右下角终点*/
+				15px 129px,/*左下角起点*/
+				12px 127px,
+				11px 125px,/*左下角终点*/
+				11px 40px,/*箭头起点*/
+				2px 32px,
+				1px 30px,
+				2px 28px,
+				11px 21px,/*箭头终点*/
+				11px 5px,/*左上角起点*/
+				12px 3px,
+				15px 1px/*左上角终点*/
+				);
+			}
+			.me .img-mesg-frm {
+				position: relative;
+				width: 90px;
+				height: 130px;
+				background-repeat: no-repeat;
+				background-size: cover;
+				background-position: center;
+				margin-right: 6px;
+			}
+			.img-mesg-frm {
+				width: 90px;
+				height: 130px;
+				background-image: url(../../image/circle/pic_bg.png);
+			}
+			.me .img-mesg {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				background-repeat: no-repeat;
+				background-size: cover;
+				background-position: center;
+				width: 100%;
+				height: 100%;
+				background-image: url(../../image/circle/pic_bg.png);
+				-webkit-clip-path: polygon(
+				74px 1px,/*右上角起点*/
+				77px 2px,
+				78px 5px, /*右上角终点*/
+				78px 21px,/*箭头起点*/
+				87px 28px,
+				89px 30px,
+				88px 32px,
+				78px 40px,/*箭头终点*/
+				78px 125px,/*右下角起点*/
+				77px 128px,
+				74px 129px,/*右下角终点*/
+				5px 129px,/*左下角起点*/
+				2px 128px,
+				1px 125px,/*左下角终点*/
+				1px 5px, /*左上角起点*/
+				2px 2px,
+				6px 1px /*左上角终点*/
+				);
+			}
+			.img-mesg-status {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				width: 100%;
+				height: 100%;
+				background-color: rgba(0, 0, 0, 0.3);
+			}
+			.other .status {
+				color: #fff;
+				padding-left: 10px;
+			}
+			.me .status {
+				color: #fff;
+				padding-right: 10px;
+			}
+			.me .error {
+				color: red;
+				font-size: 20px;
+				position: relative;
+				right: 0;
+				top: 10px;
+				height: 25px;
+			}
+			.me .img-err {
+				top: 55px;
+				right: 15px;
+			}
+			.me .voice-err {
+				top: 10px;
+				right: 25px;
+			}
+			.me .sending {
+				background-image: url(../../image/loading_more.gif);
+				background-size: cover;
+				background-position: center;
+				width: 15px;
+				height: 15px;
+				position: relative;
+				top: 10px;
+			}
+			.me .voice-sending {
+				top: 10px;
+				right: 25px;
+			}
+			.recall {
+				text-align: center;
+				padding-top: 10px;
+			}
+			.recallMsg {
+				background-color: #DFDFDF;
+				padding: 3px;
+				border-radius: 5px;
+				-webkit-border-radius: 5px;
+				color: #fff;
+				font-size: 12px;
+			}
+			/*bubblemenu*/
+			.tooltip {
+				position: absolute;
+				z-index: 1070;
+				font-size: 12px;
+				line-height: 1.42857143;
+			}
+			.tooltip.top {
+				padding: 5px 0;
+				margin-top: -3px;
+			}
+			.tooltip.top .tooltip-arrow {
+				bottom: 0;
+				left: 50%;
+				margin-left: -5px;
+				border-width: 5px 5px 0;
+				border-top-color: #000;
+			}
+			.tooltip-arrow {
+				position: absolute;
+				width: 0;
+				height: 0;
+				border-color: transparent;
+				border-style: solid;
+			}
+			.tooltip-inner {
+				color: #fff;
+				text-align: center;
+				background-color: #000;
+				border-radius: 5px;
+			}
+			.tooltip-inner span {
+				padding: 6px 8px;
+				color: #fff;
+				font-size: 14px;
+				letter-spacing: 2px;
+				border-right: 1px solid #fff;
+			}
+			.tooltip-inner span:last-child {
+				border-right: none;
+			}
+			.line {
+				margin: 0 5px;
+				font-size: 15px;
+			}
+			.tooltip.in {
+				filter: alpha(opacity=90);
+				opacity: 1;
+			}
+			.fade {
+				opacity: 0;
+				-webkit-transition: opacity .15s linear;
+				-o-transition: opacity .15s linear;
+				transition: opacity .15s linear;
+			}
+			/* 礼物  */
+			.gift_mesg .img_box {
+				width: 45px;
+				height: 45px;
+				border: 1px solid #4CC295;
+				border-radius: 3px;
+				margin-right: 5px;
+				background-color: #fff;
+			}
+			.gift_mesg .img {
+				background-image: url(../../image/ring.png);
+				border-radius: 0;
+				width: 30px;
+				height: 30px;
+				margin: 3px;
+				background-size: contain;
+			}
+			.me .gift_mesg, .other .gift_mesg {
+				position: relative;
+				padding: 5px;
+				background-color: #FAFBD8;
+			}
+			.me .gift_mesg.mesg::before {
+				border-color: transparent transparent transparent #FAFBD8;
+			}
+			.other .gift_mesg.mesg::before {
+				border-color: transparent #FAFBD8 transparent transparent;
+			}
+			.bd {
+				border: 1px dashed #EAE0A9;
+				border-radius: 3px;
+			}
+			.byme {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 30px;
+				height: 30px;
+				background-size: cover;
+				background-repeat: no-repeat;
+				background-position: center;
+				background-image: url(../../image/chat_gift_byme.png);
+			}
+			.title {
+				color: #D9677A;
+				padding-left: 25px;
+				border-bottom: 1px solid #EAE0A9;
+			}
+			.contnet {
+				padding-top: 5px;
+				padding-left: 15px;
+				color: #4CC295;
+			}
+			.gift_top {
+				padding: 5px;
+			}
+			.gift_box {
+				margin-left: 2px;
+				width: 15px;
+				height: 15px;
+				background-image: url(../../image/chat_item_gift_icon.png);
+				background-size: cover;
+				background-repeat: no-repeat;
+				background-position: center;
+			}
+			.exp {
+				color: #D9677A;
+				margin: 5px 12px 0 12px;
+			}
+			.stick {
+				width: 15px;
+				height: 15px;
+				background-image: url(../../image/chat_item_gift_stick.png);
+				background-size: cover;
+				background-repeat: no-repeat;
+				background-position: center;
+				margin-right: 5px;
+			}
+			.blur {
+				/*模糊图片*/
+				-webkit-filter: blur(3px);
+				-moz-filter: blur(3px);
+				-ms-filter: blur(3px);
+				filter: blur(3px);
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<section class="hidden">
+					<div class="datetime text-center">
+						<span> 4月6日		10:40 </span>
+					</div>
+					<div class="recall">
+						<span class="recallMsg"> 你撤回了一条消息 </span>
+					</div>
+					<div class="list-view flex-box other">
+						<div class="flex-box">
+							<div class="img-frm">
+								<div class="img" style="background-image: url(../../image/nv.jpg);"></div>
+							</div>
+							<div class="gift_wrap">
+								<div class="mesg gift_mesg">
+									<div class="bd flex-box flex-h-ce">
+										<div class="gift_top">
+											<div class="title flex-box flex-h-ce">
+												收到礼物<em class="gift_box"></em>
+											</div>
+											<div class="contnet">
+												收到一个小黄瓜
+											</div>
+										</div>
+										<div class="img_box flex-box flex-h-ce flex-h-zhu">
+											<div class="img"></div>
+										</div>
+									</div>
+									<div class="byme"></div>
+								</div>
+								<div class="exp text-right">
+									<em class="stick"></em>你的经验值+10
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="list-view flex-box me">
+						<div class="flex-box">
+							<div class="gift_wrap">
+								<div class="mesg gift_mesg">
+									<div class="bd flex-box flex-h-ce">
+										<div class="gift_top">
+											<div class="title flex-box flex-h-ce">
+												赠送礼物<em class="gift_box"></em>
+											</div>
+											<div class="contnet">
+												送一个小黄瓜
+											</div>
+										</div>
+										<div class="img_box flex-box flex-h-ce flex-h-zhu">
+											<div class="img"></div>
+										</div>
+									</div>
+									<div class="byme"></div>
+								</div>
+								<div class="exp text-right">
+									<em class="stick"></em>你的经验值+10
+								</div>
+							</div>
+							<div class="img-frm">
+								<div class="img" style="background-image: url(../../image/nv.jpg);"></div>
+							</div>
+						</div>
+					</div>
+					<div class="list-view flex-box other">
+						<div class="flex-box">
+							<div class="img-frm">
+								<div class="img"></div>
+							</div>
+							<div class="mesg">
+								哈哈
+							</div>
+						</div>
+					</div>
+					<div class="list-view flex-box other">
+						<div class="flex-box">
+							<div class="img-frm">
+								<div class="img"></div>
+							</div>
+							<div class="mesg">
+								<img class="expression" src="../../res/chatBox/emotion/Expression_1.png" width="25" height="25" alt="" />
+							</div>
+						</div>
+					</div>
+					<div class="list-view flex-box me">
+						<div class="flex-box">
+							<span class="sending"></span>
+							<span class="error hidden">!!</span>
+							<div class="mesg">
+								<img class="expression" src="../../res/chatBox/emotion/Expression_1.png" width="25" height="25" alt="" />
+							</div>
+							<div class="img-frm">
+								<div class="img"></div>
+							</div>
+						</div>
+					</div>
+					<div class="list-view flex-box me">
+						<div class="flex-box">
+							<span class="sending"></span>
+							<span class="error hidden">!!</span>
+							<div class="mesg">
+								哇哇哇哇哇 <img class="expression" src="../../res/chatBox/emotion/Expression_1.png" width="25" height="25" alt="" />
+							</div>
+							<div class="img-frm">
+								<div class="img"></div>
+							</div>
+						</div>
+					</div>
+					<div class="list-view flex-box me">
+						<div class="flex-box">
+							<span class="sending"></span>
+							<span class="error hidden">!!</span>
+							<div class="mesg">
+								.
+							</div>
+							<div class="img-frm">
+								<div class="img"></div>
+							</div>
+						</div>
+					</div>
+					<div class="list-view flex-box other">
+						<div class="flex-box">
+							<div class="img-frm">
+								<div class="img"></div>
+							</div>
+							<div class="img-mesg-frm">
+								<div class="img-mesg">
+									<div class="img-mesg-status flex-box flex-h-zhu flex-h-ce">
+										<div class="status">
+											60%
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="list-view flex-box me">
+						<div class="flex-box">
+							<span class="error img-err ">!!</span>
+							<div class="img-mesg-frm">
+								<div class="img-mesg">
+									<div class="img-mesg-status flex-box flex-h-zhu flex-h-ce ">
+										<div class="status">
+											60%
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="img-frm">
+								<div class="img"></div>
+							</div>
+						</div>
+					</div>
+					<div class="list-view flex-box me">
+						<div class="flex-box">
+							<span class="sending voice-sending"></span>
+							<span class="error voice-err hidden">!!</span>
+							<div class="mesg voice flex-box flex-h-ce">
+								<svg class="init" width="17" height="18">
+									<path class="path1" d="M8 0 Q0 9 8 18" stroke="#6AA33A" fill="none" stroke-width="2">
+										<animate attributeName="visibility" begin='' repeatDur='6s' dur='1.5s' values="hidden;hidden;visible;"></animate>
+									</path>
+									<path class="path2" d="M12 4 Q7 9 12 14" stroke="#6AA33A" fill="none" stroke-width="2">
+										<animate attributeName="visibility" begin='' dur='1.5s' repeatDur='6s' values="hidden;visible;visible;"></animate>
+									</path>
+									<path d="M16 7 Q14 9 16 11.5" stroke="#6AA33A" fill="none" stroke-width="2"></path>
+								</svg>
+								<span class="voice-dur"> 5'' </span>
+							</div>
+							<div class="img-frm">
+								<div class="img"></div>
+							</div>
+						</div>
+					</div>
+					<div class="list-view flex-box other" onclick="testSvg(this)">
+						<div class="flex-box">
+							<div class="img-frm">
+								<div class="img"></div>
+							</div>
+							<div class="mesg voice flex-box flex-h-ce new">
+								<svg class="init" width="17" height="18">
+									<path d="M1 7 Q3 9 1 11.5" stroke="#888" fill="none" stroke-width="2"></path>
+									<path d="M5 4 Q10 9 5 14" stroke="#888" fill="none" stroke-width="2">
+										<animate attributeName="visibility" begin='' dur='1.5s' repeatDur='6s' values="hidden;visible;visible;"></animate>
+									</path>
+									<path d="M9 0 Q17 9 9 18" stroke="#888" fill="none" stroke-width="2">
+										<animate attributeName="visibility" begin='' repeatDur='6s' dur='1.5s' values="hidden;hidden;visible;"></animate>
+									</path>
+								</svg>
+								<span class="voice-dur"> 5'' </span>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/rongCloud3.js" ></script>
+	<script type="text/javascript" src="../../script/fs.js" ></script>
+	<script type="text/javascript" src="../../script/UIChatBox.js" ></script>
+	<script type="text/javascript" src="../../script/touch.js" ></script>
+	<!--发送文本消息-->
+	<script type="text/template" template="txt">
+		{{? it.senderUserId == it.targetId }}
+		<div class="list-view flex-box other">
+		<!--来自对方的消息-->
+		<div class="flex-box">
+		<div class="img-frm" onclick="openWin('win','xiangxi','用户详情','one','xiangxi',true,{memberid:{{= strToJson(it.content.extra).mid }}})" tapmode="">
+		<div class="img" style="background-image: url({{= Tool.imageCompressByQiNiu(strToJson(it.content.extra).mavatar,0,200,200)}});"></div>
+		</div>
+		<div class="mesg message" txt="{{= strToJson(it.content.extra).content }}" data-sentTime="{{= strToJson(it.content.extra).msgTime }}" data-messageId="{{= it.messageId }}">
+		{{= h(strToJson(it.content.extra).content) }}
+		</div>
+		</div>
+		</div>
+		{{??}}
+		<div class="list-view flex-box me">
+		<!--“我”发出的消息-->
+		<div class="flex-box">
+		<!-- 为去掉圆型进度改为以下样式<span class="sending {{= it.sentStatus == 'SENDING' ? '':'hidden'}}"></span> -->
+		<span class="sending hidden"></span>
+		<span class="error {{= it.sentStatus == 'FAILED' ? '':'hidden'}}" data-msg-type="txt" data-content="{{= it.content.text }}">!!</span>
+		<div class="mesg message text_mesg" txt="{{= strToJson(it.content.extra).content }}" data-sentStatus="{{= getSentStatus(it.sentStatus) }}" data-sentTime="{{= strToJson(it.extra||it.content.extra).msgTime }}" data-messageId="{{= it.messageId }}">
+		{{= h(strToJson(it.content.extra).content) }}
+		</div>
+		<div class="img-frm" onclick="openWin('win','xiangxi','用户详情','one','xiangxi',true,{memberid:{{= strToJson(it.content.extra).mid }}})" tapmode="">
+		<div class="img" style="background-image: url({{= Tool.imageCompressByQiNiu(strToJson(it.content.extra).mavatar,0,200,200)}});"></div>
+		</div>
+		</div>
+		</div>
+		{{?}}
+	</script>
+	<!--发送图片消息-->
+	<script type="text/template" template="img">
+		{{? it.senderUserId && it.targetId && it.senderUserId == it.targetId }}
+		<div class="list-view flex-box other">
+		<div class="flex-box">
+		<div class="img-frm" onclick="openWin('win','xiangxi','用户详情','one','xiangxi',true,{memberid:{{= strToJson(it.content.extra).mid }}})" tapmode="">
+		<div class="img" style="background-image: url({{= Tool.imageCompressByQiNiu(strToJson(it.content.extra).mavatar,0,200,200)}});"></div>
+		</div>
+		<div class="img-mesg-frm" >
+		{{? $api.getStorage(CONFIG.memberInfo).sex == '1'}}
+		<div class="img-mesg message blur" id="mohu" data-sentTime="{{= strToJson(it.extra||it.content.extra).msgTime }}" data-messageId="{{= it.messageId }}" path="{{= it.content.imageUrl }}" style="background-image: url({{= it.content.imageUrl || it.content.imagePath || it.content.thumbPath }});">
+		<span class="img_mesg"></span>
+		</div>
+		{{??}}
+		<div class="img-mesg message"   data-sentTime="{{= strToJson(it.extra||it.content.extra).msgTime }}" data-messageId="{{= it.messageId }}" path="{{= it.content.imageUrl }}" style="background-image: url({{= it.content.imageUrl || it.content.imagePath || it.content.thumbPath }});">
+		<span class="img_mesg"></span>
+		</div>
+		{{?}}
+		</div>
+		</div>
+		</div>
+		{{??}}
+		<div class="list-view flex-box me">
+		<div class="flex-box">
+		<span class="sending {{= it.sentStatus == 'SENDING' ? '':'hidden'}}"></span>
+		<span class="error img-err {{= it.sentStatus == 'FAILED' ? '':'hidden'}}" data-msg-type="img" data-content="{{= it.content.imageUrl || it.content.imagePath }}">!!</span>
+		<div class="img-mesg-frm" onclick="" tapmode="">
+		<div class="img-mesg message" data-sentStatus="{{= getSentStatus(it.sentStatus) }}" data-sentTime="{{= strToJson(it.extra||it.content.extra).msgTime }}"  data-messageId="{{= it.messageId || 0 }}" path="{{= it.content.imageUrl || it.content.imagePath }}" style="background-image: url({{= it.content.imageUrl|| it.content.imagePath || it.content.thumbPath }});">
+		{{? !it.messageId }}
+		<div class="img-mesg-status flex-box flex-h-zhu flex-h-ce ">
+		<div class="status" sentTime="{{= strToJson(it.extra||it.content.extra).msgTime }}" data-messageId="{{= it.messageId || 0 }}">
+		0%
+		</div>
+		</div>
+		{{?}}
+		</div>
+		</div>
+		<div class="img-frm" onclick="openWin('win','xiangxi','用户详情','one','xiangxi',true,{memberid:{{= strToJson(it.content.extra).mid }}})" tapmode="">
+		<div class="img" style="background-image: url({{= Tool.imageCompressByQiNiu(strToJson(it.content.extra).mavatar,0,200,200)}});"></div>
+		</div>
+		</div>
+		</div>
+		{{?}}
+	</script>
+	<!--时间-->
+	<script type="text/template" template="datetime">
+		<div class="datetime text-center">
+		<span>
+		{{= D.t1(it.datetime, 1) }}
+		</span>
+		</div>
+	</script>
+	<!--语音-->
+	<script type="text/template" template="vc">
+		{{? it.senderUserId && it.targetId && it.senderUserId == it.targetId }}
+		<div class="list-view flex-box other">
+		<div class="flex-box">
+		<div class="img-frm" onclick="openWin('win','xiangxi','用户详情','one','xiangxi',true,{memberid:{{= strToJson(it.content.extra).mid }}})" tapmode="">
+		<div class="img" style="background-image: url({{= Tool.imageCompressByQiNiu(strToJson(it.content.extra).mavatar,0,200,200)}});"></div>
+		</div>
+		<div class="mesg message voice flex-box flex-h-ce {{= JSON.parse(it.extra||it.content.extra).isRead==0?'new':'' }}" extra='{{= it.extra||it.content.extra }}' data-sentTime="{{= JSON.parse(it.extra||it.content.extra).msgTime }}" data-messageId="{{= it.messageId }}" playing="false" voicePath="{{= it.content.voicePath }}" onclick="RongCloud2.playVoice(this)">
+		<svg class="init" width="17" height="18">
+		<path d="M1 7 Q3 9 1 11.5" stroke="#888" fill="none" stroke-width="2"></path>
+		<path d="M5 4 Q10 9 5 14" stroke="#888" fill="none" stroke-width="2">
+		<animate attributeName="visibility" begin='indefinite' dur='1.5s' repeatDur='{{= it.content.duration }}s' values="hidden;visible;visible;"></animate>
+		</path>
+		<path d="M9 0 Q17 9 9 18" stroke="#888" fill="none" stroke-width="2">
+		<animate attributeName="visibility" begin='indefinite' repeatDur='{{= it.content.duration }}s' dur='1.5s' values="hidden;hidden;visible;"></animate>
+		</path>
+		</svg>
+		<span class="voice-dur">
+		{{= it.content.duration }}''
+		</span>
+		</div>
+		</div>
+		</div>
+		{{??}}
+		<div class="list-view flex-box me">
+		<div class="flex-box">
+		<span class="sending voice-sending {{= it.sentStatus == 'SENDING' ? '':'hidden'}}"></span>
+		<span class="error voice-err {{= it.sentStatus == 'FAILED' ? '':'hidden'}}" data-msg-type="voice" data-content="{{= it.content.voicePath }}|{{= it.content.duration }}">!!</span>
+		<div class="mesg message voice flex-box flex-h-ce" data-sentStatus='{{= getSentStatus(it.sentStatus) }}' data-sentTime="{{= JSON.parse(it.extra||it.content.extra).msgTime }}" data-messageId="{{= it.messageId }}" playing="false" voicePath="{{= it.content.voicePath }}" onclick="RongCloud2.playVoice(this)">
+		<svg class="init" width="17" height="18">
+		<path class="path1" d="M8 0 Q0 9 8 18" stroke="#6AA33A" fill="none" stroke-width="2">
+		<animate attributeName="visibility" begin='indefinite' repeatDur='{{= it.content.duration }}s' dur='1.5s' values="hidden;hidden;visible;"></animate>
+		</path>
+		<path class="path2" d="M12 4 Q7 9 12 14" stroke="#6AA33A" fill="none" stroke-width="2">
+		<animate attributeName="visibility" begin='indefinite' dur='1.5s' repeatDur='{{= it.content.duration }}s' values="hidden;visible;visible;"></animate>
+		</path>
+		<path d="M16 7 Q14 9 16 11.5" stroke="#6AA33A" fill="none" stroke-width="2"></path>
+		</svg>
+		<span class="voice-dur">
+		{{= it.content.duration }}''
+		</span>
+		</div>
+		<div class="img-frm"  onclick="openWin('win','xiangxi','用户详情','one','xiangxi',true,{memberid:{{= strToJson(it.content.extra).mid }}})" tapmode="">
+		<div class="img" style="background-image: url({{= Tool.imageCompressByQiNiu(strToJson(it.content.extra).mavatar,0,200,200)}});"></div>
+		</div>
+		</div>
+		</div>
+		{{?}}
+	</script>
+	<!--  礼物   -->
+	<script type="text/template" template="gift">
+		{{? it.senderUserId && it.targetId && it.senderUserId == it.targetId }}
+		<div class="list-view flex-box other">
+		<div class="flex-box">
+		<div class="img-frm"  onclick="openWin('win','xiangxi','用户详情','one','xiangxi',true,{memberid:{{= strToJson(it.content.extra).mid }}})" tapmode="">
+		<div class="img" data-sentTime="{{= strToJson(it.extra || it.content.extra).msgTime}}"  style="background-image: url({{= Tool.imageCompressByQiNiu(strToJson(it.content.extra).mavatar,0,200,200)}});"></div>
+		</div>
+		<div class="gift_wrap">
+		<div class="mesg message gift_mesg" data-messageId="{{=it.messageId || 0}}" onclick="texiao('{{= it.content.gif||strToJson(it.content.extra).gif|| it.content.imagePath || it.content.thumbPath}}')">
+		<div class="bd flex-box flex-h-ce">
+		<div class="gift_top">
+		<div class="title flex-box flex-h-ce">收到礼物<em class="gift_box"></em></div>
+		<div class="contnet">
+		{{? strToJson(it.content.extra).name}}
+		收到一个{{= strToJson(it.content.extra).name}}
+		{{?}}
+		</div>
+		</div>
+		<div class="img_box flex-box flex-h-ce flex-h-zhu">
+		<div class="img" style="background-image: url({{= it.content.imageUrl|| it.content.imagePath || it.content.thumbPath}});"></div>
+		</div>
+		</div>
+		<div class="byme"></div>
+		</div>
+		<div class="exp text-right">
+		
+		<!-- <em class="stick"></em>222你的经验值+{{= strToJson(it.content.extra).exp}} -->
+		</div>
+		</div>
+		</div>
+		</div>
+		{{??}}
+		<div class="list-view flex-box me">
+		<div class="flex-box">
+		<span class="sending {{= it.sentStatus == 'SENDING' ? '':'hidden'}}"></span>
+		<span class="error {{= it.sentStatus == 'FAILED' ? '':'hidden'}}" data-msg-type="gift" data-content="{{= it.content.imagePath || it.content.thumbPath }}">!!</span>
+		<div class="gift_wrap">
+		<div class="mesg message gift_mesg" data-sentStatus="{{=getSentStatus(it.sentStatus)}}" data-sentTime="{{= strToJson(it.extra||it.content.extra).msgTime }}" data-messageId="{{=it.messageId || 0}}">
+
+		<div class="bd flex-box flex-h-ce" exp="{{= strToJson(it.content.extra).exp}}" name="{{= strToJson(it.content.extra).name}}" onclick="texiao('{{= it.content.gif||strToJson(it.content.extra).gif|| it.content.imagePath || it.content.thumbPath}}')">
+		<div class="gift_top" >
+		<div class="title flex-box flex-h-ce">赠送礼物<em class="gift_box"></em></div>
+		<div class="contnet" >
+		{{? strToJson(it.content.extra).name}}
+		送了一个{{= strToJson(it.content.extra).name}}
+		{{?}}
+		</div>
+		</div>
+		<div class="img_box flex-box flex-h-ce flex-h-zhu" >
+		<div class="img"  sentTime="{{= strToJson(it.extra||it.content.extra).msgTime }}" style="background-image: url({{= it.content.imageUrl|| it.content.imagePath || it.content.thumbPath}});"></div>
+		</div>
+		</div>
+		<div class="byme"></div>
+		</div>
+		<div class="exp text-right">
+		<!-- <em class="stick"></em>22222222222222你的经验值+{{= strToJson(it.content.extra).exp}} -->
+		</div>
+		</div>
+		<div class="img-frm"  onclick="openWin('win','xiangxi','用户详情','one','xiangxi',true,{memberid:{{= strToJson(it.content.extra).mid }}})" tapmode="">
+		<div class="img" style="background-image: url({{= Tool.imageCompressByQiNiu(strToJson(it.content.extra).mavatar,0,200,200)}});"></div>
+		</div>
+		</div>
+		</div>
+		{{?}}
+	</script>
+	
+	
+	<!--  位置  -->
+	<script type="text/template" template="weizhi">
+		{{? it.senderUserId && it.targetId && it.senderUserId == it.targetId }}
+		<div class="list-view flex-box other">
+		<div class="flex-box">
+		<div class="img-frm"  onclick="openWin('win','xiangxi','用户详情','one','xiangxi',true,{memberid:{{= strToJson(it.content.extra).mid }}})" tapmode="">
+		<div class="img" data-sentTime="{{= strToJson(it.extra || it.content.extra).msgTime}}"  style="background-image: url({{= Tool.imageCompressByQiNiu(strToJson(it.content.extra).mavatar,0,200,200)}});"></div>
+		</div>
+		<div class="gift_wrap">
+		<div class="mesg message gift_mesgdabin" data-messageId="{{=it.messageId || 0}}"  onclick="openWin('win','ditunew','位置','one','ditunew',true,{'latitude':{{= it.content.latitude }},'longitude':{{= it.content.longitude }},'poi':'{{= it.content.poi }}'})">
+		<div class="bd flex-box flex-h-ce">
+		<div class="gift_top">
+		<div class="title flex-box flex-h-ce">收到个位置</div>
+		<div class="contnet">
+		{{= it.content.poi }}
+		</div>
+		</div>
+		<div class="img_box flex-box flex-h-ce flex-h-zhu">
+		<div class="img" style="background-image: url({{= it.content.imageUrl|| it.content.imagePath || it.content.thumbPath}});"></div>
+		</div>
+		</div>
+		
+		</div>
+		<div class="exp text-right">
+		
+		<!-- <em class="stick"></em>222你的经验值+{{= strToJson(it.content.extra).exp}} -->
+		</div>
+		</div>
+		</div>
+		</div>
+		{{??}}
+		<div class="list-view flex-box me">
+		<div class="flex-box">
+		<span class="sending {{= it.sentStatus == 'SENDING' ? '':'hidden'}}"></span>
+		<span class="error {{= it.sentStatus == 'FAILED' ? '':'hidden'}}" data-msg-type="gift" data-content="{{= it.content.imagePath || it.content.thumbPath }}">!!</span>
+		<div class="gift_wrap">
+		<div class="mesg message gift_mesg" data-sentStatus="{{=getSentStatus(it.sentStatus)}}" data-sentTime="{{= strToJson(it.extra||it.content.extra).msgTime }}" data-messageId="{{=it.messageId || 0}}">
+
+		<div class="bd flex-box flex-h-ce" exp="{{= strToJson(it.content.extra).exp}}" name="{{= strToJson(it.content.extra).name}}" onclick="openWin('win','ditunew','位置','one','ditunew',true,{'latitude':{{= it.content.latitude }},'longitude':{{= it.content.longitude }},'poi':'{{= it.content.poi }}'})">
+		<div class="gift_top" >
+		<div class="title flex-box flex-h-ce">发送一个位置</div>
+		<div class="contnet" >
+		{{= it.content.poi }}
+		</div>
+		</div>
+		<div class="img_box flex-box flex-h-ce flex-h-zhu" >
+		<div class="img"  sentTime="{{= strToJson(it.extra||it.content.extra).msgTime }}" style="background-image: url({{= it.content.imageUrl|| it.content.imagePath || it.content.thumbPath}});"></div>
+		</div>
+		</div>
+		
+		</div>
+		<div class="exp text-right">
+		<!-- <em class="stick"></em>22222222222222你的经验值+{{= strToJson(it.content.extra).exp}} -->
+		</div>
+		</div>
+		<div class="img-frm"  onclick="openWin('win','xiangxi','用户详情','one','xiangxi',true,{memberid:{{= strToJson(it.content.extra).mid }}})" tapmode="">
+		<div class="img" style="background-image: url({{= Tool.imageCompressByQiNiu(strToJson(it.content.extra).mavatar,0,200,200)}});"></div>
+		</div>
+		</div>
+		</div>
+		{{?}}
+	</script>
+	
+	
+	
+	<!--发送图片进度遮罩-->
+	<script type="text/template" template="pr">
+		<div class="img-mesg-status flex-box flex-h-zhu flex-h-ce ">
+		<div class="status" sentTime="{{= it }}">
+		0%
+		</div>
+		</div>
+	</script>
+	<script type="text/javascript">
+		var isstartplay = false, //正在播放语音
+		isstartplayId = '';
+		//正在播放语音id
+		var timestamp, //时间戳
+		param;
+		//参数
+		//获取语音是否已查看状态
+		function getExtra(str) {
+			if (!is_define(str))
+				return;
+			return $api.strToJson(str).VoiceReadStatus;
+		}
+
+		function strToJson(value) {
+			var str = JSON.parse(value);
+			return str;
+		}
+
+		/*表情转义处理*/
+		function h(str) {
+			if (str) {
+				var regx = /(\&[l,g]t;)|(api.wgtRootDir)/gm, _html = str.replace(regx, function(match) {
+					switch(match) {
+						case '&lt;':
+							return '<';
+						case '&gt;':
+							return '>';
+						case 'api.wgtRootDir':
+							return '../..';
+					}
+				});
+				return _html;
+			} else {
+				return '';
+			}
+		}
+
+		//获取发送状态
+		//用户余额  yuea
+		var yuea = '';
+		function getSentStatus(status) {
+			var st = '';
+			switch(status) {
+				case 'FAILED':
+					st = 'error';
+					break;
+				case 'SENT':
+					st = 'success';
+					break;
+				default:
+					st = 'ready';
+					break;
+			}
+			return st;
+		}
+
+		/*聊天记录滚动底部*/
+		function scrollToBottom() {
+			setTimeout(function() {
+				window.scrollTo(0, $api.dom('body').scrollHeight)
+			}, 100);
+		}
+
+		//复制文本
+		function clipBoard(_text) {
+			UIChatBox.getImgsText(_text, function(textTransed) {
+				var clipBoard = api.require('clipBoard');
+				clipBoard.set({
+					value : textTransed
+				}, function(ret, err) {
+					if (ret.status) {
+						Tool.toast('复制成功~');
+					} else {
+						api.toast({
+							msg : err.msg
+						});
+					}
+				});
+			});
+		}
+
+		//删除消息
+		function deleteMessages(e, messageId) {
+			RongCloud2.deleteMessages({
+				messageIds : [parseInt(messageId)],
+				success : function() {
+					var dateTimeDoms = $api.domAll('.datetime'), listViewDoms = $api.domAll('.list-view');
+					if (dateTimeDoms.length > 1) {
+						if ($api.hasCls(e.target.previousSibling, 'datetime') && $api.hasCls(e.target.nextSibling, 'datetime')) {
+							$api.remove(e.target.previousSibling);
+						}
+					} else {
+						if (listViewDoms.length === 1) {
+							if ($api.hasCls(e.target.previousSibling, 'datetime')) {
+								$api.remove(e.target.previousSibling);
+							}
+						}
+					}
+					$api.remove(e.target);
+				}
+			});
+		}
+
+		//重发消息
+		function repeat(e, param, memberInfo) {
+			var listDom = $api.closest(e.target, '.me'), msgDom = $api.dom(e.target, '.message'), errDom = $api.dom(listDom, '.error'), sendDom = $api.dom(listDom, '.sending'), type = $api.attr(errDom, 'data-msg-type'), messageId = $api.attr(msgDom, 'data-messageId'), sentTime = $api.attr(msgDom, 'data-sentTime'), content = $api.attr(errDom, 'data-content'), msg_content = $api.attr(msgDom, 'txt');
+			if ($api.dom(msgDom, '.bd')) {
+				var gift_exp = $api.attr($api.dom(msgDom, '.bd'), 'exp'), gift_name = $api.attr($api.dom(msgDom, '.bd'), 'name');
+			}
+			var extra = new Object();
+			extra['nickname'] = param.nickname;
+			extra['avatar'] = param.avatar;
+			extra['msgTime'] = new Date().getTime();
+			extra['mname'] = memberInfo.nickname;
+			extra['mavatar'] = memberInfo.avatar;
+			extra['mid'] = $api.strToJson(memberInfo.id);
+			extra['memberid'] = param.memberid;
+			extra['exp'] = gift_exp;
+			extra['name'] = gift_name;
+			RongCloud2.deleteMessages({
+				messageIds : [parseInt(messageId)],
+				success : function() {
+					switch(type) {
+						case 'txt':
+							extra['content'] = msg_content;
+							RongCloud2.sendTextMessage({
+								targetId : param.memberid,
+								text : content,
+								extra : JSON.stringify(extra),
+								prepare : function(ret) {
+									var text_mesg = $api.dom('#main > .list-view:last-of-type .text_mesg'), msgId = $api.attr(text_mesg, 'data-messageId');
+									var message = ret.result.message;
+									if (messageId != msgId) {
+										$api.remove(e.target);
+										T.append('#main', 'txt', '1');
+									} else {
+										$api.attr(msgDom, 'data-messageId', message.messageId);
+										$api.addCls(errDom, 'hidden');
+										$api.removeCls(sendDom, 'hidden');
+									}
+								},
+								success : function(ret) {
+									api.sendEvent({
+										name : 'setTop',
+										extra : {
+											targetId : param.memberid
+										}
+									});
+									scrollToBottom();
+								},
+								error : function(ret) {
+									api.sendEvent({
+										name : 'setTop',
+										extra : {
+											targetId : param.memberid
+										}
+									});
+									scrollToBottom();
+								}
+							});
+							break;
+						case 'img':
+							sentTime = new Date().getTime();
+							extra['msgTime'] = sentTime;
+							var _file = {
+								content : {
+									imagePath : content,
+									extra : JSON.stringify(extra)
+								},
+								sentTime : sentTime
+							};
+							RongCloud2.sendImageMessage({
+								targetId : param.memberid,
+								file : _file,
+								prepare : function(ret, args) {
+									var text_mesg = $api.dom('#main > .list-view:last-of-type .img-mesg'), msgId = $api.attr(text_mesg, 'data-messageId');
+									var message = ret.result.message;
+									if (messageId != msgId) {
+										$api.remove(e.target);
+										T.append('#main', 'img', message);
+										scrollToBottom();
+										var img_mesg = $api.dom('#main > .list-view:last-of-type .img-mesg');
+										$api.html(img_mesg, doT.template($api.html($api.dom('[template=pr]')))(sentTime || ''));
+										try {
+											api.parseTapmode();
+										} catch(e) {
+										}
+									} else {
+										$api.addCls(errDom, 'hidden');
+										$api.attr(msgDom, 'data-messageId', message.messageId);
+										$api.attr(msgDom, 'data-sentTime', sentTime);
+										$api.html(msgDom, doT.template($api.html($api.dom('[template=pr]')))(sentTime || ''));
+										try {
+											api.parseTapmode();
+										} catch(e) {
+										}
+									}
+								},
+								progress : function(ret, args) {
+									$api.text($api.dom('[sentTime="' + sentTime + '"]'), ret.result.progress + '%');
+								},
+								success : function(ret, args) {
+									api.sendEvent({
+										name : 'setTop',
+										extra : {
+											targetId : param.memberid
+										}
+									});
+									var statusDom = $api.dom('[sentTime="' + sentTime + '"]').parentElement;
+									$api.remove(statusDom);
+								},
+								error : function(ret, err, args) {
+									Debug.alt('send image error');
+								}
+							});
+							break;
+						case 'gift':
+							extra['msgTime'] = sentTime;
+							extra['type'] = type;
+							var _file = {
+								content : {
+									imagePath : content,
+									extra : JSON.stringify(extra)
+								},
+								sentTime : sentTime
+							};
+							RongCloud2.sendImageMessage({
+								targetId : param.memberid,
+								file : _file,
+								prepare : function(ret, args) {
+									var text_mesg = $api.dom('#main > .list-view:last-of-type .gift_mesg'), msgId = $api.attr(text_mesg, 'data-messageId');
+									var message = ret.result.message;
+									if (messageId != msgId) {
+										$api.remove(e.target);
+										T.append('#main', 'gift', message);
+										scrollToBottom();
+									} else {
+										$api.addCls(errDom, 'hidden');
+										$api.attr(msgDom, 'data-messageId', message.messageId);
+										$api.attr(msgDom, 'data-sentTime', sentTime);
+									}
+								},
+								success : function(ret, args) {
+									api.sendEvent({
+										name : 'setTop',
+										extra : {
+											targetId : param.memberid
+										}
+									});
+								},
+								error : function(ret, err, args) {
+									Debug.alt('send image error');
+								}
+							})
+							break;
+						case 'voice':
+							var voicePath = content.split('|')[0], duration = content.split('|')[1];
+							extra['isRead'] = 0;
+							RongCloud2.sendVoiceMessage({
+								targetId : param.memberid,
+								voicePath : voicePath,
+								duration : duration,
+								extra : JSON.stringify(extra),
+								prepare : function(ret) {
+									var text_mesg = $api.dom('#main > .list-view:last-of-type .voice'), msgId = $api.attr(text_mesg, 'data-messageId');
+									var message = ret.result.message;
+									if (messageId != msgId) {
+										$api.remove(e.target);
+										T.append('#main', 'vc', message);
+										scrollToBottom();
+									} else {
+										$api.attr(msgDom, 'data-messageId', message.messageId);
+										$api.addCls(errDom, 'hidden');
+										$api.removeCls(sendDom, 'hidden');
+									}
+								},
+								success : function(ret) {
+									api.sendEvent({
+										name : 'setTop',
+										extra : {
+											targetId : param.memberid
+										}
+									});
+									scrollToBottom();
+								},
+								error : function(ret) {
+									Debug.alt('send voice error');
+								}
+							});
+							break;
+					}
+				}
+			});
+		}
+
+		//点击查看大图
+		function Bigpicture(e, param) {
+		//alert($api.getStorage(CONFIG.memberInfo).sex);
+			var hasLink = $api.hasCls($api.byId('mohu'), 'blur');
+			if ($api.getStorage(CONFIG.memberInfo).sex==1) {
+				var dialogBox = api.require('dialogBox');
+				dialogBox.alert({
+					texts : {
+						title : '查看原图',
+						content : '查看原图要收取' + $api.getStorage(CONFIG.memberInfo).chakantupian + '钻石',
+						leftBtnTitle : '取消',
+						rightBtnTitle : '确认'
+					},
+					styles : {
+						bg : '#ff5087',
+						w : 300,
+						title : {
+							marginT : 10,
+							iconSize : 40,
+							titleSize : 20,
+							titleColor : '#FFFFFF'
+						},
+						content : {
+							color : '#000',
+							size : 14
+						},
+						left : {
+							marginB : 7,
+							marginL : 20,
+							w : 130,
+							h : 35,
+							corner : 2,
+							bg : '#FFFFFF',
+							size : 12
+						},
+						right : {
+							marginB : 7,
+							marginL : 10,
+							w : 130,
+							h : 35,
+							corner : 2,
+							bg : '#FFFFFF',
+							size : 12
+						}
+					}
+				}, function(ret) {
+					if (ret.eventType == 'left') {
+						var dialogBox = api.require('dialogBox');
+						dialogBox.close({
+							dialogName : 'alert'
+						});
+					} else {
+						//进到收费这里 先关闭提示页面
+						var dialogBox = api.require('dialogBox');
+						dialogBox.close({
+							dialogName : 'alert'
+						});
+						//关闭提示页面结束
+						//开始判断他账户的余额
+						if ($api.getStorage(CONFIG.memberInfo).diamonds < $api.getStorage(CONFIG.memberInfo).chakantupian) {
+							Tool.toast('您的账户余额不足！请先充值');
+							setTimeout("openWin('recharge','recharge','充值','mine','recharge','','',250)", "2000");
+						} else {
+							//开始扣费
+							
+							//	这里是开始运行
+							var photoBrowser = api.require('photoBrowser');
+							var messageId = $api.attr($api.dom(e.target, '.img-mesg'), 'data-messageId'), imgAllDom = $api.domAll('.img-mesg'), images = [], activeIndex = 0;
+							//			if($api.dom('.list-view:last-of-type .message')){
+							var oldid = $api.attr($api.dom('.list-view:last-of-type .message'), 'data-messageId');
+							//			}
+							var args = {
+								targetId : param.memberid,
+								objectName : 'RC:ImgMsg',
+								oldestMessageId : -1,
+								count : parseInt(oldid)
+							};
+							api.showProgress();
+							RongCloud2.getHistoryMessagesByObjectName(args, function(result) {
+								if (result.length > 1) {
+									var result = result.reverse();
+								}
+								var newArr = [];
+								for (var i = 0; i < result.length; i++) {
+									if (!JSON.parse(result[i].content.extra).type) {
+										newArr.push(result[i]);
+									}
+								}
+								for (var i = 0; i < newArr.length; i++) {
+									if (!JSON.parse(newArr[i].content.extra).type) {
+										images.push(newArr[i].content.imageUrl);
+										if (messageId == newArr[i].messageId) {
+											activeIndex = i;
+										}
+									}
+								}
+								if (images.length != 0) {
+									api.hideProgress();
+									photoBrowser.open({
+										images : images,
+										activeIndex : activeIndex,
+										placeholderImg : 'widget://image/circle/pic_bg.png',
+										bgColor : 'rgba(0,0,0,0.8)'
+									}, function(ret1, err) {
+										if (ret1.eventType == 'click') {
+											photoBrowser.close();
+										}
+											if (ret1.eventType == 'longPress') {
+											photoBrowser.getImage({
+												index : ret1.index
+											}, function(ret, err) {
+												Tool.actionSheet({
+													buttons : ['保存到相册'],
+													success : function(bid) {
+														if (bid == 1) {
+															api.saveMediaToAlbum({
+																path : ret.path
+															}, function(r, e) {
+																if (r && r.status == true) {
+																
+																	Tool.toast('保存成功~');
+																}else{
+																
+																//如果失败调用新方法
+																api.download({
+                url : images[ret1.index],
+                report : true,
+                cache : true,
+                allowResume : true,
+               savePath: 'fs://'+ret.path+'.jpg'
+            }, function(ret33, err) {
+           // console.log('调用了新方法'+JSON.stringify(images[ret1.index]));
+                if (ret33.state == 1) {
+                    //下载成功
+                    api.saveMediaToAlbum({
+                        path : ret33.savePath
+                    }, function(ret, err) {
+                    console.log('gggg'+JSON.stringify(ret33.savePath));
+                        if (ret && ret.status) {
+                            Tool.toast('保存成功~');
+                        } 
+                    });
+                }
+            });
+																//如果失败调用新方法结束
+																
+																}
+															});
+														}
+													}
+												});
+											});
+										}
+									});
+								}
+							});
+						}
+					}
+				});
+			} else {
+				var photoBrowser = api.require('photoBrowser');
+				var messageId = $api.attr($api.dom(e.target, '.img-mesg'), 'data-messageId'), imgAllDom = $api.domAll('.img-mesg'), images = [], activeIndex = 0;
+				//			if($api.dom('.list-view:last-of-type .message')){
+				var oldid = $api.attr($api.dom('.list-view:last-of-type .message'), 'data-messageId');
+				//			}
+				var args = {
+					targetId : param.memberid,
+					objectName : 'RC:ImgMsg',
+					oldestMessageId : -1,
+					count : parseInt(oldid)
+				};
+				api.showProgress();
+				RongCloud2.getHistoryMessagesByObjectName(args, function(result) {
+					if (result.length > 1) {
+						var result = result.reverse();
+					}
+					var newArr = [];
+					for (var i = 0; i < result.length; i++) {
+						if (!JSON.parse(result[i].content.extra).type) {
+							newArr.push(result[i]);
+						}
+					}
+					for (var i = 0; i < newArr.length; i++) {
+						if (!JSON.parse(newArr[i].content.extra).type) {
+							images.push(newArr[i].content.imageUrl);
+							if (messageId == newArr[i].messageId) {
+								activeIndex = i;
+							}
+						}
+					}
+					if (images.length != 0) {
+						api.hideProgress();
+						photoBrowser.open({
+							images : images,
+							activeIndex : activeIndex,
+							placeholderImg : 'widget://image/circle/pic_bg.png',
+							bgColor : 'rgba(0,0,0,0.8)'
+						}, function(ret1, err) {
+							if (ret1.eventType == 'click') {
+								photoBrowser.close();
+							}
+							if (ret1.eventType == 'longPress') {
+								photoBrowser.getImage({
+									index : ret1.index
+								}, function(ret, err) {
+									Tool.actionSheet({
+										buttons : ['保存到相册'],
+										success : function(bid) {
+											if (bid == 1) {
+												api.saveMediaToAlbum({
+													path : ret.path
+												}, function(r, e) {
+													if (r && r.status == true) {
+														Tool.toast('保存成功~');
+													}else{
+													
+													//如果失败调用新方法
+																api.download({
+                url : images[ret1.index],
+                report : true,
+                cache : true,
+                allowResume : true,
+               savePath: 'fs://'+ret.path+'.jpg'
+            }, function(ret33, err) {
+           // console.log('调用了新方法'+JSON.stringify(images[ret1.index]));
+                if (ret33.state == 1) {
+                    //下载成功
+                    api.saveMediaToAlbum({
+                        path : ret33.savePath
+                    }, function(ret, err) {
+                    console.log('gggg'+JSON.stringify(ret33.savePath));
+                        if (ret && ret.status) {
+                            Tool.toast('保存成功~');
+                        } 
+                    });
+                }
+            });
+																//如果失败调用新方法结束
+													
+													}
+												});
+											}
+										}
+									});
+								});
+							}
+						});
+					}
+				});
+			}
+		}
+
+		function bindEvent() {
+			/*注册事件，用于消息复制*/
+			touch.on('.mesg', 'hold', function(evt) {
+				var currentTarget = evt.currentTarget, _html = $api.html(currentTarget);
+				Tool.actionSheet({
+					buttons : ['复制消息'],
+					success : function(ret) {
+						switch(ret) {
+							case 1:
+								var imgs = $api.domAll(currentTarget, 'img'), txt = '';
+								if (imgs.length === 0) {
+									txt = currentTarget.textContent;
+								} else {
+									txt = _html.replace(/\<(.*?)\>/gm, function(match) {
+										var emotionArr = match.match(/Expression_\d{1,2}/);
+										return emotionData[emotionArr[0]];
+									});
+								}
+								ClipBoard.set({
+									value : txt
+								});
+								break;
+						}
+					}
+				});
+			});
+		}
+
+		//发送  礼物  图片 消息
+		function sendGift(param, ret) {
+			RongCloud2.sendImageMessage({
+				targetId : param.memberid,
+				file : ret.value,
+				prepare : function(ret, args) {
+					var message = ret.result.message, messageId = message.messageId, statusDom = $api.dom('[sentTime="' + args.content.sentTime + '"]'), messageDom = $api.closest(statusDom, '.message');
+					$api.attr(messageDom, 'data-messageId', messageId);
+					scrollToBottom();
+				},
+				progress : function(ret, args) {
+					//					$api.text($api.dom('[sentTime="' + args.sentTime + '"]'), ret.result.progress + '%');
+				},
+				success : function(ret, args) {
+					api.sendEvent({
+						name : 'setTop',
+						extra : {
+							targetId : param.memberid
+						}
+					});
+					//					var statusDom = $api.dom('[sentTime="' + args.sentTime + '"]').parentElement;
+					//					$api.remove(statusDom);
+				},
+				error : function(ret, err, args) {
+					Debug.alt('send gift error');
+				}
+			});
+		}
+
+		//发送拍照 图片
+		function sendImage(param, ret) {
+		
+			kongzhishijian('tupian');
+			RongCloud2.sendImageMessage({
+				targetId : param.memberid,
+				file : ret.value.message,
+				prepare : function(ret, args) {
+					var message = ret.result.message, messageId = message.messageId, statusDom = $api.dom('[sentTime="' + args.sentTime + '"]'), messageDom = $api.closest(statusDom, '.message');
+					$api.attr(messageDom, 'data-messageId', messageId);
+				},
+				progress : function(ret, args) {
+					$api.text($api.dom('[sentTime="' + args.sentTime + '"]'), ret.result.progress + '%');
+				},
+				success : function(ret, args) {
+					api.sendEvent({
+						name : 'setTop',
+						extra : {
+							targetId : param.memberid
+						}
+					});
+					var statusDom = $api.dom('[sentTime="' + args.sentTime + '"]').parentElement;
+					$api.remove(statusDom);
+				},
+				error : function(ret, err, args) {
+					Debug.alt('send image error');
+				}
+			});
+		}
+
+		//发送 相册 图片
+		function sendPic(param, ret) { //怎么突然不好了？
+			ajax.get({
+				ctrl : 'XIAOWUApp',
+				fn : 'chajilushijian',
+				data : {
+					values : {
+						id : $api.getStorage(CONFIG.memberId),
+						token : $api.getStorage(CONFIG.token),
+						memberid : api.pageParam.memberid,
+						leixingxing : 'tupian'
+					}
+				},
+				hideLoading : true,
+				showError : false,
+				showProgress : false,
+				success : function(ctionf) {
+					if (ctionf.zhuangtai == 1 || ctionf.zhuangtai == 3||$api.getStorage(CONFIG.memberInfo).is_vip==1) {
+						kongzhishijian('tupian');
+						RongCloud2.sendImageMessage({
+							targetId : param.memberid,
+							files : ret.value.message,
+							prepare : function(ret, args) {
+								if (args && !$api.dom('[data-sentTime="' + args.sentTime + '"]')) {
+									RongCloud2.deleteMessages({
+										messageIds : [parseInt(ret.result.message.messageId)],
+										success : function() {
+										}
+									});
+									return;
+								};
+								var message = ret.result.message, messageId = message.messageId, statusDom = $api.dom('[sentTime="' + args.sentTime + '"]'), messageDom = $api.closest(statusDom, '.message');
+								$api.attr(messageDom, 'data-messageId', messageId);
+							},
+							progress : function(ret, args) {
+								if (args && !$api.dom('[data-sentTime="' + args.sentTime + '"]')) {
+									RongCloud2.deleteMessages({
+										messageIds : [parseInt(ret.result.message.messageId)],
+										success : function() {
+										}
+									});
+									return;
+								};
+								$api.text($api.dom('[sentTime="' + args.sentTime + '"]'), ret.result.progress + '%');
+							},
+							success : function(ret, args) {
+								api.sendEvent({
+									name : 'setTop',
+									extra : {
+										targetId : param.memberid
+									}
+								});
+								if (args && !$api.dom('[data-sentTime="' + args.sentTime + '"]')) {
+									RongCloud2.deleteMessages({
+										messageIds : [parseInt(ret.result.message.messageId)],
+										success : function() {
+										}
+									});
+									return;
+								};
+								var statusDom = $api.dom('[sentTime="' + args.sentTime + '"]').parentElement;
+								$api.remove(statusDom);
+							},
+							error : function(ret, err, args) {
+								Debug.alt('send image error');
+							}
+						});
+					} else {
+						Tool.toast('两小时只能发一次~');
+						return;
+					}
+				}
+			})
+		}
+
+		//计算时间
+		function kongzhishijian(a) {
+			ajax.get({
+				ctrl : 'XIAOWUApp',
+				fn : 'jilushijian',
+				data : {
+					values : {
+						id : $api.getStorage(CONFIG.memberId),
+						token : $api.getStorage(CONFIG.token),
+						memberid : api.pageParam.memberid,
+						leixingxing : a
+					}
+				},
+				hideLoading : true,
+				showError : false,
+				showProgress : false,
+				success : function(cttttttttt) {
+				}
+			});
+		}
+
+		//发送文本消息
+		function sendText(param, ret, extra) {
+			ajax.get({
+				ctrl : 'XIAOWUApp',
+				fn : 'chajilushijian',
+				data : {
+					values : {
+						id : $api.getStorage(CONFIG.memberId),
+						token : $api.getStorage(CONFIG.token),
+						memberid : api.pageParam.memberid,
+						leixingxing : 'duanxin'
+					}
+				},
+				hideLoading : true,
+				showError : false,
+				showProgress : false,
+				success : function(ctionf) {
+					//alert($api.getStorage(CONFIG.memberInfo).is_vip); //判断是否为VIP会员
+					//if (ctionf.zhuangtai == 1 || ctionf.zhuangtai == 3||$api.getStorage(CONFIG.memberInfo).is_vip==1) {
+					if ($api.getStorage(CONFIG.memberInfo).is_vip==1) {
+						extra['content'] = ret.value.msg;
+						RongCloud2.sendTextMessage({
+							targetId : param.memberid,
+							text : ret.value.content,
+							extra : JSON.stringify(extra),
+							prepare : function(ret) {
+								kongzhishijian('duanxin');
+								T.append('#main', 'txt', ret.result.message);
+							},
+							success : function(ret) {
+								scrollToBottom();
+								api.sendEvent({
+									name : 'setTop',
+									extra : {
+										targetId : param.memberid
+									}
+								});
+							},
+							error : function(ret) {
+								scrollToBottom();
+								api.sendEvent({
+									name : 'setTop',
+									extra : {
+										targetId : param.memberid
+									}
+								});
+							}
+						});
+					} else {
+						Tool.toast('VIP才可以发言~');
+						setTimeout("openWin('vip_recharge','vip_recharge','VIP会员','mine','vip_recharge','','',250)","2000");
+						return;
+					}
+				}
+			})
+		}
+		
+	
+function texiao(img){
+var FileExt=img.substr(img.lastIndexOf(".")+1).toLowerCase();  
+
+if(FileExt=='gif'){
+
+api.openFrame({
+									name: 'songliwu',
+									url: api.wgtRootDir + '/html/one/liwu.html',
+									reload:true,
+									vScrollBarEnabled:false,
+									rect: {
+										x: 0,
+										y:30,
+										w: api.winWidth-50,
+										h: api.winHeight-100,
+									},
+									pageParam:{
+										liwuurl: img
+									},
+									
+									bgColor: 'transparent'
+								})
+								
+								}else{
+								
+								Tool.toast('非特效礼物');
+								
+								}
+
+
+}
+
+function fangda(){
+
+api.openFrame({
+									name: 'fangda',
+									url: api.wgtRootDir + '/html/one/fangda.html',
+									reload:true,
+									vScrollBarEnabled:false,
+									rect: {
+										x:0,
+										y: 50,
+										w: 60,
+										h: 60
+									},
+									hScrollBarEnabled:false,
+									bgColor: 'transparent'
+								})
+
+}
+		apiready = function() {
+		 api.addEventListener({
+				name: 'keyback'
+			},function(){
+				
+				return false;
+			});
+		
+		if(api.pageParam.dianhua==1){
+		fangda();
+		api.sendEvent({
+	        name:'touguan'
+        });
+		}
+		
+			//alert(JSON.stringify(api.pageParam.memberid));
+			//alert(JSON.stringify($api.getStorage(CONFIG.memberId)));
+			ajax.get({
+				ctrl : 'zhiboApp',
+				fn : 'teding',
+				data : {
+					values : {
+						id : $api.getStorage(CONFIG.memberId),
+						token : $api.getStorage(CONFIG.token),
+						zhuboid : api.pageParam.memberid
+					}
+				},
+				hideLoading : true,
+				showError : true,
+				showProgress : true,
+				success : function(ct) {
+					//特定礼物才能私信大斌真正的地方
+					if (ct.teding == '1') {
+						api.alert({
+							title : '刷特定礼物才能私信哦!'
+						}, function(ret, err) {
+							return;
+						});
+						api.closeWin();
+						return;
+					} else {
+						//开始
+						var param = api.pageParam, memberInfo = $api.getStorage(CONFIG.memberInfo);
+						$api.html($api.dom('#main'), '');
+						$api.addEvt($api.dom('#main'), 'DOMNodeInserted', function(e) {
+							if (e.target.nodeType === 1 && $api.hasCls(e.target, 'list-view')) {
+								touch.on($api.dom(e.target, '.message'), 'hold tap', function(event) {
+									switch(event.type) {
+										case 'hold':
+											var buttons, msgDom = $api.dom(e.target, '.message'), _text = $api.text(msgDom), imgDom = $api.dom(e.target, '.img-mesg'), vcDom = $api.dom(e.target, '.voice'), giftDom = $api.dom(e.target, '.bd'), msgTime = Number($api.attr(msgDom, 'data-sentTime')), messageId = $api.attr(msgDom, 'data-messageId'), sentStatus = $api.attr(msgDom, 'data-sentStatus'), now = new Date().getTime(), time_stamp = Number(now - msgTime);
+											var args = {
+												targetId : param.memberid,
+												messageId : messageId,
+												msgTime : msgTime
+											}
+											if ($api.closest(e.target, '.me') && !$api.hasCls($api.dom($api.closest(e.target, '.me'), '.error'), 'hidden')) {
+												if (imgDom || vcDom || giftDom || !_text) {
+													buttons = ['重发', '删除'];
+												} else if (_text) {
+													buttons = ['复制', '重发', '删除'];
+												}
+											} else {
+												if (imgDom || vcDom || giftDom || !_text) {
+													buttons = ['删除'];
+												} else if (_text) {
+													buttons = ['复制', '删除'];
+												}
+											}
+											Tool.actionSheet({
+												buttons : buttons,
+												success : function(ret) {
+													if ($api.closest(e.target, '.me') && !$api.hasCls($api.dom($api.closest(e.target, '.me'), '.error'), 'hidden')) {
+														if (imgDom || vcDom || giftDom || !_text) {
+															switch(ret) {
+																case 1:
+																	repeat(e, param, memberInfo);
+																	break;
+																case 2:
+																	deleteMessages(e, messageId);
+																	break;
+															}
+														} else if (_text) {
+															switch(ret) {
+																case 1:
+																	clipBoard(_text);
+																	break;
+																case 2:
+																	repeat(e, param, memberInfo);
+																	break;
+																case 3:
+																	deleteMessages(e, messageId);
+																	break;
+															}
+														}
+													} else {
+														if (imgDom || vcDom || giftDom || !_text) {
+															switch(ret) {
+																case 1:
+																	deleteMessages(e, messageId);
+																	break;
+															}
+														} else if (_text) {
+															switch(ret) {
+																case 1:
+																	clipBoard(_text);
+																	break;
+																case 2:
+																	deleteMessages(e, messageId);
+																	break;
+															}
+														}
+													}
+												}
+											});
+											break;
+										case 'tap':
+											if ($api.dom(e.target, '.img-mesg')) {
+												Bigpicture(e, param);
+											}
+											break;
+									}
+								});
+							}
+						});
+						//获取历史消息
+						RongCloud2.getLatestMessages({
+							targetId : param.memberid,
+							count : 10
+						}, function(result) {
+							RongCloud2.render({
+								message : result,
+								container : '#main',
+								template : 'txt|vc|img|||gift|weizhi'
+							});
+							scrollToBottom();
+						});
+						//获取历史消息
+						api.setRefreshHeaderInfo({
+							visible : true,
+							loadingImg : 'widget://res/icon-refresh.png',
+							bgColor : 'rgba(242,242,242,1)',
+							textColor : '#666',
+							textDown : '下拉查看历史消息...',
+							textUp : '松开查看历史消息...',
+							showTime : false
+						}, function(ret, err) {
+							if ($api.dom('.list-view')) {
+								var oldMsgId = $api.attr($api.dom('#main .list-view:last-of-type .message'), 'data-messageId'), count = $api.domAll('#main > .list-view').length;
+							}
+							//请求更早之前的聊天记录
+							RongCloud2.getHistoryMessages({
+								targetId : param.memberid,
+								oldestMessageId : oldMsgId,
+								count : count + 10
+							}, function(result) {
+								api.refreshHeaderLoadDone();
+								if ( result instanceof Array && result.length > count) {
+									RongCloud2.render({
+										message : result.slice(count),
+										container : '#main',
+										template : 'txt|vc|img|||gift|weizhi',
+									});
+								} else {
+									Tool.toast('已经没有消息了~');
+								}
+							});
+						});
+						//监听新消息
+						api.addEventListener({
+							name : 'newMessage'
+						}, function(ret) {
+						
+						//alert('有新消息了'+JSON.stringify(ret));
+							if (ret && ret.value) {
+								var value = ret.value.message;
+								if (value.targetId == param.memberid) {
+									RongCloud2.render({
+										message : value,
+										container : '#main',
+										template : 'txt|vc|img|||gift|weizhi',
+										type : 'new'
+									});
+									scrollToBottom();
+									api.sendEvent({
+										name : 'clearMsgUnreadStatus',
+										extra : {
+											targetId : param.memberid
+										}
+									});
+								}
+							}
+						});
+						function baohan(str, substr) {
+							if (/^1[34578]\d{9}$/.test(substr)) {
+								return str.indexOf(substr) < 0;
+							} else {
+								return str.indexOf(substr) >= 0;
+							}
+						}
+
+						//监听我说话  对方 nickname avatar
+						//我的 mname mavatar
+						//私信大斌 找到的发送页面
+						api.addEventListener({
+							name : 'iTalk'
+						}, function(ret) {
+						//console.log('收到的talk'+ret.value.content);
+						
+							var guanjianzi = '电话 手 机 微信QCT号码 VXvxWXwx@';
+							if (baohan(guanjianzi, ret.value.content)) {
+								Tool.toast('警告：如是在视频或是文字聊天中，介绍同类型平台或让对方添加个人社交账号的行为，一旦被系统捕捉或举报发现，将 永久封停账号，收益不予结算”');
+								return;
+							}
+							//alert('内容'+JSON.stringify(ret.value.content));
+							var homepageff = $api.getStorage('homepage');
+							//发短信的价格
+							var memberinfo = $api.getStorage(CONFIG.memberInfo);
+							//var memberinfo.diamond = memberinfo.diamonds;
+							if (homepageff == undefined) {
+								var dunxinjiage = 0;
+							} else {
+								var dunxinjiage = homepageff.xiaoxiprice;
+							}
+							//alert('用户余额'+JSON.stringify($api.getStorage(CONFIG.memberInfo).diamonds));
+							//alert('短信价格'+dunxinjiage);
+							//alert($api.getStorage(CONFIG.memberInfo).diamonds < dunxinjiage);
+							if ($api.getStorage(CONFIG.memberInfo).diamonds < dunxinjiage && $api.getStorage(CONFIG.memberInfo).sex == 1) {
+								Tool.toast('钻石余额不足，请充值~');
+								setTimeout("openWin('recharge','recharge','充值','mine','recharge','','',250)", "2000");
+								return;
+							} else {
+								
+								//var  teding=$api.getStorage('teding');
+								//alert('aa'+teding); //聊天页面
+								//alert('cc'+$api.getStorage(CONFIG.memberInfo).teding);
+								//if(teding=='1'){
+								//Tool.toast('刷特定礼物才能私信哦~');
+								//return;
+								//}
+								//alert('ss'+JSON.stringify(typeof(ret.value.content)!='undefined'));
+								if (ret && ret.value) {
+									var extra = new Object();
+									extra['nickname'] = param.nickname;
+									extra['avatar'] = param.avatar;
+									extra['memberid'] = param.memberid;
+									extra['msgTime'] = new Date().getTime();
+									extra['mname'] = memberInfo.nickname;
+									extra['mavatar'] = memberInfo.avatar;
+									extra['mid'] = memberInfo.id;
+									if(typeof(ret.value.content)!='undefined'){
+									extra['gif'] = ret.value.content.gif||0;
+									extra['leixing'] = ret.value.content.leixing||0;
+									extra['donghua'] = ret.value.content.donghua||0;
+									}
+									//alert('leixing'+ret.value.type);
+									switch(ret.value.type) {
+										case 'txt':
+										if(typeof(ret.value.content.length)!='undefined'){
+						if(ret.value.content.length>50){
+						Tool.toast('文字消息不能多于50字哦!');
+						
+						return;
+						}
+						}
+											sendText(param, ret, extra);
+											api.sendEvent({
+												name : 'setTop',
+												extra : {
+													targetId : param.memberid
+												}
+											});
+											
+											api.sendEvent({
+    											name: 'koufei',
+   													 extra: {
+        												leixing: 'wenzi',
+        												memberid: param.memberid
+	   													}
+												});
+											break;
+										case 'vc':
+										if(typeof(ret.value.duration)!='undefined'){
+						if(ret.value.duration>20){
+						Tool.toast('语音消息不能超过20秒哦!');
+						
+						return;
+						}
+						}
+										//alert(JSON.stringify(ret.value.duration));
+											extra['isRead'] = 0;
+											RongCloud2.sendVoiceMessage({
+												targetId : param.memberid,
+												voicePath : ret.value.voicePath,
+												duration : ret.value.duration,
+												extra : JSON.stringify(extra),
+												prepare : function(ret) {
+													T.append('#main', 'vc', ret.result.message);
+												},
+												success : function(ret) {
+													scrollToBottom();
+													api.sendEvent({
+														name : 'setTop',
+														extra : {
+															targetId : param.memberid
+														}
+													});
+												},
+												error : function(ret) {
+													scrollToBottom();
+												}
+											})
+										api.sendEvent({
+    											name: 'koufei',
+   													 extra: {
+        												leixing: 'yuyin',
+        												memberid: param.memberid
+	   													}
+												});
+											break;
+										case 'img':
+											if (ret.value.message instanceof Array && ret.value.message.length > 0) {
+												//相册
+												ret.value.message.forEach(function(value, index, arr) {
+													extra['msgTime'] = value.sentTime;
+													value.content.extra = JSON.stringify(extra);
+													console.log(JSON.stringify(value))
+													T.append('#main', 'img', value);
+												});
+												scrollToBottom();
+												sendPic(param, ret);
+											} else {
+												//拍照
+												extra['msgTime'] = ret.value.message.sentTime;
+												ret.value.message.content.extra = JSON.stringify(extra);
+												//alert('ret.value.message'+JSON.stringify(ret.value.message));
+												T.append('#main', 'img', ret.value.message);
+												scrollToBottom();
+												sendImage(param, ret);
+											}
+											api.sendEvent({
+    											name: 'koufei',
+   													 extra: {
+        												leixing: 'img',
+        												memberid: param.memberid
+	   													}
+												});
+											break;
+										case 'gift':
+											extra['msgTime'] = ret.value.content.sentTime;
+											extra['type'] = ret.value.content.type;
+											extra['name'] = ret.value.content.name;
+											extra['exp'] = ret.value.content.exp;
+											ret.value.content.extra = JSON.stringify(extra);
+											T.append('#main', 'gift', ret.value);
+											if(ret.value.content.leixing==0){
+											sendGift(param, ret);
+											}
+											break;
+											case 'weizhi':
+											
+											extra['msgTime'] = new Date().getTime();
+											
+												ret.value.message.content.extra = JSON.stringify(extra);
+											//alert('111ret.value.message'+JSON.stringify(ret.value.message));
+												T.append('#main', 'weizhi', ret.value.message);
+											scrollToBottom();
+											break;
+									}
+								}
+							}
+						});
+						
+						
+						//清除未读条数
+						api.sendEvent({
+							name : 'clearMsgUnreadStatus',
+							extra : {
+								targetId : param.memberid
+							}
+						});
+						//关闭键盘
+						touch.on('#main', 'touchstart swipeing', function(event) {
+							api.sendEvent({
+								name : 'closeKey'
+							});
+							api.closeFrame({
+								name : 'gift'
+							});
+						});
+						//结束
+					}
+				}
+			});
+		}
+	</script>
+</html>

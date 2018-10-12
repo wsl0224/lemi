@@ -297,6 +297,7 @@
 							sourceType: buttonIndex === 1 ? 'camera' : 'library',
 							allowEdit: true,
 							success:function(ret){
+
 								avatar = ret.data;
 								T.html('.img-frm', 'avatar',ret.data);
 								Upload.init({
@@ -879,6 +880,7 @@
 				name: 'uploadAvatar'
 			}, function(ret, err) {
 				var key = $api.attr($api.dom('.avatar'), 'data-key');
+			
 				if(key) {
 					ajax.get({
 						ctrl: 'zhiboApp',

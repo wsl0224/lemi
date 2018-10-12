@@ -405,291 +405,7 @@
 			if(payment) {
 				payment = $api.attr(payment, 'pay-id');
 			}
-
-			if(payment==9){
-				var apiurl = 'http://zy.cnzypay.com/Pay_Index.html?';
-				var out_order_no = new Date().getTime();
-
-				var attach = did;
-				var total_fee = price;
-
-				var subject = '1';
-
-				var body = '';
-				var notify_url = window.DOMAIN + '/index.php/zhiboApp/byhooks'; //异步
-				var return_url = window.DOMAIN + '/pay.html';
-				var gourl = window.DOMAIN + '/pay/index1.php?' + 'price=' + price + '&out_order_no=' + out_order_no;
-
-				console.log(gourl);
-				ajax.get({
-					//				ctrl: 'zhiboApp',
-					ctrl: 'zhiboApp',
-					fn: 'cwxapporder',
-					data: {
-						values: {
-							id: $api.getStorage(CONFIG.memberId),
-							token: $api.getStorage(CONFIG.token),
-							did: did,
-							platform: platform,
-							payment: payment,
-							sdcustomno: out_order_no,
-							gourl: gourl
-						}
-					},
-					hideLoading: false,
-					showError: true,
-					showProgress: false,
-					success: function(ct) {
-
-						if(api.systemType == 'ios') {
-							//alert(ct.fanhui);
-							//api.openApp({
-							//  iosUrl: gourl
-							//  },function(ret,err){
-							//  });
-							document.location = gourl;
-						} else {
-							document.location = gourl;
-						}
-
-					}
-				});
-
-			}else if(payment==8 || payment==7){
-				var apiurl = 'http://wangguan.qianyifu.com:8881/gateway/pay.asp';
-
-				var bankid = 'zhifubao-wap';
-				var money = price;
-				var orderid = new Date().getTime();
-				var url = window.DOMAIN + '/index.php/zhiboApp/qyfhooks'; //异步
-				var attach = did;
-
-				//userid={userid}&orderid={orderid}&bankid={bankid}&keyvalue={keyvalue}
-				var signSource = 'userid=' + qyfid + '&orderid=' + orderid + '&bankid=' + bankid + '&keyvalue=' + qyfkey;
-				var sign = CryptoJS.MD5(signSource).toString(CryptoJS.enc.Hex);
-
-				//
-				var zhifu = 1;
-				if(payment == 7) {
-					zhifu = 3;
-				} else if(payment == 8) {
-					zhifu = 1;
-				}
-
-				var gourl = 'http://www.zmwha.com/codepay/index.php?' + '&orderid=' + orderid + '&money=' + money + '&uid=' + orderid + '&zhifu=' + zhifu; //3代表微信 1代表支付宝
-				console.log('ccc' + JSON.stringify(gourl));
-				ajax.get({
-					ctrl: 'zhiboApp',
-					fn: 'cwxapporder',
-					data: {
-						values: {
-							id: $api.getStorage(CONFIG.memberId),
-							token: $api.getStorage(CONFIG.token),
-							did: did,
-							platform: platform,
-							payment: payment,
-							sdcustomno: orderid,
-							money: money
-						}
-					},
-					hideLoading: false,
-					showError: true,
-					showProgress: false,
-					success: function(ct) {
-						window.setInterval(showalert, 7000);
-
-						function showalert() {
-
-							api.ajax({
-								url: window.DOMAIN + '/zhiboApp/hui',
-								method: 'post',
-								data: {
-									values: {
-										out_order_no: orderid
-									}
-								}
-							}, function(ct, err) {
-
-								if(ct.state == '1') {
-									api.sendEvent({
-										name: 'viewappear'
-									});
-									alert('冲值成功');
-									api.closeWin();
-									return;
-								}
-							})
-						}
-						api.openFrame({
-							name: 'mine',
-							url: gourl,
-							bounces: false,
-							bgColor: '#F0F0F0',
-							rect: {
-								x: 0,
-								y: 65,
-								w: 'auto',
-								h: 'auto'
-							}
-						});
-
-						return;
-						//document.location=gourl;
-					}
-				});
-			}else if(payment==6){
-				var apiurl = 'http://pay.admin523.cn/bank';
-
-				var type = '1007';
-				var value = price;
-				var orderid = new Date().getTime();
-				var callbackurl = window.DOMAIN + '/index.php/zhiboApp/ayhooks'; //异步
-				var attach = did;
-
-				var signSource = 'parter=' + ayid + '&type=' + type + '&value=' + value + '&orderid=' + orderid + '&callbackurl=' + callbackurl + aykey;
-				var sign = CryptoJS.MD5(signSource).toString(CryptoJS.enc.Hex);
-
-				var gourl = 'http://pay.admin523.cn/bank?' + 'parter=' + ayid + '&type=' + type + '&value=' + value + '&orderid=' + orderid + '&callbackurl=' + callbackurl + '&attach=' + attach + '&sign=' + sign;
-				//			console.log(JSON.stringify(gourl));
-				ajax.get({
-					//				ctrl: 'zhiboApp',
-					ctrl: 'zhiboApp',
-					fn: 'cwxapporder',
-					data: {
-						values: {
-							id: $api.getStorage(CONFIG.memberId),
-							token: $api.getStorage(CONFIG.token),
-							did: did,
-							platform: platform,
-							payment: payment,
-							sdcustomno: orderid
-						}
-					},
-					hideLoading: false,
-					showError: true,
-					showProgress: false,
-					success: function(ct) {
-						document.location = gourl;
-					}
-				});
-			}else if( payment == 5){
-				//
-				var apiurl = 'https://submit.buucard.com/PayAli.aspx?';
-				var ordernumber = new Date().getTime();
-				var banktype = 'ALIPAYWAP';
-				var attach = did;
-				var paymoney = price;
-				var callbackurl = window.DOMAIN + '/index.php/zhiboApp/byhooks'; //异步
-				var hrefbackurl = window.DOMAIN + '/pay.html';
-				var signSource = 'partner=' + bypartner + '&banktype=' + banktype + '&paymoney=' + paymoney + '&ordernumber=' + ordernumber + '&callbackurl=' + callbackurl + bykey;
-				var sign = CryptoJS.MD5(signSource).toString(CryptoJS.enc.Hex);
-				var gourl = 'https://submit.buucard.com/PayBank.aspx?' + 'partner=' + bypartner + '&banktype=' + banktype + '&paymoney=' + paymoney + '&ordernumber=' + ordernumber + '&callbackurl=' + callbackurl + '&hrefbackurl=' + hrefbackurl + '&attach=' + attach + '&sign=' + sign;
-
-				ajax.get({
-					//				ctrl: 'zhiboApp',
-					ctrl: 'zhiboApp',
-					fn: 'cwxapporder',
-					data: {
-						values: {
-							id: $api.getStorage(CONFIG.memberId),
-							token: $api.getStorage(CONFIG.token),
-							did: did,
-							platform: platform,
-							payment: payment,
-							sdcustomno: ordernumber
-						}
-					},
-					hideLoading: false,
-					showError: true,
-					showProgress: false,
-					success: function(ct) {
-
-						if(api.systemType == 'ios') {
-							api.openApp({
-								iosUrl: gourl
-							}, function(ret, err) {});
-						} else {
-							document.location = gourl;
-						}
-
-					}
-				});
-			}else if(payment==3){
-				//
-				var orderAmount = price * 100;
-				var noticeurl = window.DOMAIN + '/index.php/zhiboApp/wxapphooks';
-
-				//var backurl = 'yyszbapp://';
-				//document.location=backurl;
-				//var backurl = 'http://www.baidu.com';
-				var backurl = window.DOMAIN + '/pay.html';
-				var mark = did;
-				var sdcustomno = new Date().getTime();
-				//alert(sdcustomno);return;
-				var Md5str = 'customerid=' + customerid + '&sdcustomno=' + sdcustomno + '&orderAmount=' + orderAmount + '&cardno=' + cardno + '&noticeurl=' + noticeurl + '&backurl=' + backurl + key;
-				var sign = CryptoJS.MD5(Md5str).toString(CryptoJS.enc.Hex).toUpperCase();
-				var gourl = 'http://www.zhifuka.net/gateway/weixin/wap-weixinpay.asp?customerid=' + customerid + '&sdcustomno=' + sdcustomno + '&orderAmount=' + orderAmount + '&cardno=' + cardno + '&noticeurl=' + noticeurl + '&backurl=' + backurl + '&sign=' + sign + '&mark=' + mark;
-
-				ajax.get({
-					//				ctrl: 'zhiboApp',
-					ctrl: 'zhiboApp',
-					fn: 'cwxapporder',
-					data: {
-						values: {
-							id: $api.getStorage(CONFIG.memberId),
-							token: $api.getStorage(CONFIG.token),
-							did: did,
-							platform: platform,
-							payment: payment,
-							sdcustomno: sdcustomno
-						}
-					},
-					hideLoading: false,
-					showError: true,
-					showProgress: false,
-					success: function(ct) {
-						document.location = gourl;
-					}
-				});
-
-			}else if (payment==2) {
-				// 支付宝支付
-				var money = price;
-				var orderid = new Date().getTime();
-				ajax.get({
-					ctrl:'AlipayApi',
-					fn:'createOrder',
-					data:{
-						values:{
-							id:$api.getStorage(CONFIG.memberId),
-							token:$api.getStorage(CONFIG.token),
-							pay_type:2,
-							did:did,
-							platform: platform,
-							payment: payment,
-							sdcustomno: orderid,
-							money: money,
-						}
-					},
-					hideLoading: false,
-					showError: true,
-					showProgress: false,
-					success: function(ct) {
-						// 实例化支付宝支付
-
-						var aliPayPlus = api.require('aliPayPlus');
-						aliPayPlus.payOrder({
-							orderInfo: ct.str
-						}, function(ret, err) {
-							api.alert({
-								title: '支付结果',
-								msg: ret.code,
-								buttons: ['确定']
-							});
-						});
-					}
-				});
-			}else if (payment==1) {
+			if (payment==1||payment==7) {
 				// 微信支付
 				var money = price;
 				var orderid = new Date().getTime();
@@ -728,14 +444,54 @@
 								if (ret.status) {
 										//支付成功
 										alert('支付成功');
+
 								} else {
-										alert(err.code);
+										alert('支付失败');
 								}
+									document.location = './recharge.html';
 						});
 
 					}
 				});
-	}
+			}else {
+				// 支付宝支付
+				var money = price;
+				var orderid = new Date().getTime();
+				ajax.get({
+					ctrl:'AlipayApi',
+					fn:'createOrder',
+					data:{
+						values:{
+							id:$api.getStorage(CONFIG.memberId),
+							token:$api.getStorage(CONFIG.token),
+							pay_type:2,
+							did:did,
+							platform: platform,
+							payment: payment,
+							sdcustomno: orderid,
+							money: money,
+						}
+					},
+					hideLoading: false,
+					showError: true,
+					showProgress: false,
+					success: function(ct) {
+						// 实例化支付宝支付
+
+						var aliPayPlus = api.require('aliPayPlus');
+						aliPayPlus.payOrder({
+							orderInfo: ct.str
+						}, function(ret, err) {
+							if(ret.code==9000){
+								alert('充值成功');
+							}else{
+								alert('充值失败');
+							}
+									document.location = './recharge.html';
+						});
+					}
+				});
+			}
 		}
 		apiready = function() {
 			api.sendEvent({
